@@ -323,7 +323,7 @@
       background: var(--accent);
     }
 
-    /* CARDS con immagine a sinistra */
+    /* CARDS */
 
     .cards {
       flex: 1;
@@ -736,6 +736,7 @@
           const url = item.url || "#";
           const dataPub = formatDate(item.dataPubblicazione);
           const origine = item.origine || "sconosciuta";
+          const categoria = item.categoria || "Generale";
           const imgSrc = getImageForNews(item);
 
           let pillClass = "pill-mini-altro";
@@ -752,6 +753,13 @@
             pillIcon = "🆕";
           }
 
+          let catColor = "#0ea5e9";
+          if (categoria === "Avviso") catColor = "#f97316";
+          else if (categoria === "Evento") catColor = "#22c55e";
+          else if (categoria === "Servizio") catColor = "#6366f1";
+          else if (categoria === "Lavori pubblici") catColor = "#eab308";
+          else if (categoria === "Consiglio comunale") catColor = "#ec4899";
+
           return `
             <article class="card">
               <div class="card-image-wrapper">
@@ -759,7 +767,31 @@
               </div>
               <div class="card-content">
                 <div class="card-header">
-                  <h2 class="card-title">${titolo}</h2>
+                  <div>
+                    <div style="margin-bottom:4px;">
+                      <span style="
+                        display:inline-flex;
+                        align-items:center;
+                        gap:6px;
+                        padding:3px 8px;
+                        border-radius:999px;
+                        font-size:11px;
+                        font-weight:500;
+                        background:rgba(15,23,42,0.35);
+                        color:#e5e7eb;
+                        box-shadow:0 0 0 1px rgba(15,23,42,0.6);
+                      ">
+                        <span style="
+                          width:8px;
+                          height:8px;
+                          border-radius:999px;
+                          background:${catColor};
+                        "></span>
+                        ${categoria}
+                      </span>
+                    </div>
+                    <h2 class="card-title">${titolo}</h2>
+                  </div>
                   <div class="card-meta">
                     <span>${dataPub}</span>
                     <span class="pill-mini ${pillClass}">
