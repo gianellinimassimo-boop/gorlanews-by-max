@@ -5,6 +5,7 @@
     "url": "https://comune.gorlaminore.va.it/chiusura-via-roma",
     "dataPubblicazione": "2026-02-26T09:00:00",
     "origine": "home",
+    "categoria": "Avviso",
     "immagine": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg"
   },
   {
@@ -13,14 +14,16 @@
     "url": "https://comune.gorlaminore.va.it/novita/inizative-giovani",
     "dataPubblicazione": "2026-02-25T18:30:00",
     "origine": "novita",
+    "categoria": "Evento",
     "immagine": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg"
   },
   {
     "id": "3",
     "titolo": "Calendario raccolta rifiuti aggiornato",
-    "url": "https://comune.gorlaminore.va.it/novita/calendario-raccolta-rifiuti",
+    "url": "https://comune.gorlaminore.va.it/novita/calendario-raccolta-raccolta-rifiuti",
     "dataPubblicazione": "2026-02-24T08:15:00",
     "origine": "novita",
+    "categoria": "Servizio",
     "immagine": "https://images.pexels.com/photos/2539748/pexels-photo-2539748.jpeg"
   },
   {
@@ -29,6 +32,7 @@
     "url": "https://comune.gorlaminore.va.it/novita/lavori-parco-comunale",
     "dataPubblicazione": "2026-02-23T14:45:00",
     "origine": "home",
+    "categoria": "Lavori pubblici",
     "immagine": "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg"
   },
   {
@@ -37,6 +41,7 @@
     "url": "https://comune.gorlaminore.va.it/novita/consiglio-comunale-straordinario",
     "dataPubblicazione": "2026-02-22T11:00:00",
     "origine": "novita",
+    "categoria": "Consiglio comunale",
     "immagine": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
   }
 ]
