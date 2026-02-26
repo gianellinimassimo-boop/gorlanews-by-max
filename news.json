@@ -1,74 +1,902 @@
 [
   {
-    "id": "1",
-    "titolo": "Avviso: chiusura via Roma per lavori stradali",
-    "url": "https://comune.gorlaminore.va.it/chiusura-via-roma",
-    "dataPubblicazione": "2026-02-20T09:00:00",
-    "origine": "home",
-    "categoria": "Avviso",
-    "immagine": "https://images.pexels.com/photos/572205/pexels-photo-572205.jpeg"
-  },
-  {
-    "id": "2",
-    "titolo": "Evento: Festa di Primavera in piazza",
-    "url": "https://comune.gorlaminore.va.it/festa-di-primavera",
-    "dataPubblicazione": "2026-03-21T18:00:00",
-    "origine": "home",
-    "categoria": "Evento",
-    "immagine": "https://images.pexels.com/photos/433452/pexels-photo-433452.jpeg"
-  },
-  {
-    "id": "3",
-    "titolo": "Nuovo servizio ritiro ingombranti a domicilio",
-    "url": "https://comune.gorlaminore.va.it/ritiro-ingombranti",
-    "dataPubblicazione": "2026-02-10T11:30:00",
-    "origine": "home",
-    "categoria": "Servizio",
-    "immagine": "https://images.pexels.com/photos/3186654/pexels-photo-3186654.jpeg"
-  },
-  {
-    "id": "4",
-    "titolo": "Informativa: aggiornamento orari uffici comunali",
-    "url": "https://comune.gorlaminore.va.it/orari-uffici",
-    "dataPubblicazione": "2026-01-28T08:30:00",
-    "origine": "home",
-    "categoria": "Informativa",
-    "immagine": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
-  },
-  {
-    "id": "5",
-    "titolo": "Avviso: modifiche alla viabilità in centro",
-    "url": "https://comune.gorlaminore.va.it/modifiche-viabilita-centro",
-    "dataPubblicazione": "2026-01-15T07:45:00",
-    "origine": "novita",
-    "categoria": "Avviso",
-    "immagine": "https://images.pexels.com/photos/210182/pexels-photo-210182.jpeg"
-  },
-  {
-    "id": "6",
-    "titolo": "Evento: presentazione bilancio partecipato",
-    "url": "https://comune.gorlaminore.va.it/bilancio-partecipato",
-    "dataPubblicazione": "2026-01-10T20:30:00",
-    "origine": "novita",
-    "categoria": "Evento",
-    "immagine": "https://images.pexels.com/photos/1181555/pexels-photo-1181555.jpeg"
-  },
-  {
-    "id": "7",
-    "titolo": "Nuovo servizio online per certificati anagrafici",
-    "url": "https://comune.gorlaminore.va.it/certificati-online",
-    "dataPubblicazione": "2025-12-05T10:00:00",
-    "origine": "novita",
-    "categoria": "Servizio",
-    "immagine": "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg"
-  },
-  {
-    "id": "8",
-    "titolo": "Informativa: raccolta differenziata, calendario 2026",
-    "url": "https://comune.gorlaminore.va.it/calendario-raccolta-2026",
-    "dataPubblicazione": "2025-11-20T16:15:00",
+    "titolo": "Telegram",
+    "url": "https://comune.gorlaminore.va.it/@gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:19.841979",
     "origine": "novita",
     "categoria": "Informativa",
-    "immagine": "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg"
+    "immagine": "",
+    "id": "1"
+  },
+  {
+    "titolo": "YouTube",
+    "url": "https://www.youtube.com/@comunedigorlaminore7712",
+    "dataPubblicazione": "2026-02-26T17:53:19.841753",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "2"
+  },
+  {
+    "titolo": "Facebook",
+    "url": "https://www.facebook.com/comunegorlaminore",
+    "dataPubblicazione": "2026-02-26T17:53:19.841526",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "3"
+  },
+  {
+    "titolo": "X",
+    "url": "https://x.com/gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:19.841281",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "4"
+  },
+  {
+    "titolo": "Piano di miglioramento del sito e dei servizi",
+    "url": "https://comune.gorlaminore.va.it/piano-miglioramento",
+    "dataPubblicazione": "2026-02-26T17:53:19.841074",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "5"
+  },
+  {
+    "titolo": "Dichiarazione di\n                                                        accessibilità",
+    "url": "https://form.agid.gov.it/view/a8106c40-93ce-11f0-9910-4126236ba52a",
+    "dataPubblicazione": "2026-02-26T17:53:19.840972",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "6"
+  },
+  {
+    "titolo": "Note legali",
+    "url": "https://comune.gorlaminore.va.it/note-legali",
+    "dataPubblicazione": "2026-02-26T17:53:19.840868",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "7"
+  },
+  {
+    "titolo": "Informativa privacy",
+    "url": "https://comune.gorlaminore.va.it/privacy",
+    "dataPubblicazione": "2026-02-26T17:53:19.840763",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "8"
+  },
+  {
+    "titolo": "Amministrazione\n                                                        trasparente",
+    "url": "https://dgegovpa.it/gorla/amministrazionetrasparente/amministrazionetrasparente",
+    "dataPubblicazione": "2026-02-26T17:53:19.840653",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "9"
+  },
+  {
+    "titolo": "Richiesta d'assistenza",
+    "url": "https://comune.gorlaminore.va.it/richiesta-assistenza",
+    "dataPubblicazione": "2026-02-26T17:53:19.840542",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "10"
+  },
+  {
+    "titolo": "Segnalazione disservizio",
+    "url": "https://comune.gorlaminore.va.it/segnalazioni/segnalazione-disservizio/crea",
+    "dataPubblicazione": "2026-02-26T17:53:19.840435",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "11"
+  },
+  {
+    "titolo": "Prenotazione appuntamento",
+    "url": "https://comune.gorlaminore.va.it/agenda-smart",
+    "dataPubblicazione": "2026-02-26T17:53:19.840298",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "12"
+  },
+  {
+    "titolo": "Leggi le FAQ",
+    "url": "https://comune.gorlaminore.va.it/faq",
+    "dataPubblicazione": "2026-02-26T17:53:19.840193",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "13"
+  },
+  {
+    "titolo": "Eventi",
+    "url": "https://comune.gorlaminore.va.it/eventi",
+    "dataPubblicazione": "2026-02-26T17:53:19.840086",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "14"
+  },
+  {
+    "titolo": "Luoghi",
+    "url": "https://comune.gorlaminore.va.it/luoghi",
+    "dataPubblicazione": "2026-02-26T17:53:19.839982",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "15"
+  },
+  {
+    "titolo": "Avvisi",
+    "url": "https://comune.gorlaminore.va.it/novita/3-avviso",
+    "dataPubblicazione": "2026-02-26T17:53:19.839875",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "16"
+  },
+  {
+    "titolo": "Comunicati",
+    "url": "https://comune.gorlaminore.va.it/novita/2-comunicato-stampa",
+    "dataPubblicazione": "2026-02-26T17:53:19.839764",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "17"
+  },
+  {
+    "titolo": "Notizie",
+    "url": "https://comune.gorlaminore.va.it/novita/1-news",
+    "dataPubblicazione": "2026-02-26T17:53:19.839596",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "18"
+  },
+  {
+    "titolo": "Agricoltura e pesca",
+    "url": "https://comune.gorlaminore.va.it/agricoltura-e-pesca",
+    "dataPubblicazione": "2026-02-26T17:53:19.839377",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "19"
+  },
+  {
+    "titolo": "Autorizzazioni",
+    "url": "https://comune.gorlaminore.va.it/autorizzazioni",
+    "dataPubblicazione": "2026-02-26T17:53:19.839175",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "20"
+  },
+  {
+    "titolo": "Salute, benessere e assistenza",
+    "url": "https://comune.gorlaminore.va.it/salute-benessere-e-assistenza",
+    "dataPubblicazione": "2026-02-26T17:53:19.839026",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "21"
+  },
+  {
+    "titolo": "Ambiente",
+    "url": "https://comune.gorlaminore.va.it/ambiente",
+    "dataPubblicazione": "2026-02-26T17:53:19.838923",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "22"
+  },
+  {
+    "titolo": "Tributi, finanze e contravvenzioni",
+    "url": "https://comune.gorlaminore.va.it/tributi-finanze-e-contravvenzioni",
+    "dataPubblicazione": "2026-02-26T17:53:19.838816",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "23"
+  },
+  {
+    "titolo": "Giustizia e sicurezza pubblica",
+    "url": "https://comune.gorlaminore.va.it/giustizia-e-sicurezza-pubblica",
+    "dataPubblicazione": "2026-02-26T17:53:19.838713",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "24"
+  },
+  {
+    "titolo": "Educazione e formazione",
+    "url": "https://comune.gorlaminore.va.it/educazione-e-formazione",
+    "dataPubblicazione": "2026-02-26T17:53:19.838606",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "25"
+  },
+  {
+    "titolo": "Mobilità e trasporti",
+    "url": "https://comune.gorlaminore.va.it/mobilita-e-trasporti",
+    "dataPubblicazione": "2026-02-26T17:53:19.838504",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "26"
+  },
+  {
+    "titolo": "Turismo",
+    "url": "https://comune.gorlaminore.va.it/turismo",
+    "dataPubblicazione": "2026-02-26T17:53:19.838397",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "27"
+  },
+  {
+    "titolo": "Catasto e urbanistica",
+    "url": "https://comune.gorlaminore.va.it/catasto-e-urbanistica",
+    "dataPubblicazione": "2026-02-26T17:53:19.838278",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "28"
+  },
+  {
+    "titolo": "Appalti pubblici",
+    "url": "https://comune.gorlaminore.va.it/appalti-pubblici",
+    "dataPubblicazione": "2026-02-26T17:53:19.838173",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "29"
+  },
+  {
+    "titolo": "Imprese e commercio",
+    "url": "https://comune.gorlaminore.va.it/imprese-e-commercio",
+    "dataPubblicazione": "2026-02-26T17:53:19.838069",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "30"
+  },
+  {
+    "titolo": "Vita lavorativa",
+    "url": "https://comune.gorlaminore.va.it/vita-lavorativa",
+    "dataPubblicazione": "2026-02-26T17:53:19.837964",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "31"
+  },
+  {
+    "titolo": "Cultura e tempo libero",
+    "url": "https://comune.gorlaminore.va.it/cultura-e-tempo-libero",
+    "dataPubblicazione": "2026-02-26T17:53:19.837862",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "32"
+  },
+  {
+    "titolo": "Anagrafe e stato civile",
+    "url": "https://comune.gorlaminore.va.it/anagrafe-e-stato-civile",
+    "dataPubblicazione": "2026-02-26T17:53:19.837757",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "33"
+  },
+  {
+    "titolo": "Documenti e dati",
+    "url": "https://comune.gorlaminore.va.it/documenti-e-dati",
+    "dataPubblicazione": "2026-02-26T17:53:19.837652",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "34"
+  },
+  {
+    "titolo": "Personale amministrativo",
+    "url": "https://comune.gorlaminore.va.it/personale-amministrativo",
+    "dataPubblicazione": "2026-02-26T17:53:19.837550",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "35"
+  },
+  {
+    "titolo": "Politici",
+    "url": "https://comune.gorlaminore.va.it/politici",
+    "dataPubblicazione": "2026-02-26T17:53:19.837446",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "36"
+  },
+  {
+    "titolo": "Enti e fondazioni",
+    "url": "https://comune.gorlaminore.va.it/enti-e-fondazioni",
+    "dataPubblicazione": "2026-02-26T17:53:19.837326",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "37"
+  },
+  {
+    "titolo": "Uffici",
+    "url": "https://comune.gorlaminore.va.it/uffici",
+    "dataPubblicazione": "2026-02-26T17:53:19.837225",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "38"
+  },
+  {
+    "titolo": "Aree amministrative",
+    "url": "https://comune.gorlaminore.va.it/aree-amministrative",
+    "dataPubblicazione": "2026-02-26T17:53:19.837124",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "39"
+  },
+  {
+    "titolo": "Organi di governo",
+    "url": "https://comune.gorlaminore.va.it/organi-di-governo",
+    "dataPubblicazione": "2026-02-26T17:53:19.837021",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "40"
+  },
+  {
+    "titolo": "Segnala disservizio",
+    "url": "https://comune.gorlaminore.va.it/segnalazioni/segnalazione-disservizio/crea",
+    "dataPubblicazione": "2026-02-26T17:53:19.836916",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "41"
+  },
+  {
+    "titolo": "Prenota appuntamento",
+    "url": "https://comune.gorlaminore.va.it/agenda-smart",
+    "dataPubblicazione": "2026-02-26T17:53:19.836731",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "42"
+  },
+  {
+    "titolo": "Chiama il numero +390331607200",
+    "url": "tel:+390331607200",
+    "dataPubblicazione": "2026-02-26T17:53:19.836547",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "43"
+  },
+  {
+    "titolo": "Richiedi assistenza",
+    "url": "https://comune.gorlaminore.va.it/richiesta-assistenza",
+    "dataPubblicazione": "2026-02-26T17:53:19.836340",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "44"
+  },
+  {
+    "titolo": "Leggi le domande frequenti",
+    "url": "https://comune.gorlaminore.va.it/faq",
+    "dataPubblicazione": "2026-02-26T17:53:19.836144",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "45"
+  },
+  {
+    "titolo": "Contatta il comune",
+    "url": "https://comune.gorlaminore.va.it",
+    "dataPubblicazione": "2026-02-26T17:53:19.835947",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "46"
+  },
+  {
+    "titolo": "Avvisi",
+    "url": "https://comune.gorlaminore.va.it/novita/3-avviso",
+    "dataPubblicazione": "2026-02-26T17:53:19.835141",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "47"
+  },
+  {
+    "titolo": "Comunicati",
+    "url": "https://comune.gorlaminore.va.it/novita/2-comunicato-stampa",
+    "dataPubblicazione": "2026-02-26T17:53:19.834927",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "48"
+  },
+  {
+    "titolo": "Notizie",
+    "url": "https://comune.gorlaminore.va.it/novita/1-news",
+    "dataPubblicazione": "2026-02-26T17:53:19.834709",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "49"
+  },
+  {
+    "titolo": "Referendum Costituzionale 22 e 23 MARZO 2026",
+    "url": "https://comune.gorlaminore.va.it/notizie/3528159/referendum-costituzionale-22-23-marzo-2026",
+    "dataPubblicazione": "2026-02-26T17:53:19.834486",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "https://mycity.s3.sbg.io.cloud.ovh.net/4895227/conversions/referendum-thumb.jpg",
+    "id": "50"
+  },
+  {
+    "titolo": "Referendum Costituzionale 22 e 23 MARZO 2026 - Elettori temporaneamente domiciliati all'estero",
+    "url": "https://comune.gorlaminore.va.it/notizie/3530847/referendum-costituzionale-22-23-marzo-2026",
+    "dataPubblicazione": "2026-02-26T17:53:19.834021",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "https://mycity.s3.sbg.io.cloud.ovh.net/4902715/conversions/referendum-thumb.jpg",
+    "id": "51"
+  },
+  {
+    "titolo": "Referendum Costituzionale 22 e 23 MARZO 2026 - Preventiva disponibilità ad esercitare le funzioni di Presidente o Scrutatore di Seggio Elettorale",
+    "url": "https://comune.gorlaminore.va.it/notizie/3535609/referendum-costituzionale-22-23-marzo-2026",
+    "dataPubblicazione": "2026-02-26T17:53:19.833560",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "https://mycity.s3.sbg.io.cloud.ovh.net/4918243/conversions/referendum-thumb.jpg",
+    "id": "52"
+  },
+  {
+    "titolo": "Referendum Costituzionale 22 e 23 MARZO 2026 - Indicazioni per il voto domiciliare e il voto assistito",
+    "url": "https://comune.gorlaminore.va.it/notizie/3541739/referendum-costituzionale-22-23-marzo-2026",
+    "dataPubblicazione": "2026-02-26T17:53:19.833098",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "https://mycity.s3.sbg.io.cloud.ovh.net/4936810/conversions/referendum-thumb.jpg",
+    "id": "53"
+  },
+  {
+    "titolo": "Referendum Costituzionale 22 e 23 MARZO 2026 - Tessere Elettorali",
+    "url": "https://comune.gorlaminore.va.it/notizie/3541806/referendum-costituzionale-22-23-marzo-2026",
+    "dataPubblicazione": "2026-02-26T17:53:19.832655",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "https://mycity.s3.sbg.io.cloud.ovh.net/4937065/conversions/referendum-thumb.jpg",
+    "id": "54"
+  },
+  {
+    "titolo": "Dote Comune Avviso n. 11/2025 del 24/02/2026",
+    "url": "https://comune.gorlaminore.va.it/notizie/3544448/iscrizione-servizio-refezione-scolastica-anno",
+    "dataPubblicazione": "2026-02-26T17:53:19.832176",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "55"
+  },
+  {
+    "titolo": "Home Page",
+    "url": "https://comune.gorlaminore.va.it/home",
+    "dataPubblicazione": "2026-02-26T17:53:19.831822",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "56"
+  },
+  {
+    "titolo": "Tutti gli\n                                                                    argomenti...",
+    "url": "https://comune.gorlaminore.va.it/argomenti",
+    "dataPubblicazione": "2026-02-26T17:53:19.831598",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "57"
+  },
+  {
+    "titolo": "Agricoltura",
+    "url": "https://comune.gorlaminore.va.it/argomenti/argomento-dettaglio/2374767",
+    "dataPubblicazione": "2026-02-26T17:53:19.831445",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "58"
+  },
+  {
+    "titolo": "Acqua",
+    "url": "https://comune.gorlaminore.va.it/argomenti/argomento-dettaglio/2374766",
+    "dataPubblicazione": "2026-02-26T17:53:19.831306",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "59"
+  },
+  {
+    "titolo": "Accesso all'informazione",
+    "url": "https://comune.gorlaminore.va.it/argomenti/argomento-dettaglio/2374765",
+    "dataPubblicazione": "2026-02-26T17:53:19.831190",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "60"
+  },
+  {
+    "titolo": "Vivere il comune",
+    "url": "https://comune.gorlaminore.va.it/vivere-il-comune",
+    "dataPubblicazione": "2026-02-26T17:53:19.831075",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "61"
+  },
+  {
+    "titolo": "Servizi",
+    "url": "https://comune.gorlaminore.va.it/servizi",
+    "dataPubblicazione": "2026-02-26T17:53:19.830931",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "62"
+  },
+  {
+    "titolo": "Novità",
+    "url": "https://comune.gorlaminore.va.it/novita",
+    "dataPubblicazione": "2026-02-26T17:53:19.830783",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "63"
+  },
+  {
+    "titolo": "Amministrazione",
+    "url": "https://comune.gorlaminore.va.it/amministrazione",
+    "dataPubblicazione": "2026-02-26T17:53:19.830629",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "64"
+  },
+  {
+    "titolo": "Telegram",
+    "url": "https://comune.gorlaminore.va.it/@gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:19.830480",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "65"
+  },
+  {
+    "titolo": "YouTube",
+    "url": "https://www.youtube.com/@comunedigorlaminore7712",
+    "dataPubblicazione": "2026-02-26T17:53:19.830222",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "66"
+  },
+  {
+    "titolo": "Facebook",
+    "url": "https://www.facebook.com/comunegorlaminore",
+    "dataPubblicazione": "2026-02-26T17:53:19.829984",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "67"
+  },
+  {
+    "titolo": "X",
+    "url": "https://x.com/gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:19.829740",
+    "origine": "novita",
+    "categoria": "Informativa",
+    "immagine": "",
+    "id": "68"
+  },
+  {
+    "titolo": "Telegram",
+    "url": "https://comune.gorlaminore.va.it/@gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:17.131901",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "69"
+  },
+  {
+    "titolo": "YouTube",
+    "url": "https://www.youtube.com/@comunedigorlaminore7712",
+    "dataPubblicazione": "2026-02-26T17:53:17.131667",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "70"
+  },
+  {
+    "titolo": "Facebook",
+    "url": "https://www.facebook.com/comunegorlaminore",
+    "dataPubblicazione": "2026-02-26T17:53:17.131437",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "71"
+  },
+  {
+    "titolo": "X",
+    "url": "https://x.com/gorlamininforma",
+    "dataPubblicazione": "2026-02-26T17:53:17.131187",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "72"
+  },
+  {
+    "titolo": "Piano di miglioramento del sito e dei servizi",
+    "url": "https://comune.gorlaminore.va.it/piano-miglioramento",
+    "dataPubblicazione": "2026-02-26T17:53:17.130974",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "73"
+  },
+  {
+    "titolo": "Dichiarazione di\n                                                        accessibilità",
+    "url": "https://form.agid.gov.it/view/a8106c40-93ce-11f0-9910-4126236ba52a",
+    "dataPubblicazione": "2026-02-26T17:53:17.130872",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "74"
+  },
+  {
+    "titolo": "Note legali",
+    "url": "https://comune.gorlaminore.va.it/note-legali",
+    "dataPubblicazione": "2026-02-26T17:53:17.130768",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "75"
+  },
+  {
+    "titolo": "Informativa privacy",
+    "url": "https://comune.gorlaminore.va.it/privacy",
+    "dataPubblicazione": "2026-02-26T17:53:17.130665",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "76"
+  },
+  {
+    "titolo": "Amministrazione\n                                                        trasparente",
+    "url": "https://dgegovpa.it/gorla/amministrazionetrasparente/amministrazionetrasparente",
+    "dataPubblicazione": "2026-02-26T17:53:17.130559",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "77"
+  },
+  {
+    "titolo": "Richiesta d'assistenza",
+    "url": "https://comune.gorlaminore.va.it/richiesta-assistenza",
+    "dataPubblicazione": "2026-02-26T17:53:17.130452",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "78"
+  },
+  {
+    "titolo": "Segnalazione disservizio",
+    "url": "https://comune.gorlaminore.va.it/segnalazioni/segnalazione-disservizio/crea",
+    "dataPubblicazione": "2026-02-26T17:53:17.130327",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "79"
+  },
+  {
+    "titolo": "Prenotazione appuntamento",
+    "url": "https://comune.gorlaminore.va.it/agenda-smart",
+    "dataPubblicazione": "2026-02-26T17:53:17.130220",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "80"
+  },
+  {
+    "titolo": "Leggi le FAQ",
+    "url": "https://comune.gorlaminore.va.it/faq",
+    "dataPubblicazione": "2026-02-26T17:53:17.130117",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "81"
+  },
+  {
+    "titolo": "Eventi",
+    "url": "https://comune.gorlaminore.va.it/eventi",
+    "dataPubblicazione": "2026-02-26T17:53:17.130013",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "82"
+  },
+  {
+    "titolo": "Luoghi",
+    "url": "https://comune.gorlaminore.va.it/luoghi",
+    "dataPubblicazione": "2026-02-26T17:53:17.129911",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "83"
+  },
+  {
+    "titolo": "Avvisi",
+    "url": "https://comune.gorlaminore.va.it/novita/3-avviso",
+    "dataPubblicazione": "2026-02-26T17:53:17.129807",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "84"
+  },
+  {
+    "titolo": "Comunicati",
+    "url": "https://comune.gorlaminore.va.it/novita/2-comunicato-stampa",
+    "dataPubblicazione": "2026-02-26T17:53:17.129704",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "85"
+  },
+  {
+    "titolo": "Notizie",
+    "url": "https://comune.gorlaminore.va.it/novita/1-news",
+    "dataPubblicazione": "2026-02-26T17:53:17.129600",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "86"
+  },
+  {
+    "titolo": "Agricoltura e pesca",
+    "url": "https://comune.gorlaminore.va.it/agricoltura-e-pesca",
+    "dataPubblicazione": "2026-02-26T17:53:17.129490",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "87"
+  },
+  {
+    "titolo": "Autorizzazioni",
+    "url": "https://comune.gorlaminore.va.it/autorizzazioni",
+    "dataPubblicazione": "2026-02-26T17:53:17.129379",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "88"
+  },
+  {
+    "titolo": "Salute, benessere e assistenza",
+    "url": "https://comune.gorlaminore.va.it/salute-benessere-e-assistenza",
+    "dataPubblicazione": "2026-02-26T17:53:17.129254",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "89"
+  },
+  {
+    "titolo": "Ambiente",
+    "url": "https://comune.gorlaminore.va.it/ambiente",
+    "dataPubblicazione": "2026-02-26T17:53:17.129151",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "90"
+  },
+  {
+    "titolo": "Tributi, finanze e contravvenzioni",
+    "url": "https://comune.gorlaminore.va.it/tributi-finanze-e-contravvenzioni",
+    "dataPubblicazione": "2026-02-26T17:53:17.129048",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "91"
+  },
+  {
+    "titolo": "Giustizia e sicurezza pubblica",
+    "url": "https://comune.gorlaminore.va.it/giustizia-e-sicurezza-pubblica",
+    "dataPubblicazione": "2026-02-26T17:53:17.128945",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "92"
+  },
+  {
+    "titolo": "Educazione e formazione",
+    "url": "https://comune.gorlaminore.va.it/educazione-e-formazione",
+    "dataPubblicazione": "2026-02-26T17:53:17.128843",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "93"
+  },
+  {
+    "titolo": "Mobilità e trasporti",
+    "url": "https://comune.gorlaminore.va.it/mobilita-e-trasporti",
+    "dataPubblicazione": "2026-02-26T17:53:17.128740",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "94"
+  },
+  {
+    "titolo": "Turismo",
+    "url": "https://comune.gorlaminore.va.it/turismo",
+    "dataPubblicazione": "2026-02-26T17:53:17.128637",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "95"
+  },
+  {
+    "titolo": "Catasto e urbanistica",
+    "url": "https://comune.gorlaminore.va.it/catasto-e-urbanistica",
+    "dataPubblicazione": "2026-02-26T17:53:17.128531",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "96"
+  },
+  {
+    "titolo": "Appalti pubblici",
+    "url": "https://comune.gorlaminore.va.it/appalti-pubblici",
+    "dataPubblicazione": "2026-02-26T17:53:17.128426",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "97"
+  },
+  {
+    "titolo": "Imprese e commercio",
+    "url": "https://comune.gorlaminore.va.it/imprese-e-commercio",
+    "dataPubblicazione": "2026-02-26T17:53:17.128304",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "98"
+  },
+  {
+    "titolo": "Vita lavorativa",
+    "url": "https://comune.gorlaminore.va.it/vita-lavorativa",
+    "dataPubblicazione": "2026-02-26T17:53:17.128193",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "99"
+  },
+  {
+    "titolo": "Cultura e tempo libero",
+    "url": "https://comune.gorlaminore.va.it/cultura-e-tempo-libero",
+    "dataPubblicazione": "2026-02-26T17:53:17.128087",
+    "origine": "home",
+    "categoria": "Avviso",
+    "immagine": "",
+    "id": "100"
   }
 ]
