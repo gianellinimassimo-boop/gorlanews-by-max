@@ -8,7 +8,7 @@ BASE_URL = "https://comune.gorlaminore.va.it"
 NOVITA_URL = BASE_URL + "/novita"  # elenco novità
 
 MAX_NEWS = 100        # quante notizie totali salvare
-HOME_COUNT = 10       # quante notizie marcare come "home"
+HOME_COUNT = 10       # quante notizie mostrare in Home
 
 
 def parse_date(text):
@@ -28,7 +28,7 @@ def parse_date(text):
         except ValueError:
             pass
 
-    # TODO: si può aggiungere parsing per '24 feb 2026' con mapping mesi
+    # TODO: parsing per '24 feb 2026' con mapping mesi
     return None
 
 
@@ -36,7 +36,7 @@ def scrape_novita():
     """
     Scarica la pagina /novita e restituisce una lista di dict:
     {titolo, url, dataPubblicazione, categoria, immagine}
-    Tutte le notizie qui sono considerate 'novita' come origine base.
+    Tutte le notizie qui sono considerate 'novita' come base.
     """
     print(f"Scarico {NOVITA_URL} ...")
     resp = requests.get(NOVITA_URL, timeout=20)
@@ -64,7 +64,7 @@ def scrape_novita():
 
         url_assoluto = urljoin(BASE_URL, href)
 
-        # Data: proviamo a risalire al contenitore più vicino che ha una data
+        # Data: risali al contenitore che ha la data
         container = el.find_parent(["div", "li", "article"])
         data_el = None
         if container:
@@ -74,14 +74,14 @@ def scrape_novita():
         if data_el:
             data_iso = parse_date(data_el.get_text(strip=True))
 
-        # Categoria: proviamo a cercare argomento o badge
+        # Categoria: argomento o badge
         categoria = "Informativa"
         if container:
             cat_el = container.select_one(".categoria, .tag, .badge, .argomenti .chip-label")
             if cat_el:
                 categoria = cat_el.get_text(strip=True)
 
-        # Immagine (se presente)
+        # Immagine (se presente). Se non c'è, resta stringa vuota
         immagine = ""
         if container:
             img_el = container.select_one("img")
@@ -122,7 +122,7 @@ def main():
 
     # 2) Imposta origine:
     #    - prime HOME_COUNT come "home"
-    #    - tutte comunque "novita"
+    #    - le altre come "novita"
     for idx, item in enumerate(all_news):
         if idx < HOME_COUNT:
             item["origine"] = "home"
