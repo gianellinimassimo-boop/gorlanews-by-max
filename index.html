@@ -599,7 +599,6 @@
     const lastUpdateEl = document.getElementById("lastUpdate");
     const lightBtn = document.getElementById("lightBtn");
     const darkBtn = document.getElementById("darkBtn");
-    const themeToggle = document.getElementById("themeToggle");
 
     let allNews = [];
     let currentOrigine = "home";
@@ -650,8 +649,16 @@
     function renderNews() {
       if (!newsListEl) return;
 
-      const filtered = allNews.filter(n => n.origine === currentOrigine);
-      if (filtered.length === 0) {
+      let filtered;
+      if (currentOrigine === "home") {
+        // Home: tutte le notizie
+        filtered = allNews;
+      } else {
+        // Novità: solo origine "novita"
+        filtered = allNews.filter(n => n.origine === currentOrigine);
+      }
+
+      if (!filtered || filtered.length === 0) {
         newsListEl.innerHTML = '<div class="empty-state">Nessuna notizia disponibile.</div>';
         return;
       }
@@ -686,7 +693,9 @@
                 <span>${item.origine === "novita" ? "Novità" : "Home"}</span>
               </div>
               <div class="news-link">
-                <a href="${item.url || "#"}" target="_blank" rel="noopener noreferrer">Apri sul sito del Comune</a>
+                <a href="${item.url || "#"}" target="_blank" rel="noopener noreferrer">
+                  Apri sul sito del Comune
+                </a>
               </div>
             </div>
           </article>
