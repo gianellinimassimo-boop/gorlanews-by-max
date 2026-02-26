@@ -1,12 +1,13 @@
 self.addEventListener("install", (event) => {
-  console.log("Gorlanews SW installato");
+  console.log("Gorlanews service worker installato");
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
-  console.log("Gorlanews SW attivato");
+  console.log("Gorlanews service worker attivato");
   return self.clients.claim();
 });
 
-// Per ora nessuna cache e nessuna gestione notifiche.
-// Aggiungeremo push e notificationclick più avanti.
+// In futuro qui potremo aggiungere:
+// - cache delle pagine per offline
+// - gestione delle notifiche push
