@@ -12,29 +12,36 @@
 
   <style>
     :root {
-      /* Tema di default (dark) */
+      /* Tema dark colorato */
       --bg: #020617;
       --bg-elevated: #020617;
       --bg-card: #020617;
       --bg-header: #020617;
-      --accent: #0f766e;
-      --accent-soft: rgba(15, 118, 110, 0.10);
+      --accent: #0ea5e9;
+      --accent-soft: rgba(14, 165, 233, 0.08);
+      --accent-strong: rgba(14, 165, 233, 0.22);
       --text: #e5e7eb;
       --muted: #9ca3af;
       --border-subtle: rgba(148, 163, 184, 0.35);
+      --chip-home: #22c55e;
+      --chip-novita: #6366f1;
       --danger: #ef4444;
     }
 
     body[data-theme="light"] {
-      --bg: #f3f4f6;
+      /* Tema chiaro colorato stile Apple */
+      --bg: #edf2ff;
       --bg-elevated: #f9fafb;
       --bg-card: #ffffff;
       --bg-header: #f9fafb;
-      --accent: #0f766e;
-      --accent-soft: rgba(15, 118, 110, 0.08);
+      --accent: #0ea5e9;
+      --accent-soft: rgba(14, 165, 233, 0.08);
+      --accent-strong: rgba(14, 165, 233, 0.16);
       --text: #111827;
       --muted: #6b7280;
       --border-subtle: rgba(148, 163, 184, 0.35);
+      --chip-home: #16a34a;
+      --chip-novita: #4f46e5;
       --danger: #b91c1c;
     }
 
@@ -46,13 +53,13 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: var(--bg);
+      background: radial-gradient(circle at top, var(--accent-soft) 0, var(--bg) 55%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 16px;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 0.25s ease, color 0.25s ease, background 0.25s ease;
     }
 
     .app {
@@ -82,7 +89,7 @@
       min-height: 0;
     }
 
-    /* HEADER STILE APPLE */
+    /* HEADER */
 
     .header-bar {
       display: flex;
@@ -102,7 +109,7 @@
       height: 56px;
       border-radius: 20px;
       overflow: hidden;
-      background: #111827;
+      background: radial-gradient(circle at 30% 20%, #f97316, #e11d48);
       box-shadow:
         0 12px 26px rgba(15, 23, 42, 0.75),
         0 0 0 1px rgba(15, 23, 42, 0.9);
@@ -302,7 +309,7 @@
       background: var(--accent);
     }
 
-    /* CARDS */
+    /* CARDS con immagine a sinistra */
 
     .cards {
       flex: 1;
@@ -317,14 +324,39 @@
 
     .card {
       border-radius: 18px;
-      padding: 12px 12px 10px;
+      padding: 10px 10px 10px;
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--accent-strong);
       box-shadow:
         0 16px 40px rgba(15, 23, 42, 0.35);
       display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    .card-image-wrapper {
+      flex: 0 0 92px;
+      height: 92px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-strong));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      flex: 1;
+      display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      min-width: 0;
     }
 
     .card-header {
@@ -473,6 +505,15 @@
       .cards {
         padding-right: 2px;
       }
+
+      .card {
+        flex-direction: row;
+      }
+
+      .card-image-wrapper {
+        flex: 0 0 80px;
+        height: 80px;
+      }
     }
   </style>
 </head>
@@ -574,7 +615,7 @@
       if (theme === "light") {
         themeIcon.textContent = "☀";
         themeLabel.textContent = "Tema chiaro";
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#f3f4f6");
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#edf2ff");
       } else {
         themeIcon.textContent = "🌙";
         themeLabel.textContent = "Tema scuro";
@@ -607,6 +648,13 @@
         hour: "2-digit",
         minute: "2-digit"
       });
+    }
+
+    function getImageForNews(item) {
+      // TODO: qui puoi collegare in futuro una API di image-generation
+      // Se item.immagine esiste nel JSON, usala; altrimenti placeholder colorato.
+      if (item.immagine) return item.immagine;
+      return "icon-192.png";
     }
 
     function renderEmptyState() {
@@ -645,27 +693,35 @@
           const url = item.url || "#";
           const dataPub = formatDate(item.dataPubblicazione);
           const origine = item.origine || "sconosciuta";
+          const imgSrc = getImageForNews(item);
+
+          const chipColor = origine === "home" ? "var(--chip-home)"
+                         : origine === "novita" ? "var(--chip-novita)"
+                         : "var(--accent)";
 
           return `
             <article class="card">
-              <div class="card-header">
-                <h2 class="card-title">${titolo}</h2>
-                <div class="card-meta">
-                  <span>${dataPub}</span>
-                  <span class="pill-mini">
-                    <span style="width:6px;height:6px;border-radius:999px;background:${
-                      origine === "home" ? "#22c55e" : "#3b82f6"
-                    };"></span>
-                    ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
-                  </span>
-                </div>
+              <div class="card-image-wrapper">
+                <img src="${imgSrc}" alt="Immagine notizia">
               </div>
-              <div class="card-footer">
-                <span>Fonte: Comune di Gorla Minore</span>
-                <a href="${url}" target="_blank" rel="noopener noreferrer">
-                  apri
-                  <span>↗</span>
-                </a>
+              <div class="card-content">
+                <div class="card-header">
+                  <h2 class="card-title">${titolo}</h2>
+                  <div class="card-meta">
+                    <span>${dataPub}</span>
+                    <span class="pill-mini">
+                      <span style="width:6px;height:6px;border-radius:999px;background:${chipColor};"></span>
+                      ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
+                    </span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span>Fonte: Comune di Gorla Minore</span>
+                  <a href="${url}" target="_blank" rel="noopener noreferrer">
+                    apri
+                    <span>↗</span>
+                  </a>
+                </div>
               </div>
             </article>
           `;
