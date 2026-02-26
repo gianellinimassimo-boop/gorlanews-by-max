@@ -189,8 +189,8 @@
 
     .controls {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      gap: 8px;
       margin-top: 6px;
       padding: 10px 10px;
       border-radius: 18px;
@@ -203,7 +203,7 @@
     }
 
     .search-group {
-      flex: 1.7;
+      flex: 1;
       min-width: 160px;
       position: relative;
     }
@@ -244,12 +244,28 @@
       display: none;
     }
 
+    .controls-bottom-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .category-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1.4;
+      min-width: 0;
+    }
+
     .filters {
-      flex: 1;
       display: flex;
       gap: 8px;
+      flex: 1;
+      min-width: 140px;
       justify-content: flex-end;
-      min-width: 180px;
     }
 
     .select-wrapper {
@@ -259,8 +275,7 @@
     }
 
     select {
-      flex: 1;
-      min-width: 0;
+      width: 100%;
       padding: 9px 32px 9px 10px;
       border-radius: 14px;
       border: 1px solid var(--border-subtle);
@@ -284,14 +299,6 @@
 
     /* CHIP CATEGORIA */
 
-    .category-chips-row {
-      margin-top: 2px;
-      padding: 0 4px;
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
     .category-chip {
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
@@ -303,6 +310,8 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      max-width: 100%;
+      white-space: nowrap;
     }
 
     .category-chip-dot {
@@ -310,6 +319,7 @@
       height: 7px;
       border-radius: 999px;
       background: var(--muted);
+      flex-shrink: 0;
     }
 
     .category-chip.active {
@@ -561,8 +571,14 @@
     @media (max-width: 600px) {
       body { padding: 10px; }
       .app { border-radius: 22px; padding: 10px 10px 14px; }
-      .controls { flex-direction: column; }
-      .filters { justify-content: stretch; }
+      .controls-bottom-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filters {
+        justify-content: stretch;
+        width: 100%;
+      }
       .cards { padding-right: 2px; }
       .card { flex-direction: row; }
       .card-image-wrapper { flex: 0 0 80px; height: 80px; }
@@ -595,7 +611,6 @@
         </button>
       </div>
 
-      <!-- Bottone per aprire/chiudere i filtri -->
       <div class="filters-toggle-row">
         <button id="filters-toggle-btn" class="filters-toggle-btn" type="button">
           <span class="icon">⚙️</span>
@@ -603,7 +618,6 @@
         </button>
       </div>
 
-      <!-- Pannello filtri a scomparsa -->
       <div id="controls-wrapper" class="controls-wrapper">
         <section id="controls" class="controls collapsed">
           <div class="search-group">
@@ -611,29 +625,30 @@
             <input type="text" id="search" placeholder="Cerca nel titolo..." autocomplete="off" />
             <button id="clear-search" class="clear-search">×</button>
           </div>
-          <div class="filters">
-            <div class="select-wrapper">
-              <select id="source-filter">
-                <option value="all">Tutte le origini</option>
-                <option value="home">Solo Home</option>
-                <option value="novita">Solo Novità</option>
-              </select>
-              <span>▼</span>
+
+          <div class="controls-bottom-row">
+            <div id="category-chips-row" class="category-chips-row">
+              <!-- Chip via JS -->
             </div>
-            <div class="select-wrapper">
-              <select id="sort-order">
-                <option value="desc">Più recenti</option>
-                <option value="asc">Meno recenti</option>
-              </select>
-              <span>▼</span>
+            <div class="filters">
+              <div class="select-wrapper">
+                <select id="source-filter">
+                  <option value="all">Tutte le origini</option>
+                  <option value="home">Solo Home</option>
+                  <option value="novita">Solo Novità</option>
+                </select>
+                <span>▼</span>
+              </div>
+              <div class="select-wrapper">
+                <select id="sort-order">
+                  <option value="desc">Più recenti</option>
+                  <option value="asc">Meno recenti</option>
+                </select>
+                <span>▼</span>
+              </div>
             </div>
           </div>
         </section>
-      </div>
-
-      <!-- Chip categoria sopra le card -->
-      <div id="category-chips-row" class="category-chips-row">
-        <!-- I chip vengono creati via JS -->
       </div>
 
       <main>
@@ -713,7 +728,6 @@
       setTheme(current === "dark" ? "light" : "dark");
     });
 
-    // Toggle pannello filtri
     let filtersOpen = false;
     filtersToggleBtn.addEventListener("click", () => {
       filtersOpen = !filtersOpen;
@@ -739,7 +753,6 @@
       });
     }
 
-    // Immagini di default per categoria
     const CATEGORY_IMAGES = {
       "Avviso": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg",
       "Evento": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg",
@@ -868,17 +881,14 @@
     }
 
     function buildCategoryChips() {
-      // Set di categorie presenti nelle news
       const categoriesSet = new Set();
       allNews.forEach(item => {
         if (item.categoria) categoriesSet.add(item.categoria);
       });
 
       const categories = Array.from(categoriesSet);
-
       const parts = [];
 
-      // Chip "Tutte"
       parts.push(`
         <button class="category-chip ${selectedCategory === "all" ? "active" : ""}" data-category="all" type="button">
           <span class="category-chip-dot"></span>
@@ -886,7 +896,6 @@
         </button>
       `);
 
-      // Chip per ogni categoria
       categories.forEach(cat => {
         let color = "#0ea5e9";
         if (cat === "Avviso") color = "#f97316";
@@ -905,13 +914,11 @@
 
       categoryChipsRow.innerHTML = parts.join("");
 
-      // Aggancia eventi click
       const chipButtons = categoryChipsRow.querySelectorAll(".category-chip");
       chipButtons.forEach(btn => {
         btn.addEventListener("click", () => {
           selectedCategory = btn.getAttribute("data-category") || "all";
           applyFilters();
-          // aggiorna stati attivi
           chipButtons.forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
         });
@@ -959,10 +966,7 @@
         }
 
         allNews = data;
-
-        // costruisci chip categoria in base ai dati
         buildCategoryChips();
-
         applyFilters();
 
         statusText.textContent = "Online";
