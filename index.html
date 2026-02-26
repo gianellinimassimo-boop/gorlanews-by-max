@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,17 +11,18 @@
   <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json" />
 
-  <!-- Icona app (usa la tua icon-192.png nella root) -->
+  <!-- Icona app -->
   <link rel="icon" type="image/png" href="icon-192.png" />
 
-  <!-- Font e icone (Google Fonts + Font Awesome Free) -->
+  <!-- Font e icone -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     :root {
+      /* tema chiaro di default */
       --bg: #f5f5f7;
       --bg-elevated: #ffffff;
       --accent: #007aff;
@@ -30,6 +31,26 @@
       --text-soft: #6b7280;
       --border-subtle: rgba(15, 23, 42, 0.06);
       --shadow-soft: 0 18px 40px rgba(15,23,42,0.12);
+      --header-grad: radial-gradient(circle at top left, rgba(0,122,255,0.15), transparent 55%);
+      --card-icon-grad: radial-gradient(circle at top left, #eff6ff, #dbeafe);
+      --status-dot: #22c55e;
+      --status-dot-ring: rgba(34,197,94,0.18);
+    }
+
+    /* Tema dark: si attiva con data-theme="dark" sull'html */
+    html[data-theme="dark"] {
+      --bg: #020617;
+      --bg-elevated: #0b1220;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.16);
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.7);
+      --header-grad: radial-gradient(circle at top left, rgba(34,197,94,0.2), transparent 55%);
+      --card-icon-grad: radial-gradient(circle at top left, #064e3b, #022c22);
+      --status-dot: #22c55e;
+      --status-dot-ring: rgba(34,197,94,0.3);
     }
 
     * {
@@ -40,19 +61,27 @@
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #e5e7eb 0, #f5f5f7 55%);
+      background: radial-gradient(circle at top, #e5e7eb 0, var(--bg) 55%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
     }
 
+    html[data-theme="dark"] body {
+      background: radial-gradient(circle at top, #020617 0, #020617 55%);
+    }
+
     .app {
       width: 100%;
       max-width: 480px;
       min-height: 100vh;
-      background: linear-gradient(to bottom, #f9fafb, #f5f5f7);
+      background: linear-gradient(to bottom, #f9fafb, var(--bg));
       padding-bottom: 16px;
+    }
+
+    html[data-theme="dark"] .app {
+      background: radial-gradient(circle at top, #020617, #020617);
     }
 
     header {
@@ -61,13 +90,13 @@
       align-items: center;
       gap: 12px;
       border-bottom: 1px solid rgba(148,163,184,0.22);
-      background: radial-gradient(circle at top left, rgba(0,122,255,0.15), transparent 55%);
+      background: var(--header-grad);
       backdrop-filter: blur(12px);
     }
 
     .logo {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 16px;
       background: radial-gradient(circle at top left, #ffffff, #dbeafe);
       display: inline-flex;
@@ -79,17 +108,28 @@
       box-shadow: 0 12px 30px rgba(37,99,235,0.28);
     }
 
+    html[data-theme="dark"] .logo {
+      background: radial-gradient(circle at top left, #020617, #0f172a);
+      color: #22c55e;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+    }
+
     .title-block {
       flex: 1;
     }
 
     .title-block h1 {
-      font-size: 22px;
-      font-weight: 600;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
       color: #020617;
+    }
+
+    html[data-theme="dark"] .title-block h1 {
+      color: #f9fafb;
     }
 
     .title-block span.badge {
@@ -102,9 +142,16 @@
     }
 
     .subtitle {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-soft);
-      margin-top: 3px;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
     }
 
     .refresh-btn {
@@ -112,21 +159,43 @@
       background: #eff6ff;
       color: #1d4ed8;
       border-radius: 999px;
-      padding: 9px 11px;
+      padding: 9px 12px;
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(148,163,184,0.4);
     }
 
+    html[data-theme="dark"] .refresh-btn {
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.7);
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+
     .refresh-btn i {
-      font-size: 14px;
+      font-size: 15px;
+    }
+
+    .theme-toggle-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .theme-toggle-btn i {
+      font-size: 16px;
     }
 
     .main {
-      padding: 14px 16px 16px 16px;
+      padding: 16px 16px 16px 16px;
     }
 
     .status-bar {
@@ -134,7 +203,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-soft);
     }
 
@@ -145,23 +214,23 @@
     }
 
     .status-dot {
-      width: 9px;
-      height: 9px;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.18);
+      background: var(--status-dot);
+      box-shadow: 0 0 0 4px var(--status-dot-ring);
     }
 
     .filters {
       display: flex;
       gap: 8px;
-      margin-bottom: 14px;
-      font-size: 13px;
+      margin-bottom: 16px;
+      font-size: 14px;
     }
 
     .chip {
       border-radius: 999px;
-      padding: 7px 11px;
+      padding: 8px 12px;
       border: 1px solid var(--border-subtle);
       color: var(--text-soft);
       display: inline-flex;
@@ -172,6 +241,11 @@
       box-shadow: 0 4px 12px rgba(148,163,184,0.25);
     }
 
+    html[data-theme="dark"] .chip {
+      background: rgba(15,23,42,0.95);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+    }
+
     .chip.active {
       border-color: var(--accent);
       background: var(--accent-soft);
@@ -179,13 +253,13 @@
     }
 
     .chip i {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .news-list {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 12px;
       padding-bottom: 32px;
     }
 
@@ -193,9 +267,9 @@
       border-radius: 18px;
       background: var(--bg-elevated);
       border: 1px solid var(--border-subtle);
-      padding: 11px;
+      padding: 12px;
       display: flex;
-      gap: 11px;
+      gap: 12px;
       box-shadow: var(--shadow-soft);
       cursor: pointer;
       transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s;
@@ -207,17 +281,25 @@
       border-color: rgba(148,163,184,0.7);
     }
 
+    html[data-theme="dark"] .card:hover {
+      box-shadow: 0 22px 56px rgba(0,0,0,0.9);
+    }
+
     .card-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 14px;
-      background: radial-gradient(circle at top left, #eff6ff, #dbeafe);
+      background: var(--card-icon-grad);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #1d4ed8;
-      font-size: 19px;
+      font-size: 20px;
       flex-shrink: 0;
+    }
+
+    html[data-theme="dark"] .card-icon {
+      color: #bbf7d0;
     }
 
     .card-content {
@@ -226,19 +308,23 @@
     }
 
     .card-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #020617;
+    }
+
+    html[data-theme="dark"] .card-title {
+      color: #f9fafb;
     }
 
     .card-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-soft);
-      margin-top: 3px;
+      margin-top: 4px;
     }
 
     .card-meta-left {
@@ -250,7 +336,7 @@
     .tag {
       padding: 3px 9px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
@@ -263,6 +349,16 @@
     .tag-novita {
       background: rgba(236,72,153,0.12);
       color: #db2777;
+    }
+
+    html[data-theme="dark"] .tag-home {
+      background: rgba(37,99,235,0.25);
+      color: #bfdbfe;
+    }
+
+    html[data-theme="dark"] .tag-novita {
+      background: rgba(190,24,93,0.25);
+      color: #f9a8d4;
     }
 
     .empty-state {
@@ -281,7 +377,7 @@
     footer {
       padding: 6px 16px 0 16px;
       font-size: 11px;
-      color: #9ca3af;
+      color: var(--text-soft);
       text-align: center;
     }
   </style>
@@ -301,10 +397,16 @@
           Notizie ufficiali dal Comune di Gorla Minore
         </div>
       </div>
-      <button class="refresh-btn" id="refreshBtn">
-        <i class="fa-solid fa-rotate-right"></i>
-        <span>Aggiorna</span>
-      </button>
+      <div class="header-actions">
+        <button class="refresh-btn" id="refreshBtn">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>Aggiorna</span>
+        </button>
+        <button class="theme-toggle-btn" id="themeToggle" aria-label="Cambia tema">
+          <i class="fa-solid fa-moon"></i>
+          <span>Tema</span>
+        </button>
+      </div>
     </header>
 
     <div class="main">
@@ -331,9 +433,7 @@
         </button>
       </div>
 
-      <div id="newsList" class="news-list">
-        <!-- Card create via JS -->
-      </div>
+      <div id="newsList" class="news-list"></div>
 
       <div id="emptyState" class="empty-state" style="display:none;">
         <i class="fa-solid fa-circle-info"></i>
@@ -347,10 +447,8 @@
   </div>
 
   <script>
-    // URL del backend (quando sarà pronto lo metteremo qui)
     const NEWS_ENDPOINT = "https://example.com/gorlanews.json";
 
-    // Dati demo usati finché il backend non esiste
     const mockNews = [
       {
         id: "demo-1",
@@ -403,7 +501,6 @@
         emptyEl.style.display = "none";
       }
 
-      // Ordina dalla più recente alla più vecchia
       newsToShow.sort((a, b) => new Date(b.dataPubblicazione) - new Date(a.dataPubblicazione));
 
       document.getElementById("countText").textContent =
@@ -497,15 +594,48 @@
         setStatus("Ultimo aggiornamento: " + new Date().toLocaleString("it-IT"));
         renderNews(currentFilter);
       } catch (err) {
-        console.error("Errore caricamento notizie dal backend:", err);
-        // Fallback ai dati demo finché il backend non è pronto
+        console.error("Errore caricamento notizie:", err);
         allNews = [...mockNews];
         setStatus("Modalità demo: backend non disponibile.");
         renderNews(currentFilter);
       }
     }
 
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("gorlanews-theme", theme);
+      const toggleBtn = document.getElementById("themeToggle");
+      if (!toggleBtn) return;
+      const icon = toggleBtn.querySelector("i");
+      if (theme === "dark") {
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      } else {
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+      }
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem("gorlanews-theme");
+      if (saved === "light" || saved === "dark") {
+        applyTheme(saved);
+      } else {
+        applyTheme("light");
+      }
+      const toggleBtn = document.getElementById("themeToggle");
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme") || "light";
+          const next = current === "light" ? "dark" : "light";
+          applyTheme(next);
+        });
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
+
       document.querySelectorAll(".chip").forEach(chip => {
         chip.addEventListener("click", () => {
           document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
