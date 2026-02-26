@@ -695,8 +695,26 @@
       });
     }
 
+    // Mappa immagini di default per categoria
+    const CATEGORY_IMAGES = {
+      "Avviso": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg",
+      "Evento": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg",
+      "Servizio": "https://images.pexels.com/photos/2539748/pexels-photo-2539748.jpeg",
+      "Lavori pubblici": "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg",
+      "Consiglio comunale": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
+    };
+
     function getImageForNews(item) {
+      // 1) se il JSON ha immagine, uso quella
       if (item.immagine) return item.immagine;
+
+      // 2) altrimenti provo in base alla categoria
+      const categoria = item.categoria || "Generale";
+      if (CATEGORY_IMAGES[categoria]) {
+        return CATEGORY_IMAGES[categoria];
+      }
+
+      // 3) fallback finale: icona dell'app
       return "icon-192.png";
     }
 
