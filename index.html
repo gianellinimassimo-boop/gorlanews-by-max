@@ -112,8 +112,8 @@
     }
 
     .app-logo {
-      width: 60px;   /* più grande */
-      height: 60px;  /* più grande */
+      width: 60px;
+      height: 60px;
       border-radius: 18px;
       overflow: hidden;
       background: rgba(15, 23, 42, 0.25);
@@ -601,9 +601,11 @@
 
       let filtered;
       if (currentOrigine === "home") {
-        filtered = allNews;
+        // SOLO notizie marcate come 'home'
+        filtered = allNews.filter(n => n.origine === "home");
       } else {
-        filtered = allNews.filter(n => n.origine === currentOrigine);
+        // SOLO notizie marcate come 'novita'
+        filtered = allNews.filter(n => n.origine === "novita");
       }
 
       if (!filtered || filtered.length === 0) {
@@ -638,7 +640,7 @@
               <div class="news-meta">
                 ${data ? `<span>${data}</span>` : ""}
                 <span class="news-meta-dot"></span>
-                <span>${item.origine === "novita" ? "Novità" : "Home"}</span>
+                <span>${currentOrigine === "home" ? "Home" : "Novità"}</span>
               </div>
               <div class="news-link">
                 <a href="${item.url || "#"}" target="_blank" rel="noopener noreferrer">
@@ -729,4 +731,3 @@
   </script>
 </body>
 </html>
-
