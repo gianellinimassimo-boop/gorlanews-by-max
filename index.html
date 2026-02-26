@@ -88,7 +88,8 @@
 
     .app-header {
       padding: 18px 18px 14px;
-      background: linear-gradient(135deg, #22c55e, #6366f1, #ec4899);
+      /* nuovo gradiente più professionale blu/indigo */
+      background: linear-gradient(135deg, #0f172a, #1e40af, #0ea5e9);
       color: #f9fafb;
       position: relative;
       overflow: hidden;
@@ -98,7 +99,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.25), transparent 55%);
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.20), transparent 55%);
       opacity: 0.9;
       pointer-events: none;
     }
@@ -157,13 +158,13 @@
       height: 44px;
       border-radius: 14px;
       overflow: hidden;
-      background: rgba(15, 23, 42, 0.12);
+      background: rgba(15, 23, 42, 0.25);
       border: 1px solid rgba(248, 250, 252, 0.45);
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.35);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(10px);
     }
 
     .app-logo img {
@@ -183,7 +184,7 @@
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(15, 23, 42, 0.6);
+      text-shadow: 0 2px 6px rgba(15, 23, 42, 0.9);
     }
 
     .app-title span {
@@ -202,14 +203,14 @@
 
     .theme-toggle {
       margin-left: auto;
-      background: rgba(15, 23, 42, 0.22);
+      background: rgba(15, 23, 42, 0.35);
       border-radius: 999px;
       padding: 4px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.8);
     }
 
     .theme-toggle button {
@@ -229,7 +230,7 @@
     .theme-toggle button.active {
       background: #f9fafb;
       color: #111827;
-      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.5);
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.6);
     }
 
     .theme-toggle span {
@@ -651,11 +652,9 @@
 
       let filtered;
       if (currentOrigine === "home") {
-        // Home: tutte le notizie
-        filtered = allNews;
+        filtered = allNews; // Home: tutte
       } else {
-        // Novità: solo origine "novita"
-        filtered = allNews.filter(n => n.origine === currentOrigine);
+        filtered = allNews.filter(n => n.origine === currentOrigine); // Novità
       }
 
       if (!filtered || filtered.length === 0) {
