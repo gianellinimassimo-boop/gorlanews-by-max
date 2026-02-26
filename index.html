@@ -12,17 +12,17 @@
 
   <style>
     :root {
-      /* Tema dark colorato */
-      --bg: #020617;
-      --bg-elevated: #020617;
-      --bg-card: #020617;
+      /* Tema dark colorato ma più chiaro */
+      --bg: #050816;
+      --bg-elevated: #0b1220;
+      --bg-card: #111827;
       --bg-header: #020617;
       --accent: #0ea5e9;
-      --accent-soft: rgba(14, 165, 233, 0.08);
-      --accent-strong: rgba(14, 165, 233, 0.22);
+      --accent-soft: rgba(14, 165, 233, 0.10);
+      --accent-strong: rgba(14, 165, 233, 0.25);
       --text: #e5e7eb;
       --muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.35);
+      --border-subtle: rgba(148, 163, 184, 0.45);
       --chip-home: #22c55e;
       --chip-novita: #6366f1;
       --danger: #ef4444;
@@ -35,8 +35,8 @@
       --bg-card: #ffffff;
       --bg-header: #f9fafb;
       --accent: #0ea5e9;
-      --accent-soft: rgba(14, 165, 233, 0.10);
-      --accent-strong: rgba(14, 165, 233, 0.18);
+      --accent-soft: rgba(14, 165, 233, 0.12);
+      --accent-strong: rgba(14, 165, 233, 0.22);
       --text: #111827;
       --muted: #6b7280;
       --border-subtle: rgba(148, 163, 184, 0.35);
@@ -71,7 +71,7 @@
       padding: 14px 14px 18px;
       box-shadow:
         0 22px 60px rgba(15, 23, 42, 0.75),
-        0 0 0 1px rgba(15, 23, 42, 0.85);
+        0 0 0 1px rgba(15, 23, 42, 0.9);
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -137,19 +137,23 @@
     }
 
     .app-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.1;
+    }
+
+    .app-title-main {
       font-size: 26px;
       font-weight: 800;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      line-height: 1.1;
     }
 
-    .app-title .by-max {
+    .app-title-by {
       font-size: 17px;
       font-weight: 600;
       opacity: 0.95;
-      margin-left: 8px;
-      text-transform: none;
       letter-spacing: 0.02em;
     }
 
@@ -336,9 +340,9 @@
       border-radius: 18px;
       padding: 10px 10px 10px;
       background: var(--bg-card);
-      border: 1px solid var(--accent-strong);
+      border: 1px solid rgba(148, 163, 184, 0.45);
       box-shadow:
-        0 16px 40px rgba(15, 23, 42, 0.35);
+        0 16px 40px rgba(15, 23, 42, 0.45);
       display: flex;
       flex-direction: row;
       gap: 10px;
@@ -400,7 +404,7 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: var(--bg-header);
+      background: var(--bg-elevated);
     }
 
     .card-footer {
@@ -433,7 +437,7 @@
       border: 1px solid var(--border-subtle);
       background: var(--bg-card);
       box-shadow:
-        0 14px 32px rgba(15, 23, 42, 0.35);
+        0 14px 32px rgba(15, 23, 42, 0.4);
     }
 
     .empty-state h2,
@@ -500,10 +504,6 @@
         padding: 10px 10px 14px;
       }
 
-      .app-title {
-        font-size: 24px;
-      }
-
       .controls {
         flex-direction: column;
       }
@@ -524,6 +524,14 @@
         flex: 0 0 80px;
         height: 80px;
       }
+
+      .app-title-main {
+        font-size: 24px;
+      }
+
+      .app-title-by {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
@@ -538,7 +546,8 @@
           </div>
           <div class="header-text">
             <div class="app-title">
-              GORLANEWS <span class="by-max">by Max</span>
+              <div class="app-title-main">GORLANEWS</div>
+              <div class="app-title-by">by Max</div>
             </div>
             <div class="app-subtitle">News dal Comune di Gorla Minore</div>
           </div>
@@ -629,7 +638,7 @@
       } else {
         themeIcon.textContent = "🌙";
         themeLabel.textContent = "Tema scuro";
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#020617");
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#050816");
       }
     }
 
