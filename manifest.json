@@ -4,9 +4,9 @@
   "lang": "it-IT",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f5f5f7",
+  "background_color": "#020617",
   "theme_color": "#f5f5f7",
-  "description": "Notizie ufficiali del Comune di Gorla Minore, in ordine dalla più recente alla più vecchia.",
+  "description": "Notizie ufficiali del Comune di Gorla Minore, sempre aggiornate.",
   "icons": [
     {
       "src": "icon-192.png",
