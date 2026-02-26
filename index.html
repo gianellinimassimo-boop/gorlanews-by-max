@@ -450,7 +450,7 @@
       padding: 18px 0;
     }
 
-    /* DARK MODE con contrasto tra sfondo e card */
+    /* DARK MODE con contrasto (card un po' più chiare) */
     body[data-theme="dark"] {
       background: #020617;
       color: var(--text-main-dark);
@@ -468,7 +468,7 @@
     }
 
     body[data-theme="dark"] .news-card {
-      background: #020617; /* se vuoi più chiara: prova #0f172a */
+      background: #0f172a; /* più chiaro dello sfondo */
       border-color: rgba(148, 163, 184, 0.6);
       box-shadow: 0 10px 28px rgba(15, 23, 42, 0.9);
     }
@@ -525,7 +525,7 @@
     <main class="app-content">
       <div class="tabs-row">
         <div class="tabs">
-          <button class="tab-btn tab-home active" data-origine="home">
+          <button class="tab-btn tab-home" data-origine="home">
             <span class="tab-icon-dot"></span>
             Home
           </button>
@@ -566,11 +566,12 @@
       return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
 
+    // immagine: campo `immagine` se esiste, altrimenti logo
     function getImageForNews(item) {
       if (item.immagine && typeof item.immagine === "string" && item.immagine.trim() !== "") {
         return item.immagine;
       }
-      return "img/placeholder-gorla.jpg";
+      return "icon-192.png";
     }
 
     function getCategoryClass(categoria) {
@@ -676,16 +677,28 @@
       }
     }
 
+    // gestione tab con salvataggio in localStorage
+    function setCurrentTab(origine) {
+      currentOrigine = origine;
+      tabButtons.forEach(b => {
+        const o = b.getAttribute("data-origine");
+        if (o === origine) {
+          b.classList.add("active");
+        } else {
+          b.classList.remove("active");
+        }
+      });
+      try {
+        localStorage.setItem("gorlanews-tab", origine);
+      } catch {}
+      renderNews();
+    }
+
     tabButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const origine = btn.getAttribute("data-origine");
         if (!origine) return;
-        currentOrigine = origine;
-
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        renderNews();
+        setCurrentTab(origine);
       });
     });
 
@@ -706,15 +719,24 @@
     lightBtn.addEventListener("click", () => applyTheme("light"));
     darkBtn.addEventListener("click", () => applyTheme("dark"));
 
-    (function initTheme() {
-      let saved = null;
+    (function initThemeAndTab() {
+      let savedTheme = null;
+      let savedTab = null;
       try {
-        saved = localStorage.getItem("gorlanews-theme");
+        savedTheme = localStorage.getItem("gorlanews-theme");
+        savedTab = localStorage.getItem("gorlanews-tab");
       } catch {}
-      if (saved === "light" || saved === "dark") {
-        applyTheme(saved);
+
+      if (savedTheme === "light" || savedTheme === "dark") {
+        applyTheme(savedTheme);
       } else {
         applyTheme("dark");
+      }
+
+      if (savedTab === "home" || savedTab === "novita") {
+        setCurrentTab(savedTab);
+      } else {
+        setCurrentTab("home");
       }
     })();
 
