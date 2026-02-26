@@ -7,7 +7,7 @@ from urllib.parse import urljoin
 BASE_URL = "https://comune.gorlaminore.va.it"
 NOVITA_URL = BASE_URL + "/novita"  # elenco novità
 
-MAX_NEWS = 100        # quante notizie totali salvare
+MAX_NEWS = 100        # quante notizie totali (per tipo) salvare
 HOME_COUNT = 10       # quante notizie mostrare in Home
 
 
@@ -34,9 +34,8 @@ def parse_date(text):
 
 def scrape_novita():
     """
-    Scarica la pagina /novita e restituisce una lista di dict:
+    Scarica la pagina /novita e restituisce una lista di dict base:
     {titolo, url, dataPubblicazione, categoria, immagine}
-    Tutte le notizie qui sono considerate 'novita' come base.
     """
     print(f"Scarico {NOVITA_URL} ...")
     resp = requests.get(NOVITA_URL, timeout=20)
@@ -101,10 +100,10 @@ def scrape_novita():
 
 
 def main():
-    # 1) Notizie dalla sezione Novità
-    all_news = scrape_novita()
+    # 1) Notizie dalla sezione Novità (lista base)
+    base_news = scrape_novita()
 
-    if not all_news:
+    if not base_news:
         print("Nessuna notizia trovata su /novita.")
         return
 
@@ -115,21 +114,31 @@ def main():
         except Exception:
             return datetime.min
 
-    all_news.sort(key=sort_key, reverse=True)
+    base_news.sort(key=sort_key, reverse=True)
 
-    # Limita a MAX_NEWS totali
-    all_news = all_news[:MAX_NEWS]
+    # Limita a MAX_NEWS per la sezione Novità
+    novita_news = base_news[:MAX_NEWS]
 
-    # 2) Imposta origine:
-    #    - prime HOME_COUNT come "home"
-    #    - le altre come "novita"
-    for idx, item in enumerate(all_news):
-        if idx < HOME_COUNT:
-            item["origine"] = "home"
-        else:
-            item["origine"] = "novita"
+    # 2) Crea due liste:
+    #    - una per "novita"
+    #    - una per "home" (duplichiamo le prime HOME_COUNT)
+    all_news = []
 
-    # 3) Aggiungi id numerico progressivo come stringa
+    # Prima: tutte come "novita"
+    for item in novita_news:
+        all_news.append({
+            **item,
+            "origine": "novita"
+        })
+
+    # Poi: duplicato delle prime HOME_COUNT come "home"
+    for item in novita_news[:HOME_COUNT]:
+        all_news.append({
+            **item,
+            "origine": "home"
+        })
+
+    # 3) Assegna id progressivo
     for idx, item in enumerate(all_news, start=1):
         item["id"] = str(idx)
 
@@ -137,7 +146,7 @@ def main():
     with open("news.json", "w", encoding="utf-8") as f:
         json.dump(all_news, f, ensure_ascii=False, indent=2)
 
-    print(f"Salvate {len(all_news)} notizie in news.json")
+    print(f"Salvate {len(all_news)} notizie in news.json (novita + home).")
 
 
 if __name__ == "__main__":
