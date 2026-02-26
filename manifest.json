@@ -2,7 +2,9 @@
   "name": "GorlaNews by Max",
   "short_name": "GorlaNews",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#020617",
   "theme_color": "#020617",
   "icons": [
@@ -20,3 +22,4 @@
     }
   ]
 }
+
