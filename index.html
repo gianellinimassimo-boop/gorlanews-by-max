@@ -12,7 +12,6 @@
 
   <style>
     :root {
-      /* Tema dark colorato ma più chiaro */
       --bg: #050816;
       --bg-elevated: #0b1220;
       --bg-card: #111827;
@@ -29,7 +28,6 @@
     }
 
     body[data-theme="light"] {
-      /* Tema chiaro colorato stile Apple */
       --bg: #edf2ff;
       --bg-elevated: #f9fafb;
       --bg-card: #ffffff;
@@ -45,11 +43,7 @@
       --danger: #b91c1c;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
@@ -74,7 +68,7 @@
         0 0 0 1px rgba(15, 23, 42, 0.9);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       position: relative;
       overflow: hidden;
     }
@@ -84,7 +78,7 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       height: 100%;
       min-height: 0;
     }
@@ -98,8 +92,7 @@
       padding: 6px 6px 10px;
       background: linear-gradient(135deg, #0ea5e9, #6366f1, #ec4899);
       border-radius: 20px;
-      box-shadow:
-        0 16px 40px rgba(15, 23, 42, 0.55);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.55);
     }
 
     .header-ios {
@@ -123,25 +116,11 @@
       flex-shrink: 0;
     }
 
-    .app-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .app-logo img { width: 100%; height: 100%; object-fit: cover; }
 
-    .header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      color: #f9fafb;
-    }
+    .header-text { display: flex; flex-direction: column; gap: 4px; color: #f9fafb; }
 
-    .app-title {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      line-height: 1.1;
-    }
+    .app-title { display: flex; flex-direction: column; gap: 2px; line-height: 1.1; }
 
     .app-title-main {
       font-size: 26px;
@@ -157,11 +136,7 @@
       letter-spacing: 0.02em;
     }
 
-    .app-subtitle {
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0.95;
-    }
+    .app-subtitle { font-size: 15px; font-weight: 500; opacity: 0.95; }
 
     .theme-toggle {
       border-radius: 999px;
@@ -178,25 +153,55 @@
       backdrop-filter: blur(16px);
     }
 
-    .theme-toggle span.icon {
-      font-size: 17px;
+    .theme-toggle span.icon { font-size: 17px; }
+    .theme-toggle span.label { font-size: 11px; }
+
+    /* TOGGLE FILTRI */
+
+    .filters-toggle-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+      padding: 0 4px;
     }
 
-    .theme-toggle span.label {
-      font-size: 11px;
+    .filters-toggle-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 12px;
+      padding: 4px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
     }
 
-    /* CONTROLLI */
+    .filters-toggle-btn span.icon {
+      font-size: 13px;
+    }
+
+    /* CONTROLLI (pannello a scomparsa) */
+
+    .controls-wrapper {
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
 
     .controls {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 8px;
+      margin-top: 6px;
       padding: 10px 10px;
       border-radius: 18px;
       background: var(--bg-header);
       border: 1px solid var(--border-subtle);
+    }
+
+    .controls.collapsed {
+      display: none;
     }
 
     .search-group {
@@ -300,10 +305,7 @@
       padding: 0 2px;
     }
 
-    .status-row strong {
-      font-weight: 600;
-      color: var(--text);
-    }
+    .status-row strong { font-weight: 600; color: var(--text); }
 
     .status-pill {
       padding: 3px 9px;
@@ -451,9 +453,7 @@
       font-size: 12px;
     }
 
-    .card-footer a span {
-      font-size: 12px;
-    }
+    .card-footer a span { font-size: 12px; }
 
     .empty-state, .error-state {
       border-radius: 18px;
@@ -521,43 +521,15 @@
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      .app {
-        border-radius: 22px;
-        padding: 10px 10px 14px;
-      }
-
-      .controls {
-        flex-direction: column;
-      }
-
-      .filters {
-        justify-content: stretch;
-      }
-
-      .cards {
-        padding-right: 2px;
-      }
-
-      .card {
-        flex-direction: row;
-      }
-
-      .card-image-wrapper {
-        flex: 0 0 80px;
-        height: 80px;
-      }
-
-      .app-title-main {
-        font-size: 24px;
-      }
-
-      .app-title-by {
-        font-size: 15px;
-      }
+      body { padding: 10px; }
+      .app { border-radius: 22px; padding: 10px 10px 14px; }
+      .controls { flex-direction: column; }
+      .filters { justify-content: stretch; }
+      .cards { padding-right: 2px; }
+      .card { flex-direction: row; }
+      .card-image-wrapper { flex: 0 0 80px; height: 80px; }
+      .app-title-main { font-size: 24px; }
+      .app-title-by { font-size: 15px; }
     }
   </style>
 </head>
@@ -585,30 +557,41 @@
         </button>
       </div>
 
-      <section class="controls">
-        <div class="search-group">
-          <span class="search-icon">🔎</span>
-          <input type="text" id="search" placeholder="Cerca nel titolo..." autocomplete="off" />
-          <button id="clear-search" class="clear-search">×</button>
-        </div>
-        <div class="filters">
-          <div class="select-wrapper">
-            <select id="source-filter">
-              <option value="all">Tutte le origini</option>
-              <option value="home">Solo Home</option>
-              <option value="novita">Solo Novità</option>
-            </select>
-            <span>▼</span>
+      <!-- Bottone per aprire/chiudere i filtri -->
+      <div class="filters-toggle-row">
+        <button id="filters-toggle-btn" class="filters-toggle-btn" type="button">
+          <span class="icon">⚙️</span>
+          <span id="filters-toggle-label">Mostra filtri</span>
+        </button>
+      </div>
+
+      <!-- Pannello filtri a scomparsa -->
+      <div id="controls-wrapper" class="controls-wrapper">
+        <section id="controls" class="controls collapsed">
+          <div class="search-group">
+            <span class="search-icon">🔎</span>
+            <input type="text" id="search" placeholder="Cerca nel titolo..." autocomplete="off" />
+            <button id="clear-search" class="clear-search">×</button>
           </div>
-          <div class="select-wrapper">
-            <select id="sort-order">
-              <option value="desc">Più recenti</option>
-              <option value="asc">Meno recenti</option>
-            </select>
-            <span>▼</span>
+          <div class="filters">
+            <div class="select-wrapper">
+              <select id="source-filter">
+                <option value="all">Tutte le origini</option>
+                <option value="home">Solo Home</option>
+                <option value="novita">Solo Novità</option>
+              </select>
+              <span>▼</span>
+            </div>
+            <div class="select-wrapper">
+              <select id="sort-order">
+                <option value="desc">Più recenti</option>
+                <option value="asc">Meno recenti</option>
+              </select>
+              <span>▼</span>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <main>
         <div class="status-row">
@@ -653,6 +636,10 @@
     const themeToggle = document.getElementById("theme-toggle");
     const themeIcon = document.getElementById("theme-icon");
     const themeLabel = document.getElementById("theme-label");
+    const filtersToggleBtn = document.getElementById("filters-toggle-btn");
+    const filtersToggleLabel = document.getElementById("filters-toggle-label");
+    const controlsSection = document.getElementById("controls");
+    const controlsWrapper = document.getElementById("controls-wrapper");
 
     function setTheme(theme) {
       document.body.setAttribute("data-theme", theme);
@@ -682,6 +669,19 @@
       setTheme(current === "dark" ? "light" : "dark");
     });
 
+    // Toggle pannello filtri
+    let filtersOpen = false;
+    filtersToggleBtn.addEventListener("click", () => {
+      filtersOpen = !filtersOpen;
+      if (filtersOpen) {
+        controlsSection.classList.remove("collapsed");
+        filtersToggleLabel.textContent = "Nascondi filtri";
+      } else {
+        controlsSection.classList.add("collapsed");
+        filtersToggleLabel.textContent = "Mostra filtri";
+      }
+    });
+
     function formatDate(dateStr) {
       if (!dateStr) return "-";
       const d = new Date(dateStr);
@@ -695,7 +695,7 @@
       });
     }
 
-    // Mappa immagini di default per categoria
+    // Immagini di default per categoria
     const CATEGORY_IMAGES = {
       "Avviso": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg",
       "Evento": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg",
@@ -705,16 +705,9 @@
     };
 
     function getImageForNews(item) {
-      // 1) se il JSON ha immagine, uso quella
       if (item.immagine) return item.immagine;
-
-      // 2) altrimenti provo in base alla categoria
       const categoria = item.categoria || "Generale";
-      if (CATEGORY_IMAGES[categoria]) {
-        return CATEGORY_IMAGES[categoria];
-      }
-
-      // 3) fallback finale: icona dell'app
+      if (CATEGORY_IMAGES[categoria]) return CATEGORY_IMAGES[categoria];
       return "icon-192.png";
     }
 
