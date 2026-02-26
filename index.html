@@ -467,7 +467,7 @@
     }
 
     body[data-theme="dark"] .news-card {
-      background: #334155;              /* più chiaro per più contrasto */
+      background: #334155;
       border-color: rgba(148, 163, 184, 0.8);
       box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
     }
@@ -491,6 +491,15 @@
 
     body[data-theme="dark"] .refresh-info {
       color: #9ca3af;
+    }
+
+    /* Link leggibile in dark mode */
+    body[data-theme="dark"] .news-link a {
+      color: #93c5fd;
+    }
+
+    body[data-theme="dark"] .news-link a:hover {
+      color: #bfdbfe;
     }
   </style>
 </head>
