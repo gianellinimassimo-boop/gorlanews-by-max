@@ -6,13 +6,13 @@
   <title>Gorlanews by Max</title>
 
   <!-- Colore barra indirizzo su mobile -->
-  <meta name="theme-color" content="#0f172a" />
+  <meta name="theme-color" content="#f5f5f7" />
 
   <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json" />
 
-  <!-- Icona (provvisoria) -->
-  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+  <!-- Icona app (usa la tua icon-192.png nella root) -->
+  <link rel="icon" type="image/png" href="icon-192.png" />
 
   <!-- Font e icone (Google Fonts + Font Awesome Free) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,13 +22,14 @@
 
   <style>
     :root {
-      --bg: #020617;
-      --bg-elevated: #0f172a;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.15);
-      --text: #e5e7eb;
-      --text-soft: #9ca3af;
-      --danger: #f97373;
+      --bg: #f5f5f7;
+      --bg-elevated: #ffffff;
+      --accent: #007aff;
+      --accent-soft: rgba(0, 122, 255, 0.12);
+      --text: #111827;
+      --text-soft: #6b7280;
+      --border-subtle: rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 18px 40px rgba(15,23,42,0.12);
     }
 
     * {
@@ -39,7 +40,7 @@
 
     body {
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      background: radial-gradient(circle at top, #e5e7eb 0, #f5f5f7 55%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -50,7 +51,7 @@
       width: 100%;
       max-width: 480px;
       min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(15,23,42,0.96), #020617);
+      background: linear-gradient(to bottom, #f9fafb, #f5f5f7);
       padding-bottom: 16px;
     }
 
@@ -59,22 +60,23 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 1px solid rgba(148,163,184,0.25);
-      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 55%);
+      border-bottom: 1px solid rgba(148,163,184,0.22);
+      background: radial-gradient(circle at top left, rgba(0,122,255,0.15), transparent 55%);
+      backdrop-filter: blur(12px);
     }
 
     .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, #4ade80, #16a34a);
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top left, #ffffff, #dbeafe);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #022c22;
+      color: #1d4ed8;
       font-weight: 800;
-      font-size: 20px;
-      box-shadow: 0 8px 20px rgba(34,197,94,0.55);
+      font-size: 22px;
+      box-shadow: 0 12px 30px rgba(37,99,235,0.28);
     }
 
     .title-block {
@@ -82,16 +84,17 @@
     }
 
     .title-block h1 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: 6px;
+      color: #020617;
     }
 
     .title-block span.badge {
-      font-size: 11px;
-      padding: 2px 8px;
+      font-size: 12px;
+      padding: 3px 9px;
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent);
@@ -99,39 +102,39 @@
     }
 
     .subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-soft);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .refresh-btn {
       border: none;
-      background: rgba(15,23,42,0.85);
-      color: var(--text-soft);
+      background: #eff6ff;
+      color: #1d4ed8;
       border-radius: 999px;
-      padding: 8px 10px;
+      padding: 9px 11px;
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(15,23,42,0.5);
+      box-shadow: 0 4px 14px rgba(148,163,184,0.4);
     }
 
     .refresh-btn i {
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .main {
-      padding: 12px 16px 16px 16px;
+      padding: 14px 16px 16px 16px;
     }
 
     .status-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 11px;
+      margin-bottom: 12px;
+      font-size: 12px;
       color: var(--text-soft);
     }
 
@@ -142,30 +145,31 @@
     }
 
     .status-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.18);
     }
 
     .filters {
       display: flex;
       gap: 8px;
-      margin-bottom: 12px;
-      font-size: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
     }
 
     .chip {
       border-radius: 999px;
-      padding: 6px 10px;
-      border: 1px solid rgba(148,163,184,0.5);
+      padding: 7px 11px;
+      border: 1px solid var(--border-subtle);
       color: var(--text-soft);
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      background: rgba(15,23,42,0.9);
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 4px 12px rgba(148,163,184,0.25);
     }
 
     .chip.active {
@@ -175,44 +179,44 @@
     }
 
     .chip i {
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .news-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
       padding-bottom: 32px;
     }
 
     .card {
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.9));
-      border: 1px solid rgba(51,65,85,0.8);
-      padding: 10px;
+      border-radius: 18px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 11px;
       display: flex;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.8);
+      gap: 11px;
+      box-shadow: var(--shadow-soft);
       cursor: pointer;
       transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s;
     }
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 36px rgba(15,23,42,0.95);
-      border-color: rgba(148,163,184,0.8);
+      box-shadow: 0 22px 46px rgba(15,23,42,0.16);
+      border-color: rgba(148,163,184,0.7);
     }
 
     .card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: radial-gradient(circle at top left, rgba(74,222,128,0.25), rgba(15,23,42,1));
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, #eff6ff, #dbeafe);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #4ade80;
-      font-size: 18px;
+      color: #1d4ed8;
+      font-size: 19px;
       flex-shrink: 0;
     }
 
@@ -222,17 +226,17 @@
     }
 
     .card-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
-      margin-bottom: 4px;
-      color: #f9fafb;
+      margin-bottom: 5px;
+      color: #020617;
     }
 
     .card-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-soft);
       margin-top: 3px;
     }
@@ -244,21 +248,21 @@
     }
 
     .tag {
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 10px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
 
     .tag-home {
-      background: rgba(59,130,246,0.14);
-      color: #60a5fa;
+      background: rgba(59,130,246,0.1);
+      color: #1d4ed8;
     }
 
     .tag-novita {
-      background: rgba(244,114,182,0.14);
-      color: #f472b6;
+      background: rgba(236,72,153,0.12);
+      color: #db2777;
     }
 
     .empty-state {
@@ -275,9 +279,9 @@
     }
 
     footer {
-      padding: 4px 16px 0 16px;
-      font-size: 10px;
-      color: #64748b;
+      padding: 6px 16px 0 16px;
+      font-size: 11px;
+      color: #9ca3af;
       text-align: center;
     }
   </style>
@@ -338,12 +342,15 @@
     </div>
 
     <footer>
-      Dati da <a href="https://comune.gorlaminore.va.it" target="_blank" style="color:#60a5fa; text-decoration:none;">comune.gorlaminore.va.it</a>
+      Dati da <a href="https://comune.gorlaminore.va.it" target="_blank" style="color:#2563eb; text-decoration:none;">comune.gorlaminore.va.it</a>
     </footer>
   </div>
 
   <script>
-    // --- Mock dati iniziale (poi lo sostituiremo con il backend) ---
+    // URL del backend (quando sarà pronto lo metteremo qui)
+    const NEWS_ENDPOINT = "https://example.com/gorlanews.json";
+
+    // Dati demo usati finché il backend non esiste
     const mockNews = [
       {
         id: "demo-1",
@@ -362,9 +369,11 @@
     ];
 
     let allNews = [];
+    let currentFilter = "tutte";
 
     function formatDate(dateString) {
       const d = new Date(dateString);
+      if (isNaN(d.getTime())) return dateString || "";
       return d.toLocaleString("it-IT", {
         day: "2-digit",
         month: "2-digit",
@@ -397,7 +406,8 @@
       // Ordina dalla più recente alla più vecchia
       newsToShow.sort((a, b) => new Date(b.dataPubblicazione) - new Date(a.dataPubblicazione));
 
-      document.getElementById("countText").textContent = newsToShow.length + (newsToShow.length === 1 ? " notizia" : " notizie");
+      document.getElementById("countText").textContent =
+        newsToShow.length + (newsToShow.length === 1 ? " notizia" : " notizie");
 
       for (const n of newsToShow) {
         const card = document.createElement("div");
@@ -453,39 +463,68 @@
     }
 
     function setStatus(text) {
-      document.getElementById("statusText").textContent = text;
+      const el = document.getElementById("statusText");
+      if (el) el.textContent = text;
     }
 
     async function loadNews() {
-      // Per ora usiamo i mock. Dopo collegheremo il backend.
-      allNews = [...mockNews];
-      setStatus("Ultimo aggiornamento: " + new Date().toLocaleString("it-IT"));
-      renderNews(currentFilter);
+      setStatus("Caricamento in corso…");
+
+      try {
+        const res = await fetch(NEWS_ENDPOINT, {
+          headers: { "Accept": "application/json" }
+        });
+
+        if (!res.ok) {
+          throw new Error("Risposta non OK: " + res.status);
+        }
+
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error("Formato dati non valido");
+        }
+
+        allNews = data
+          .filter(n => n && n.titolo && n.url && n.dataPubblicazione)
+          .map((n, idx) => ({
+            id: n.id || String(idx),
+            titolo: n.titolo,
+            url: n.url,
+            dataPubblicazione: n.dataPubblicazione,
+            origine: n.origine === "home" || n.origine === "novita" ? n.origine : "novita"
+          }));
+
+        setStatus("Ultimo aggiornamento: " + new Date().toLocaleString("it-IT"));
+        renderNews(currentFilter);
+      } catch (err) {
+        console.error("Errore caricamento notizie dal backend:", err);
+        // Fallback ai dati demo finché il backend non è pronto
+        allNews = [...mockNews];
+        setStatus("Modalità demo: backend non disponibile.");
+        renderNews(currentFilter);
+      }
     }
 
-    // Gestione filtri
-    let currentFilter = "tutte";
-    document.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        currentFilter = chip.dataset.filter;
-        renderNews(currentFilter);
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          currentFilter = chip.dataset.filter;
+          renderNews(currentFilter);
+        });
       });
-    });
 
-    // Bottone Aggiorna
-    document.getElementById("refreshBtn").addEventListener("click", () => {
+      const refreshBtn = document.getElementById("refreshBtn");
+      if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => {
+          loadNews();
+        });
+      }
+
       loadNews();
     });
 
-    // Inizializzazione
-    window.addEventListener("load", () => {
-      loadNews();
-      setStatus("Ultimo aggiornamento: caricamento iniziale…");
-    });
-
-    // --- Registrazione Service Worker (PWA base) ---
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("sw.js")
