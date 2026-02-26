@@ -131,7 +131,6 @@ def main():
     #    - tutte comunque "novita"
     for idx, item in enumerate(all_news):
         if idx < HOME_COUNT:
-            # notizia in evidenza anche in home
             item["origine"] = "home"
         else:
             item["origine"] = "novita"
