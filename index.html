@@ -35,8 +35,8 @@
       --bg-card: #ffffff;
       --bg-header: #f9fafb;
       --accent: #0ea5e9;
-      --accent-soft: rgba(14, 165, 233, 0.08);
-      --accent-strong: rgba(14, 165, 233, 0.16);
+      --accent-soft: rgba(14, 165, 233, 0.10);
+      --accent-strong: rgba(14, 165, 233, 0.18);
       --text: #111827;
       --muted: #6b7280;
       --border-subtle: rgba(148, 163, 184, 0.35);
@@ -52,7 +52,7 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
       background: radial-gradient(circle at top, var(--accent-soft) 0, var(--bg) 55%);
       color: var(--text);
       min-height: 100vh;
@@ -95,27 +95,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 2px 4px 6px;
+      padding: 6px 6px 10px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1, #ec4899);
+      border-radius: 20px;
+      box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.55);
     }
 
     .header-ios {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .app-logo {
-      width: 56px;
-      height: 56px;
-      border-radius: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 22px;
       overflow: hidden;
-      background: radial-gradient(circle at 30% 20%, #f97316, #e11d48);
+      background: #111827;
       box-shadow:
         0 12px 26px rgba(15, 23, 42, 0.75),
         0 0 0 1px rgba(15, 23, 42, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .app-logo img {
@@ -128,44 +133,49 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      color: #f9fafb;
     }
 
     .app-title {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
+      line-height: 1.1;
     }
 
     .app-title .by-max {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 600;
-      opacity: 0.9;
-      margin-left: 6px;
+      opacity: 0.95;
+      margin-left: 8px;
       text-transform: none;
+      letter-spacing: 0.02em;
     }
 
     .app-subtitle {
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.95;
     }
 
     .theme-toggle {
       border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-header);
-      padding: 6px 10px;
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      background: rgba(15, 23, 42, 0.28);
+      padding: 7px 11px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      color: var(--muted);
+      color: #f9fafb;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.35);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(16px);
     }
 
     .theme-toggle span.icon {
-      font-size: 15px;
+      font-size: 17px;
     }
 
     .theme-toggle span.label {
@@ -178,7 +188,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 4px;
+      margin-top: 8px;
       padding: 10px 10px;
       border-radius: 18px;
       background: var(--bg-header);
@@ -491,7 +501,7 @@
       }
 
       .app-title {
-        font-size: 20px;
+        font-size: 24px;
       }
 
       .controls {
@@ -651,8 +661,6 @@
     }
 
     function getImageForNews(item) {
-      // TODO: qui puoi collegare in futuro una API di image-generation
-      // Se item.immagine esiste nel JSON, usala; altrimenti placeholder colorato.
       if (item.immagine) return item.immagine;
       return "icon-192.png";
     }
