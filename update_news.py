@@ -46,60 +46,54 @@ def scrape_novita():
 
     items = []
 
-    # Selettore GENERICO da affinare:
-    # cerchiamo blocchi notizia (article, li, card ecc.) che contengano link + titolo
-    candidates = soup.select("article, li, div.card, div.novita-item")
+    # OGNI notizia è un <a title="Leggi di più"> con dentro un <h3> titolo
+    candidates = soup.select("a[title='Leggi di più']")
 
     for el in candidates:
         titolo = ""
         href = ""
 
-        # Titolo + link (generico)
-        title_el = el.select_one("a h2, a h3, h2 a, h3 a, a")
+        # el è direttamente l'<a title="Leggi di più">
+        href = el.get("href") or ""
+        title_el = el.select_one("h3, h2")
         if title_el:
-            # Se h2/h3 dentro <a>, recupera il testo del titolo
             titolo = title_el.get_text(strip=True)
-            # Recupera il link dall'ancora più vicina
-            a_el = title_el if title_el.name == "a" else title_el.find_parent("a")
-            if a_el and a_el.get("href"):
-                href = a_el.get("href")
-        else:
-            # fallback: qualunque <a> dentro
-            a_el = el.select_one("a")
-            if a_el:
-                titolo = a_el.get_text(strip=True)
-                href = a_el.get("href") or ""
 
         if not titolo or not href:
             continue
 
         url_assoluto = urljoin(BASE_URL, href)
 
-        # Data
-        data_el = el.select_one("time, .data, .date")
+        # Data: proviamo a risalire al contenitore più vicino che ha una data
+        container = el.find_parent(["div", "li", "article"])
+        data_el = None
+        if container:
+            data_el = container.select_one("time, .data, .date")
+
         data_iso = None
         if data_el:
             data_iso = parse_date(data_el.get_text(strip=True))
 
-        # Categoria (es. avviso, notizia, comunicato)
-        cat_el = el.select_one(".categoria, .tag, .badge, .argomenti .chip-label")
-        if cat_el:
-            categoria = cat_el.get_text(strip=True)
-        else:
-            categoria = "Informativa"
+        # Categoria: proviamo a cercare argomento o badge
+        categoria = "Informativa"
+        if container:
+            cat_el = container.select_one(".categoria, .tag, .badge, .argomenti .chip-label")
+            if cat_el:
+                categoria = cat_el.get_text(strip=True)
 
         # Immagine (se presente)
-        img_el = el.select_one("img")
-        immagine = None
-        if img_el and img_el.get("src"):
-            immagine = urljoin(BASE_URL, img_el["src"])
+        immagine = ""
+        if container:
+            img_el = container.select_one("img")
+            if img_el and img_el.get("src"):
+                immagine = urljoin(BASE_URL, img_el["src"])
 
         items.append({
             "titolo": titolo,
             "url": url_assoluto,
             "dataPubblicazione": data_iso or datetime.utcnow().isoformat(),
             "categoria": categoria,
-            "immagine": immagine or ""
+            "immagine": immagine
         })
 
     print(f"Trovate {len(items)} novità da /novita.")
