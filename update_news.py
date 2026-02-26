@@ -13,10 +13,12 @@ MAX_NEWS = 100
 
 def parse_date(text):
     """
-    Prova a convertire una data tipo '20/02/2026' o '20 febbraio 2026' in ISO.
+    Prova a convertire una data tipo '20/02/2026' o '24 feb 2026' in ISO.
     Se fallisce, restituisce None.
     """
-    text = (text or "").strip().lower()
+    if not text:
+        return None
+    text = text.strip().lower()
 
     # Prova formato europeo semplice
     for fmt in ("%d/%m/%Y", "%d-%m-%Y", "%d.%m.%Y"):
@@ -26,7 +28,7 @@ def parse_date(text):
         except ValueError:
             pass
 
-    # Se proprio non si riesce, None
+    # TODO: si può aggiungere parsing per '24 feb 2026' con mapping dei mesi
     return None
 
 
@@ -34,9 +36,6 @@ def scrape_page(url, origine_default):
     """
     Scarica una pagina (home o novità) e restituisce una lista di dict:
     {titolo, url, dataPubblicazione, origine, categoria, immagine}
-
-    NB: i selettori CSS sotto sono generici e andranno affinati
-    in base alla struttura reale del sito.
     """
     print(f"Scarico {url} per origine {origine_default}...")
     resp = requests.get(url, timeout=20)
@@ -46,39 +45,70 @@ def scrape_page(url, origine_default):
 
     items = []
 
-    # Selettori GENERICI: da adattare alla struttura reale del sito
-    # Prova a trovare blocchi notizia comuni (article, li, card, ecc.)
-    candidates = soup.select("article, li, div.card, div.novita-item")
+    # Selezione blocchi notizia
+    if origine_default == "home":
+        # Notizie in evidenza dal carosello della home
+        candidates = soup.select("#carouselHome .carousel-item")
+    else:
+        # Generico per /novita (da rifinire quando avremo l'HTML preciso)
+        candidates = soup.select("article, li, div.card, div.novita-item")
 
     for el in candidates:
-        # Titolo
-        title_el = el.select_one("a, h2, h3")
-        if not title_el:
-            continue
-        titolo = title_el.get_text(strip=True)
+        titolo = ""
+        href = ""
+
+        # --- Titolo e link ---
+        if origine_default == "home":
+            # Nel carosello: link + titolo dentro a.card-title
+            title_link_el = el.select_one("a.text-decoration-none")
+            if not title_link_el:
+                continue
+
+            title_el = title_link_el.select_one("h2.card-title")
+            if title_el:
+                titolo = title_el.get_text(strip=True)
+            else:
+                titolo = title_link_el.get_text(strip=True)
+
+            href = title_link_el.get("href") or ""
+        else:
+            title_el = el.select_one("a, h2, h3")
+            if not title_el:
+                continue
+            titolo = title_el.get_text(strip=True)
+            href = title_el.get("href") or ""
+
         if not titolo:
             continue
 
-        # Link
-        href = title_el.get("href") or ""
         url_assoluto = urljoin(BASE_URL, href)
 
-        # Data (se presente)
-        data_el = el.select_one("time, .data, .date")
+        # --- Data ---
+        if origine_default == "home":
+            data_el = el.select_one(".data")
+        else:
+            data_el = el.select_one("time, .data, .date")
+
         data_iso = None
         if data_el:
             data_iso = parse_date(data_el.get_text(strip=True))
 
-        # Categoria (se c'è un'etichetta)
-        cat_el = el.select_one(".categoria, .tag, .badge")
-        categoria = None
-        if cat_el:
-            categoria = cat_el.get_text(strip=True)
+        # --- Categoria ---
+        if origine_default == "home":
+            # Nel carosello: argomento dentro .argomenti .chip-label
+            cat_el = el.select_one(".argomenti .chip-label")
+            if cat_el:
+                categoria = cat_el.get_text(strip=True)
+            else:
+                categoria = "Avviso"
         else:
-            # fallback semplice: in base all'origine
-            categoria = "Avviso" if origine_default == "home" else "Informativa"
+            cat_el = el.select_one(".categoria, .tag, .badge")
+            if cat_el:
+                categoria = cat_el.get_text(strip=True)
+            else:
+                categoria = "Informativa"
 
-        # Immagine (se presente)
+        # --- Immagine ---
         img_el = el.select_one("img")
         immagine = None
         if img_el and img_el.get("src"):
