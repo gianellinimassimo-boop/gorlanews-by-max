@@ -87,7 +87,7 @@
     }
 
     .app-header {
-      padding: 18px 18px 16px;
+      padding: 20px 18px 18px;
       background: linear-gradient(135deg, #0f172a, #1e40af, #0ea5e9);
       color: #f9fafb;
       position: relative;
@@ -106,15 +106,16 @@
     .header-main {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       position: relative;
       z-index: 1;
     }
 
+    /* LOGO PIÙ GRANDE */
     .app-logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 18px;
+      width: 80px;
+      height: 80px;
+      border-radius: 22px;
       overflow: hidden;
       background: rgba(15, 23, 42, 0.25);
       border: 1px solid rgba(248, 250, 252, 0.45);
@@ -129,7 +130,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 16px;
+      border-radius: 18px;
     }
 
     .header-texts {
@@ -449,7 +450,7 @@
       padding: 18px 0;
     }
 
-    /* DARK MODE più chiara e leggibile */
+    /* DARK MODE con contrasto tra sfondo e card */
     body[data-theme="dark"] {
       background: #020617;
       color: var(--text-main-dark);
@@ -457,8 +458,8 @@
 
     body[data-theme="dark"] .app-shell {
       background: #020617;
-      border-color: rgba(75, 85, 99, 0.8);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+      border-color: rgba(31, 41, 55, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
     }
 
     body[data-theme="dark"] .app-content {
@@ -466,19 +467,19 @@
       color: var(--text-main-dark);
     }
 
+    body[data-theme="dark"] .news-card {
+      background: #020617; /* se vuoi più chiara: prova #0f172a */
+      border-color: rgba(148, 163, 184, 0.6);
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.9);
+    }
+
     body[data-theme="dark"] .tabs {
-      background: rgba(15, 23, 42, 0.9);
-      border-color: rgba(75, 85, 99, 0.8);
+      background: #020617;
+      border-color: rgba(75, 85, 99, 0.9);
     }
 
     body[data-theme="dark"] .tab-btn {
       color: #e5e7eb;
-    }
-
-    body[data-theme="dark"] .news-card {
-      background: #020617;
-      border-color: rgba(100, 116, 139, 0.9);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.9);
     }
 
     body[data-theme="dark"] .news-title {
@@ -565,13 +566,11 @@
       return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
 
-    // Placeholder chiaro se non c'è immagine nel JSON
     function getImageForNews(item) {
       if (item.immagine && typeof item.immagine === "string" && item.immagine.trim() !== "") {
         return item.immagine;
       }
-      // placeholder chiaro con testo GorlaNews
-      return "https://placehold.co/400x300/eff6ff/0f172a?text=GorlaNews"; // [web:178]
+      return "img/placeholder-gorla.jpg";
     }
 
     function getCategoryClass(categoria) {
