@@ -2,8 +2,11 @@ name: Aggiorna news.json
 
 on:
   schedule:
-    - cron: "0 4 * * *"
-  workflow_dispatch:
+    - cron: "0 4 * * *"   # ogni giorno alle 04:00 UTC
+  workflow_dispatch:       # esecuzione manuale da tab Actions
+
+permissions:
+  contents: write
 
 jobs:
   update-news:
@@ -36,6 +39,7 @@ jobs:
 
           git add news.json
 
+          # Se non ci sono modifiche, non fare commit
           if git diff --cached --quiet; then
             echo "Nessuna modifica in news.json, nessun commit necessario."
             exit 0
