@@ -7,18 +7,35 @@
 
   <!-- Manifest e PWA -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#004080">
+  <meta name="theme-color" content="#020617">
   <link rel="icon" href="icon-192.png" type="image/png">
 
   <style>
     :root {
-      --bg: #0b1120;
-      --card: #020617;
-      --accent: #eab308;
-      --accent-soft: rgba(234, 179, 8, 0.1);
+      /* Tema di default (dark) */
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --bg-card: #020617;
+      --bg-header: #020617;
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.10);
       --text: #e5e7eb;
       --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
       --danger: #ef4444;
+    }
+
+    body[data-theme="light"] {
+      --bg: #f3f4f6;
+      --bg-elevated: #f9fafb;
+      --bg-card: #ffffff;
+      --bg-header: #f9fafb;
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.08);
+      --text: #111827;
+      --muted: #6b7280;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --danger: #b91c1c;
     }
 
     * {
@@ -29,40 +46,30 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 16px;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .app {
       width: 100%;
       max-width: 720px;
       min-height: 90vh;
-      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
-      border-radius: 24px;
-      padding: 16px 16px 20px;
+      background: var(--bg-elevated);
+      border-radius: 28px;
+      padding: 14px 14px 18px;
       box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.12),
-        0 24px 60px rgba(15, 23, 42, 0.9);
+        0 22px 60px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(15, 23, 42, 0.85);
       display: flex;
       flex-direction: column;
       gap: 12px;
       position: relative;
       overflow: hidden;
-    }
-
-    .app::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(234, 179, 8, 0.12), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
     }
 
     .app-inner {
@@ -75,145 +82,100 @@
       min-height: 0;
     }
 
-    header {
+    /* HEADER STILE APPLE */
+
+    .header-bar {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px 4px 4px;
+      justify-content: space-between;
+      padding: 2px 4px 6px;
     }
 
-    .logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 30% 20%, #facc15, #ca8a04 45%, #854d0e);
+    .header-ios {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .app-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #111827;
+      box-shadow:
+        0 12px 26px rgba(15, 23, 42, 0.75),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #0b1120;
-      font-weight: 800;
-      font-size: 20px;
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 8px 24px rgba(234, 179, 8, 0.6);
     }
 
-    .title-group {
+    .app-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-text {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      flex: 1;
-    }
-
-    h1 {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge {
-      font-size: 11px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--muted);
-      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
-      display: inline-flex;
-      align-items: center;
       gap: 4px;
     }
 
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+    .app-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .subtitle {
+    .app-title .by-max {
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0.9;
+      margin-left: 6px;
+      text-transform: none;
+    }
+
+    .app-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .theme-toggle {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-header);
+      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
       color: var(--muted);
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.35);
     }
 
-    .header-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
+    .theme-toggle span.icon {
+      font-size: 15px;
     }
 
-    .pill {
-      padding: 4px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+    .theme-toggle span.label {
       font-size: 11px;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      backdrop-filter: blur(16px);
-      background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.18), rgba(15, 23, 42, 0.9));
     }
 
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.35);
-    }
-
-    .pill small {
-      font-size: 10px;
-      color: var(--muted);
-    }
-
-    .chip-row {
-      display: flex;
-      gap: 6px;
-      margin-top: 2px;
-    }
-
-    .chip {
-      font-size: 10px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--muted);
-      background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.18), rgba(15, 23, 42, 0.9));
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .chip-icon {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.92);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: var(--accent);
-    }
+    /* CONTROLLI */
 
     .controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
       margin-top: 4px;
-      padding: 8px 8px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.26), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(55, 65, 81, 0.75);
-      box-shadow:
-        inset 0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 12px 30px rgba(15, 23, 42, 0.9);
+      padding: 10px 10px;
+      border-radius: 18px;
+      background: var(--bg-header);
+      border: 1px solid var(--border-subtle);
     }
 
     .search-group {
@@ -224,36 +186,36 @@
 
     .search-group input {
       width: 100%;
-      padding: 8px 28px 8px 26px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      padding: 10px 30px 10px 28px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
       color: var(--text);
-      font-size: 13px;
+      font-size: 14px;
       outline: none;
     }
 
     .search-icon {
       position: absolute;
-      left: 8px;
+      left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
     }
 
     .clear-search {
       position: absolute;
-      right: 6px;
+      right: 8px;
       top: 50%;
       transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 999px;
       border: none;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.15);
       color: var(--muted);
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
       display: none;
     }
@@ -261,24 +223,9 @@
     .filters {
       flex: 1;
       display: flex;
-      gap: 6px;
+      gap: 8px;
       justify-content: flex-end;
-      min-width: 170px;
-    }
-
-    select {
-      flex: 1;
-      min-width: 0;
-      padding: 7px 28px 7px 9px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
-      color: var(--text);
-      font-size: 11px;
-      outline: none;
-      appearance: none;
-      cursor: pointer;
-      position: relative;
+      min-width: 180px;
     }
 
     .select-wrapper {
@@ -287,15 +234,31 @@
       min-width: 0;
     }
 
+    select {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 32px 9px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
     .select-wrapper span {
       position: absolute;
-      right: 10px;
+      right: 11px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--muted);
-      font-size: 10px;
+      font-size: 11px;
       pointer-events: none;
     }
+
+    /* MAIN */
 
     main {
       flex: 1;
@@ -303,15 +266,15 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 2px;
-      padding: 8px 4px 0;
+      margin-top: 4px;
+      padding: 6px 4px 0;
     }
 
     .status-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
       padding: 0 2px;
     }
@@ -322,13 +285,14 @@
     }
 
     .status-pill {
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      font-size: 11px;
     }
 
     .status-dot {
@@ -338,90 +302,70 @@
       background: var(--accent);
     }
 
+    /* CARDS */
+
     .cards {
       flex: 1;
       min-height: 0;
       margin-top: 4px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       overflow-y: auto;
       padding-right: 4px;
     }
 
     .card {
-      border-radius: 16px;
-      padding: 10px 10px 9px;
-      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.3), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(55, 65, 81, 0.85);
+      border-radius: 18px;
+      padding: 12px 12px 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+        0 16px 40px rgba(15, 23, 42, 0.35);
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, rgba(56, 189, 248, 0.12), transparent 40%),
-        linear-gradient(-120deg, rgba(234, 179, 8, 0.12), transparent 40%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .card-header {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
+      gap: 12px;
       align-items: flex-start;
     }
 
     .card-title {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       letter-spacing: 0.01em;
-      color: #e5e7eb;
+      color: var(--text);
     }
 
     .card-meta {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
       align-items: flex-end;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
     }
 
     .pill-mini {
-      padding: 2px 6px;
+      padding: 3px 7px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 10px;
+      border: 1px solid var(--border-subtle);
+      font-size: 11px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: rgba(15, 23, 42, 0.95);
+      background: var(--bg-header);
     }
 
     .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
     }
 
@@ -432,27 +376,27 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      font-size: 12px;
     }
 
     .card-footer a span {
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .empty-state, .error-state {
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px 12px;
       text-align: left;
-      font-size: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.28), rgba(15, 23, 42, 0.98));
+      font-size: 13px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
       box-shadow:
-        0 16px 36px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+        0 14px 32px rgba(15, 23, 42, 0.35);
     }
 
     .empty-state h2,
     .error-state h2 {
-      font-size: 13px;
+      font-size: 15px;
       margin-bottom: 6px;
     }
 
@@ -464,19 +408,19 @@
 
     .empty-state small,
     .error-state small {
-      font-size: 11px;
-      color: rgba(148, 163, 184, 0.9);
+      font-size: 12px;
+      color: var(--muted);
     }
 
     footer {
       margin-top: 4px;
       padding: 6px 4px 0;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--muted);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px dashed rgba(148, 163, 184, 0.35);
+      border-top: 1px dashed var(--border-subtle);
     }
 
     footer a {
@@ -487,11 +431,11 @@
 
     .offline-indicator {
       display: none;
-      font-size: 10px;
-      padding: 2px 8px;
+      font-size: 11px;
+      padding: 3px 9px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: var(--bg-card);
+      border: 1px dashed var(--border-subtle);
       color: var(--muted);
       align-items: center;
       gap: 6px;
@@ -502,21 +446,20 @@
       height: 7px;
       border-radius: 999px;
       background: var(--danger);
-      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.4);
     }
 
     @media (max-width: 600px) {
       body {
-        padding: 8px;
+        padding: 10px;
       }
 
       .app {
-        border-radius: 18px;
+        border-radius: 22px;
         padding: 10px 10px 14px;
       }
 
-      h1 {
-        font-size: 17px;
+      .app-title {
+        font-size: 20px;
       }
 
       .controls {
@@ -533,35 +476,28 @@
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
   <div class="app">
     <div class="app-inner">
-      <header>
-        <div class="logo">G</div>
-        <div class="title-group">
-          <h1>
-            GorlaNews
-            <span class="badge">
-              <span class="badge-dot"></span>
-              Live feed
-            </span>
-          </h1>
-          <div class="subtitle">News dal sito del Comune di Gorla Minore</div>
-        </div>
-        <div class="header-actions">
-          <div class="pill">
-            <span class="pill-dot"></span>
-            <span>Auto-aggiornamento</span>
-            <small>Ogni 30 min</small>
+
+      <div class="header-bar">
+        <div class="header-ios">
+          <div class="app-logo">
+            <img src="icon-192.png" alt="GorlaNews logo">
           </div>
-          <div class="chip-row">
-            <div class="chip">
-              <span class="chip-icon">⏱</span>
-              Ultimo controllo: <span id="last-check">-</span>
+          <div class="header-text">
+            <div class="app-title">
+              GORLANEWS <span class="by-max">by Max</span>
             </div>
+            <div class="app-subtitle">News dal Comune di Gorla Minore</div>
           </div>
         </div>
-      </header>
+
+        <button id="theme-toggle" class="theme-toggle" type="button">
+          <span class="icon" id="theme-icon">🌙</span>
+          <span class="label" id="theme-label">Tema scuro</span>
+        </button>
+      </div>
 
       <section class="controls">
         <div class="search-group">
@@ -627,8 +563,38 @@
     const sortOrder = document.getElementById("sort-order");
     const resultsCountEl = document.getElementById("results-count");
     const statusText = document.getElementById("status-text");
-    const lastCheckEl = document.getElementById("last-check");
     const offlineIndicator = document.getElementById("offline-indicator");
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeLabel = document.getElementById("theme-label");
+
+    function setTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("gorlanews-theme", theme);
+      if (theme === "light") {
+        themeIcon.textContent = "☀";
+        themeLabel.textContent = "Tema chiaro";
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#f3f4f6");
+      } else {
+        themeIcon.textContent = "🌙";
+        themeLabel.textContent = "Tema scuro";
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#020617");
+      }
+    }
+
+    const savedTheme = localStorage.getItem("gorlanews-theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      setTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.body.getAttribute("data-theme") || "dark";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
 
     function formatDate(dateStr) {
       if (!dateStr) return "-";
@@ -682,26 +648,24 @@
 
           return `
             <article class="card">
-              <div class="card-inner">
-                <div class="card-header">
-                  <h2 class="card-title">${titolo}</h2>
-                  <div class="card-meta">
-                    <span>${dataPub}</span>
-                    <span class="pill-mini">
-                      <span style="width:6px;height:6px;border-radius:999px;background:${
-                        origine === "home" ? "#22c55e" : "#3b82f6"
-                      };"></span>
-                      ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
-                    </span>
-                  </div>
+              <div class="card-header">
+                <h2 class="card-title">${titolo}</h2>
+                <div class="card-meta">
+                  <span>${dataPub}</span>
+                  <span class="pill-mini">
+                    <span style="width:6px;height:6px;border-radius:999px;background:${
+                      origine === "home" ? "#22c55e" : "#3b82f6"
+                    };"></span>
+                    ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
+                  </span>
                 </div>
-                <div class="card-footer">
-                  <span>Fonte: Comune di Gorla Minore</span>
-                  <a href="${url}" target="_blank" rel="noopener noreferrer">
-                    apri
-                    <span>↗</span>
-                  </a>
-                </div>
+              </div>
+              <div class="card-footer">
+                <span>Fonte: Comune di Gorla Minore</span>
+                <a href="${url}" target="_blank" rel="noopener noreferrer">
+                  apri
+                  <span>↗</span>
+                </a>
               </div>
             </article>
           `;
@@ -750,12 +714,6 @@
 
         allNews = data;
         applyFilters();
-
-        const now = new Date();
-        lastCheckEl.textContent = now.toLocaleTimeString("it-IT", {
-          hour: "2-digit",
-          minute: "2-digit"
-        });
 
         statusText.textContent = "Online";
       } catch (error) {
