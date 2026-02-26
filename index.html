@@ -8,1001 +8,756 @@
   <!-- Manifest e PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#020617">
-  <link rel="icon" href="icon-192.png" type="image/png">
+
+  <!-- Icone -->
+  <link rel="icon" href="icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
 
   <style>
     :root {
-      --bg: #050816;
-      --bg-elevated: #0b1220;
-      --bg-card: #111827;
-      --bg-header: #020617;
-      --accent: #0ea5e9;
-      --accent-soft: rgba(14, 165, 233, 0.10);
-      --accent-strong: rgba(14, 165, 233, 0.25);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.45);
-      --chip-home: #22c55e;
-      --chip-novita: #6366f1;
-      --danger: #ef4444;
+      --bg-light: #f4f4f7;
+      --bg-dark: #0b1220;
+      --surface-light: #ffffff;
+      --surface-dark: #111827;
+      --text-main-light: #0f172a;
+      --text-main-dark: #e5e7eb;
+      --text-subtle-light: #6b7280;
+      --text-subtle-dark: #9ca3af;
+      --accent-home: #22c55e;
+      --accent-novita: #6366f1;
+
+      --badge-avviso-bg: #fee2e2;
+      --badge-avviso-text: #b91c1c;
+      --badge-evento-bg: #fef3c7;
+      --badge-evento-text: #92400e;
+      --badge-servizio-bg: #dbeafe;
+      --badge-servizio-text: #1d4ed8;
+      --badge-informativa-bg: #e0f2fe;
+      --badge-informativa-text: #0e7490;
     }
 
-    body[data-theme="light"] {
-      --bg: #edf2ff;
-      --bg-elevated: #f9fafb;
-      --bg-card: #ffffff;
-      --bg-header: #f9fafb;
-      --accent: #0ea5e9;
-      --accent-soft: rgba(14, 165, 233, 0.12);
-      --accent-strong: rgba(14, 165, 233, 0.22);
-      --text: #111827;
-      --muted: #6b7280;
-      --border-subtle: rgba(148, 163, 184, 0.35);
-      --chip-home: #16a34a;
-      --chip-novita: #4f46e5;
-      --danger: #b91c1c;
+    [data-theme="dark"] {
+      --bg-light: #020617;
+      --surface-light: #020617;
+      --surface-dark: #020617;
+      --text-main-light: #e5e7eb;
+      --text-subtle-light: #9ca3af;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-      background: radial-gradient(circle at top, var(--accent-soft) 0, var(--bg) 55%);
-      color: var(--text);
+      background: var(--bg-light);
+      color: var(--text-main-light);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 16px;
-      transition: background-color 0.25s ease, color 0.25s ease, background 0.25s ease;
     }
 
-    .app {
+    .app-shell {
       width: 100%;
-      max-width: 720px;
-      min-height: 90vh;
-      background: var(--bg-elevated);
-      border-radius: 28px;
-      padding: 14px 14px 18px;
-      box-shadow:
-        0 22px 60px rgba(15, 23, 42, 0.75),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+      max-width: 520px;
+      background: var(--surface-light);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.45);
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.3);
     }
 
-    .app-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      height: 100%;
-      min-height: 0;
+    @media (max-width: 600px) {
+      body {
+        padding: 0;
+        background: var(--bg-dark);
+      }
+      .app-shell {
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+      }
     }
 
-    /* HEADER */
-
-    .header-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 6px 6px 10px;
-      background: linear-gradient(135deg, #0ea5e9, #6366f1, #ec4899);
-      border-radius: 20px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.55);
-    }
-
-    .header-ios {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .app-logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 22px;
-      overflow: hidden;
-      background: #111827;
-      box-shadow:
-        0 12px 26px rgba(15, 23, 42, 0.75),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .app-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-    .header-text { display: flex; flex-direction: column; gap: 4px; color: #f9fafb; }
-
-    .app-title { display: flex; flex-direction: column; gap: 2px; line-height: 1.1; }
-
-    .app-title-main {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-    }
-
-    .app-title-by {
-      font-size: 17px;
-      font-weight: 600;
-      opacity: 0.95;
-      letter-spacing: 0.02em;
-    }
-
-    .app-subtitle { font-size: 15px; font-weight: 500; opacity: 0.95; }
-
-    .theme-toggle {
-      border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.7);
-      background: rgba(15, 23, 42, 0.28);
-      padding: 7px 11px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
+    .app-header {
+      padding: 18px 18px 14px;
+      background: linear-gradient(135deg, #22c55e, #6366f1, #ec4899);
       color: #f9fafb;
-      cursor: pointer;
-      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(16px);
-    }
-
-    .theme-toggle span.icon { font-size: 17px; }
-    .theme-toggle span.label { font-size: 11px; }
-
-    /* TOGGLE FILTRI */
-
-    .filters-toggle-row {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 4px;
-      padding: 0 4px;
-    }
-
-    .filters-toggle-btn {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text);
-      font-size: 12px;
-      padding: 4px 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .filters-toggle-btn span.icon { font-size: 13px; }
-
-    /* CONTROLLI (pannello a scomparsa) */
-
-    .controls-wrapper {
+      position: relative;
       overflow: hidden;
-      transition: max-height 0.25s ease;
     }
 
-    .controls {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 6px;
-      padding: 10px 10px;
-      border-radius: 18px;
-      background: var(--bg-header);
-      border: 1px solid var(--border-subtle);
-    }
-
-    .controls.collapsed {
-      display: none;
-    }
-
-    .search-group {
-      flex: 1;
-      min-width: 160px;
-      position: relative;
-    }
-
-    .search-group input {
-      width: 100%;
-      padding: 10px 30px 10px 28px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-    }
-
-    .search-icon {
+    .app-header::before {
+      content: "";
       position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .clear-search {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(15, 23, 42, 0.15);
-      color: var(--muted);
-      font-size: 13px;
-      cursor: pointer;
-      display: none;
-    }
-
-    .controls-bottom-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-
-    .category-chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      flex: 1.4;
-      min-width: 0;
-    }
-
-    .filters {
-      display: flex;
-      gap: 8px;
-      flex: 1;
-      min-width: 140px;
-      justify-content: flex-end;
-    }
-
-    .select-wrapper {
-      position: relative;
-      flex: 1;
-      min-width: 0;
-    }
-
-    select {
-      width: 100%;
-      padding: 9px 32px 9px 10px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text);
-      font-size: 12px;
-      outline: none;
-      appearance: none;
-      cursor: pointer;
-    }
-
-    .select-wrapper span {
-      position: absolute;
-      right: 11px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 11px;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.25), transparent 55%);
+      opacity: 0.9;
       pointer-events: none;
     }
 
-    /* CHIP CATEGORIA */
-
-    .category-chip {
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: transparent;
-      color: var(--muted);
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 11px;
-      padding: 3px 9px;
+      opacity: 0.9;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-bar-right {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .status-bar-signal,
+    .status-bar-wifi,
+    .status-bar-battery {
+      width: 16px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid rgba(248, 250, 252, 0.9);
+    }
+
+    .status-bar-battery {
+      position: relative;
+    }
+
+    .status-bar-battery::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: -3px;
+      width: 2px;
+      height: 6px;
+      border-radius: 1px;
+      background: rgba(248, 250, 252, 0.9);
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(248, 250, 252, 0.45);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .app-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .header-texts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(15, 23, 42, 0.6);
+    }
+
+    .app-title span {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: none;
+      opacity: 0.95;
+    }
+
+    .app-subtitle {
+      margin-top: 4px;
+      font-size: 13px;
+      opacity: 0.93;
+    }
+
+    .theme-toggle {
+      margin-left: auto;
+      background: rgba(15, 23, 42, 0.22);
+      border-radius: 999px;
+      padding: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.6);
+    }
+
+    .theme-toggle button {
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 13px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle button.active {
+      background: #f9fafb;
+      color: #111827;
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.5);
+    }
+
+    .theme-toggle span {
+      font-size: 13px;
+    }
+
+    .app-content {
+      padding: 14px 14px 16px;
+      background: var(--bg-light);
+      color: var(--text-main-light);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tabs-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.03);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .tab-btn {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      max-width: 100%;
-      white-space: nowrap;
+      background: transparent;
+      color: var(--text-subtle-light);
+      transition: all 0.18s ease;
     }
 
-    .category-chip-dot {
-      width: 7px;
-      height: 7px;
+    .tab-icon-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      background: var(--muted);
-      flex-shrink: 0;
+      background: rgba(15, 23, 42, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.15);
     }
 
-    .category-chip.active {
-      background: var(--accent-soft);
-      color: var(--text);
-      border-color: var(--accent);
+    .tab-btn.active {
+      color: #022c22;
+      background: #dcfce7;
+      box-shadow: 0 3px 8px rgba(22, 163, 74, 0.4);
     }
 
-    .category-chip.active .category-chip-dot {
-      background: var(--accent);
+    .tab-btn.tab-novita.active {
+      color: #111827;
+      background: #e0e7ff;
+      box-shadow: 0 3px 8px rgba(79, 70, 229, 0.4);
     }
 
-    /* MAIN */
-
-    main {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 4px;
-      padding: 6px 4px 0;
+    .tab-btn.tab-home.active .tab-icon-dot {
+      background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
     }
 
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--muted);
-      padding: 0 2px;
+    .tab-btn.tab-novita.active .tab-icon-dot {
+      background: radial-gradient(circle at 30% 30%, #e0e7ff, #6366f1);
     }
 
-    .status-row strong { font-weight: 600; color: var(--text); }
-
-    .status-pill {
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .refresh-info {
       font-size: 11px;
+      color: var(--text-subtle-light);
+      text-align: right;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    /* CARDS */
-
-    .cards {
-      flex: 1;
-      min-height: 0;
-      margin-top: 4px;
+    .news-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      overflow-y: auto;
-      padding-right: 4px;
+      margin-top: 2px;
     }
 
-    .card {
-      border-radius: 18px;
-      padding: 10px 10px 10px;
-      background: var(--bg-card);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow:
-        0 16px 40px rgba(15, 23, 42, 0.45);
+    .news-card {
       display: flex;
-      flex-direction: row;
       gap: 10px;
+      background: var(--surface-light);
+      border-radius: 16px;
+      padding: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.12);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s;
     }
 
-    .card-image-wrapper {
-      flex: 0 0 92px;
-      height: 92px;
-      border-radius: 18px;
+    .news-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
+    }
+
+    .news-image {
+      flex-shrink: 0;
+      width: 84px;
+      height: 84px;
+      border-radius: 14px;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--accent-soft), var(--accent-strong));
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #0f172a;
+      position: relative;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
     }
 
-    .card-image-wrapper img {
+    .news-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .card-content {
+    .news-body {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       min-width: 0;
     }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      color: var(--text);
-    }
-
-    .card-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      align-items: flex-end;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .pill-mini {
-      padding: 3px 7px;
-      border-radius: 999px;
+    .news-category-badge {
+      align-self: flex-start;
       font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-radius: 999px;
+      padding: 3px 8px;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      border: none;
-      color: #f9fafb;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--text-subtle-light);
     }
 
-    .pill-mini-home {
-      background: linear-gradient(135deg, #16a34a, #22c55e);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
-    }
-
-    .pill-mini-novita {
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.6);
-    }
-
-    .pill-mini-altro {
-      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
-      box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.6);
-    }
-
-    .pill-mini-icon {
-      width: 16px;
-      height: 16px;
+    .badge-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.22);
+      background: rgba(15, 23, 42, 0.25);
+    }
+
+    .news-category-avviso {
+      background: var(--badge-avviso-bg);
+      color: var(--badge-avviso-text);
+    }
+    .news-category-avviso .badge-dot {
+      background: #ef4444;
+    }
+
+    .news-category-evento {
+      background: var(--badge-evento-bg);
+      color: var(--badge-evento-text);
+    }
+    .news-category-evento .badge-dot {
+      background: #f97316;
+    }
+
+    .news-category-servizio {
+      background: var(--badge-servizio-bg);
+      color: var(--badge-servizio-text);
+    }
+    .news-category-servizio .badge-dot {
+      background: #3b82f6;
+    }
+
+    .news-category-informativa {
+      background: var(--badge-informativa-bg);
+      color: var(--badge-informativa-text);
+    }
+    .news-category-informativa .badge-dot {
+      background: #0ea5e9;
+    }
+
+    .news-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .news-icon-round {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
+      color: #f9fafb;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.35);
     }
 
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--muted);
+    .news-icon-avviso {
+      background: linear-gradient(135deg, #f97316, #ef4444);
+    }
+    .news-icon-evento {
+      background: linear-gradient(135deg, #22c55e, #14b8a6);
+    }
+    .news-icon-servizio {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+    }
+    .news-icon-informativa {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
     }
 
-    .card-footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-    }
-
-    .card-footer a span { font-size: 12px; }
-
-    .empty-state, .error-state {
-      border-radius: 18px;
-      padding: 14px 12px;
-      text-align: left;
-      font-size: 13px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      box-shadow:
-        0 14px 32px rgba(15, 23, 42, 0.4);
-    }
-
-    .empty-state h2,
-    .error-state h2 {
+    .news-title {
       font-size: 15px;
-      margin-bottom: 6px;
+      font-weight: 600;
+      color: var(--text-main-light);
+      line-height: 1.3;
     }
 
-    .empty-state p,
-    .error-state p {
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .empty-state small,
-    .error-state small {
+    .news-meta {
       font-size: 12px;
-      color: var(--muted);
-    }
-
-    footer {
-      margin-top: 4px;
-      padding: 6px 4px 0;
-      font-size: 11px;
-      color: var(--muted);
+      color: var(--text-subtle-light);
       display: flex;
-      justify-content: space-between;
+      gap: 8px;
       align-items: center;
-      border-top: 1px dashed var(--border-subtle);
     }
 
-    footer a {
-      color: var(--accent);
+    .news-meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .news-link {
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .news-link a {
+      color: #2563eb;
       text-decoration: none;
       font-weight: 500;
     }
 
-    .offline-indicator {
-      display: none;
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: var(--bg-card);
-      border: 1px dashed var(--border-subtle);
-      color: var(--muted);
-      align-items: center;
-      gap: 6px;
+    .news-link a:hover {
+      text-decoration: underline;
     }
 
-    .offline-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--danger);
+    .empty-state {
+      font-size: 13px;
+      color: var(--text-subtle-light);
+      text-align: center;
+      padding: 18px 0;
     }
 
-    @media (max-width: 600px) {
-      body { padding: 10px; }
-      .app { border-radius: 22px; padding: 10px 10px 14px; }
-      .controls-bottom-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .filters {
-        justify-content: stretch;
-        width: 100%;
-      }
-      .cards { padding-right: 2px; }
-      .card { flex-direction: row; }
-      .card-image-wrapper { flex: 0 0 80px; height: 80px; }
-      .app-title-main { font-size: 24px; }
-      .app-title-by { font-size: 15px; }
+    body[data-theme="dark"] {
+      background: var(--bg-dark);
+      color: var(--text-main-dark);
+    }
+
+    body[data-theme="dark"] .app-shell {
+      background: var(--surface-dark);
+      border-color: rgba(51, 65, 85, 0.85);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+    }
+
+    body[data-theme="dark"] .app-content {
+      background: #020617;
+      color: var(--text-main-dark);
+    }
+
+    body[data-theme="dark"] .tabs {
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(51, 65, 85, 0.7);
+    }
+
+    body[data-theme="dark"] .tab-btn {
+      color: var(--text-subtle-dark);
+    }
+
+    body[data-theme="dark"] .news-card {
+      background: #020617;
+      border-color: rgba(51, 65, 85, 0.85);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.95);
+    }
+
+    body[data-theme="dark"] .news-title {
+      color: var(--text-main-dark);
+    }
+
+    body[data-theme="dark"] .news-meta {
+      color: var(--text-subtle-dark);
+    }
+
+    body[data-theme="dark"] .refresh-info {
+      color: var(--text-subtle-dark);
     }
   </style>
 </head>
 <body data-theme="dark">
-  <div class="app">
-    <div class="app-inner">
-
-      <div class="header-bar">
-        <div class="header-ios">
-          <div class="app-logo">
-            <img src="icon-192.png" alt="GorlaNews logo">
-          </div>
-          <div class="header-text">
-            <div class="app-title">
-              <div class="app-title-main">GORLANEWS</div>
-              <div class="app-title-by">by Max</div>
-            </div>
-            <div class="app-subtitle">News dal Comune di Gorla Minore</div>
-          </div>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="status-bar">
+        <div>09:41</div>
+        <div class="status-bar-right">
+          <div class="status-bar-signal"></div>
+          <div class="status-bar-wifi"></div>
+          <div class="status-bar-battery"></div>
         </div>
-
-        <button id="theme-toggle" class="theme-toggle" type="button">
-          <span class="icon" id="theme-icon">🌙</span>
-          <span class="label" id="theme-label">Tema scuro</span>
-        </button>
       </div>
 
-      <div class="filters-toggle-row">
-        <button id="filters-toggle-btn" class="filters-toggle-btn" type="button">
-          <span class="icon">⚙️</span>
-          <span id="filters-toggle-label">Mostra filtri</span>
-        </button>
-      </div>
-
-      <div id="controls-wrapper" class="controls-wrapper">
-        <section id="controls" class="controls collapsed">
-          <div class="search-group">
-            <span class="search-icon">🔎</span>
-            <input type="text" id="search" placeholder="Cerca nel titolo..." autocomplete="off" />
-            <button id="clear-search" class="clear-search">×</button>
+      <div class="header-main">
+        <div class="app-logo">
+          <img src="icon-192.png" alt="Logo GorlaNews">
+        </div>
+        <div class="header-texts">
+          <div class="app-title">
+            GORLANEWS
+            <span>by Max</span>
           </div>
-
-          <div class="controls-bottom-row">
-            <div id="category-chips-row" class="category-chips-row">
-              <!-- Chip via JS -->
-            </div>
-            <div class="filters">
-              <div class="select-wrapper">
-                <select id="source-filter">
-                  <option value="all">Tutte le origini</option>
-                  <option value="home">Solo Home</option>
-                  <option value="novita">Solo Novità</option>
-                </select>
-                <span>▼</span>
-              </div>
-              <div class="select-wrapper">
-                <select id="sort-order">
-                  <option value="desc">Più recenti</option>
-                  <option value="asc">Meno recenti</option>
-                </select>
-                <span>▼</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <main>
-        <div class="status-row">
-          <div>
-            <span>Notizie trovate:</span>
-            <strong id="results-count">0</strong>
-          </div>
-          <div class="status-pill">
-            <span class="status-dot"></span>
-            <span id="status-text">Online</span>
+          <div class="app-subtitle">
+            News dal Comune di Gorla Minore
           </div>
         </div>
-
-        <div id="cards" class="cards"></div>
-      </main>
-
-      <footer>
-        <span>GorlaNews by Max · PWA sperimentale</span>
-        <div class="offline-indicator" id="offline-indicator">
-          <span class="offline-dot"></span>
-          <span>Offline · Mostro dati in cache</span>
+        <div class="theme-toggle" id="themeToggle">
+          <button id="lightBtn">
+            <span>☀</span>
+          </button>
+          <button id="darkBtn" class="active">
+            <span>🌙</span>
+          </button>
         </div>
-      </footer>
-    </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <div class="tabs-row">
+        <div class="tabs">
+          <button class="tab-btn tab-home active" data-origine="home">
+            <span class="tab-icon-dot"></span>
+            Home
+          </button>
+          <button class="tab-btn tab-novita" data-origine="novita">
+            <span class="tab-icon-dot"></span>
+            Novità
+          </button>
+        </div>
+        <div class="refresh-info" id="lastUpdate">
+          Aggiornamento...
+        </div>
+      </div>
+
+      <section class="news-list" id="newsList">
+        <div class="empty-state">Caricamento notizie...</div>
+      </section>
+    </main>
   </div>
 
   <script>
-    const NEWS_ENDPOINT = "https://gianellinimassimo-boop.github.io/gorlanews-by-max/news.json";
+    const newsListEl = document.getElementById("newsList");
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const lastUpdateEl = document.getElementById("lastUpdate");
+    const lightBtn = document.getElementById("lightBtn");
+    const darkBtn = document.getElementById("darkBtn");
+    const themeToggle = document.getElementById("themeToggle");
 
     let allNews = [];
-    let filteredNews = [];
-    let isOnline = navigator.onLine;
-    let selectedCategory = "all";
+    let currentOrigine = "home";
 
-    const cardsContainer = document.getElementById("cards");
-    const searchInput = document.getElementById("search");
-    const clearSearchBtn = document.getElementById("clear-search");
-    const sourceFilter = document.getElementById("source-filter");
-    const sortOrder = document.getElementById("sort-order");
-    const resultsCountEl = document.getElementById("results-count");
-    const statusText = document.getElementById("status-text");
-    const offlineIndicator = document.getElementById("offline-indicator");
-    const themeToggle = document.getElementById("theme-toggle");
-    const themeIcon = document.getElementById("theme-icon");
-    const themeLabel = document.getElementById("theme-label");
-    const filtersToggleBtn = document.getElementById("filters-toggle-btn");
-    const filtersToggleLabel = document.getElementById("filters-toggle-label");
-    const controlsSection = document.getElementById("controls");
-    const categoryChipsRow = document.getElementById("category-chips-row");
-
-    function setTheme(theme) {
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("gorlanews-theme", theme);
-      if (theme === "light") {
-        themeIcon.textContent = "☀";
-        themeLabel.textContent = "Tema chiaro";
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#edf2ff");
-      } else {
-        themeIcon.textContent = "🌙";
-        themeLabel.textContent = "Tema scuro";
-        document.querySelector('meta[name="theme-color"]').setAttribute("content", "#050816");
-      }
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "";
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
-
-    const savedTheme = localStorage.getItem("gorlanews-theme");
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setTheme(savedTheme);
-    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-      setTheme("light");
-    } else {
-      setTheme("dark");
-    }
-
-    themeToggle.addEventListener("click", () => {
-      const current = document.body.getAttribute("data-theme") || "dark";
-      setTheme(current === "dark" ? "light" : "dark");
-    });
-
-    let filtersOpen = false;
-    filtersToggleBtn.addEventListener("click", () => {
-      filtersOpen = !filtersOpen;
-      if (filtersOpen) {
-        controlsSection.classList.remove("collapsed");
-        filtersToggleLabel.textContent = "Nascondi filtri";
-      } else {
-        controlsSection.classList.add("collapsed");
-        filtersToggleLabel.textContent = "Mostra filtri";
-      }
-    });
-
-    function formatDate(dateStr) {
-      if (!dateStr) return "-";
-      const d = new Date(dateStr);
-      if (isNaN(d.getTime())) return "-";
-      return d.toLocaleString("it-IT", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      });
-    }
-
-    const CATEGORY_IMAGES = {
-      "Avviso": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg",
-      "Evento": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg",
-      "Servizio": "https://images.pexels.com/photos/2539748/pexels-photo-2539748.jpeg",
-      "Lavori pubblici": "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg",
-      "Consiglio comunale": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
-    };
 
     function getImageForNews(item) {
-      if (item.immagine) return item.immagine;
-      const categoria = item.categoria || "Generale";
-      if (CATEGORY_IMAGES[categoria]) return CATEGORY_IMAGES[categoria];
+      if (item.immagine && typeof item.immagine === "string" && item.immagine.trim() !== "") {
+        return item.immagine;
+      }
       return "icon-192.png";
     }
 
-    function renderEmptyState() {
-      cardsContainer.innerHTML = `
-        <div class="empty-state">
-          <h2>Nessuna notizia trovata</h2>
-          <p>Prova a cambiare filtri o a rimuovere il testo della ricerca.</p>
-          <small>Origine: ${sourceFilter.value === "all" ? "tutte" : sourceFilter.value} · Ordine: ${sortOrder.value === "desc" ? "più recenti" : "meno recenti"}</small>
-        </div>
-      `;
-      resultsCountEl.textContent = "0";
+    function getCategoryClass(categoria) {
+      if (!categoria) return "";
+      const cat = categoria.toLowerCase();
+      if (cat === "avviso") return "news-category-avviso";
+      if (cat === "evento") return "news-category-evento";
+      if (cat === "servizio") return "news-category-servizio";
+      if (cat === "informativa") return "news-category-informativa";
+      return "";
     }
 
-    function renderErrorState(message) {
-      cardsContainer.innerHTML = `
-        <div class="error-state">
-          <h2>Errore nel caricamento</h2>
-          <p>${message}</p>
-          <small>Controlla la connessione o riprova più tardi.</small>
-        </div>
-      `;
-      resultsCountEl.textContent = "0";
+    function getCategoryIconClass(categoria) {
+      if (!categoria) return "";
+      const cat = categoria.toLowerCase();
+      if (cat === "avviso") return "news-icon-avviso";
+      if (cat === "evento") return "news-icon-evento";
+      if (cat === "servizio") return "news-icon-servizio";
+      if (cat === "informativa") return "news-icon-informativa";
+      return "news-icon-servizio";
     }
 
-    function renderNews(list) {
-      if (!list || list.length === 0) {
-        renderEmptyState();
+    function getCategoryLetter(categoria) {
+      if (!categoria) return "?";
+      return categoria.charAt(0).toUpperCase();
+    }
+
+    function renderNews() {
+      if (!newsListEl) return;
+
+      const filtered = allNews.filter(n => n.origine === currentOrigine);
+      if (filtered.length === 0) {
+        newsListEl.innerHTML = '<div class="empty-state">Nessuna notizia disponibile.</div>';
         return;
       }
 
-      resultsCountEl.textContent = list.length.toString();
+      newsListEl.innerHTML = filtered.map(item => {
+        const data = formatDate(item.dataPubblicazione);
+        const img = getImageForNews(item);
+        const categoria = item.categoria || "";
+        const catClass = getCategoryClass(categoria);
+        const iconClass = getCategoryIconClass(categoria);
+        const catLetter = getCategoryLetter(categoria);
 
-      const html = list
-        .map((item) => {
-          const titolo = item.titolo || "Senza titolo";
-          const url = item.url || "#";
-          const dataPub = formatDate(item.dataPubblicazione);
-          const origine = item.origine || "sconosciuta";
-          const categoria = item.categoria || "Generale";
-          const imgSrc = getImageForNews(item);
-
-          let pillClass = "pill-mini-altro";
-          let pillLabel = origine;
-          let pillIcon = "📌";
-
-          if (origine === "home") {
-            pillClass = "pill-mini-home";
-            pillLabel = "Home";
-            pillIcon = "🏠";
-          } else if (origine === "novita") {
-            pillClass = "pill-mini-novita";
-            pillLabel = "Novità";
-            pillIcon = "🆕";
-          }
-
-          let catColor = "#0ea5e9";
-          if (categoria === "Avviso") catColor = "#f97316";
-          else if (categoria === "Evento") catColor = "#22c55e";
-          else if (categoria === "Servizio") catColor = "#6366f1";
-          else if (categoria === "Lavori pubblici") catColor = "#eab308";
-          else if (categoria === "Consiglio comunale") catColor = "#ec4899";
-
-          return `
-            <article class="card">
-              <div class="card-image-wrapper">
-                <img src="${imgSrc}" alt="Immagine notizia">
+        return `
+          <article class="news-card">
+            <div class="news-image">
+              <img src="${img}" alt="${item.titolo || ""}">
+            </div>
+            <div class="news-body">
+              <div class="news-category-badge ${catClass}">
+                <span class="badge-dot"></span>
+                <span>${categoria || "Altro"}</span>
               </div>
-              <div class="card-content">
-                <div class="card-header">
-                  <div>
-                    <div style="margin-bottom:4px;">
-                      <span style="
-                        display:inline-flex;
-                        align-items:center;
-                        gap:6px;
-                        font-size:11px;
-                        font-weight:500;
-                        color:inherit;
-                      ">
-                        <span style="
-                          width:8px;
-                          height:8px;
-                          border-radius:999px;
-                          background:${catColor};
-                        "></span>
-                        ${categoria}
-                      </span>
-                    </div>
-                    <h2 class="card-title">${titolo}</h2>
-                  </div>
-                  <div class="card-meta">
-                    <span>${dataPub}</span>
-                    <span class="pill-mini ${pillClass}">
-                      <span class="pill-mini-icon">${pillIcon}</span>
-                      ${pillLabel}
-                    </span>
-                  </div>
+              <div class="news-title-row">
+                <div class="news-icon-round ${iconClass}">
+                  ${catLetter}
                 </div>
-                <div class="card-footer">
-                  <span>Fonte: Comune di Gorla Minore</span>
-                  <a href="${url}" target="_blank" rel="noopener noreferrer">
-                    apri
-                    <span>↗</span>
-                  </a>
-                </div>
+                <h2 class="news-title">${item.titolo || ""}</h2>
               </div>
-            </article>
-          `;
-        })
-        .join("");
-
-      cardsContainer.innerHTML = html;
-    }
-
-    function buildCategoryChips() {
-      const categoriesSet = new Set();
-      allNews.forEach(item => {
-        if (item.categoria) categoriesSet.add(item.categoria);
-      });
-
-      const categories = Array.from(categoriesSet);
-      const parts = [];
-
-      parts.push(`
-        <button class="category-chip ${selectedCategory === "all" ? "active" : ""}" data-category="all" type="button">
-          <span class="category-chip-dot"></span>
-          Tutte
-        </button>
-      `);
-
-      categories.forEach(cat => {
-        let color = "#0ea5e9";
-        if (cat === "Avviso") color = "#f97316";
-        else if (cat === "Evento") color = "#22c55e";
-        else if (cat === "Servizio") color = "#6366f1";
-        else if (cat === "Lavori pubblici") color = "#eab308";
-        else if (cat === "Consiglio comunale") color = "#ec4899";
-
-        parts.push(`
-          <button class="category-chip ${selectedCategory === cat ? "active" : ""}" data-category="${cat}" type="button">
-            <span class="category-chip-dot" style="background:${color};"></span>
-            ${cat}
-          </button>
-        `);
-      });
-
-      categoryChipsRow.innerHTML = parts.join("");
-
-      const chipButtons = categoryChipsRow.querySelectorAll(".category-chip");
-      chipButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          selectedCategory = btn.getAttribute("data-category") || "all";
-          applyFilters();
-          chipButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-        });
-      });
-    }
-
-    function applyFilters() {
-      const searchTerm = searchInput.value.trim().toLowerCase();
-      const source = sourceFilter.value;
-      const order = sortOrder.value;
-
-      filteredNews = allNews
-        .filter((item) => {
-          const matchesSource = source === "all" || item.origine === source;
-          const matchesSearch =
-            !searchTerm ||
-            (item.titolo && item.titolo.toLowerCase().includes(searchTerm));
-          const matchesCategory =
-            selectedCategory === "all" ||
-            item.categoria === selectedCategory;
-          return matchesSource && matchesSearch && matchesCategory;
-        })
-        .sort((a, b) => {
-          const da = new Date(a.dataPubblicazione).getTime();
-          const db = new Date(b.dataPubblicazione).getTime();
-          return order === "desc" ? db - da : da - db;
-        });
-
-      renderNews(filteredNews);
+              <div class="news-meta">
+                ${data ? `<span>${data}</span>` : ""}
+                <span class="news-meta-dot"></span>
+                <span>${item.origine === "novita" ? "Novità" : "Home"}</span>
+              </div>
+              <div class="news-link">
+                <a href="${item.url || "#"}" target="_blank" rel="noopener noreferrer">Apri sul sito del Comune</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
     }
 
     async function fetchNews() {
       try {
-        statusText.textContent = "Aggiornamento in corso...";
-        const response = await fetch(NEWS_ENDPOINT, { cache: "no-store" });
-
+        const response = await fetch("news.json", { cache: "no-store" });
         if (!response.ok) {
-          throw new Error("Impossibile ottenere le notizie (" + response.status + ")");
+          throw new Error("Errore nel caricamento delle notizie");
         }
-
         const data = await response.json();
-
-        if (!Array.isArray(data)) {
-          throw new Error("Formato dati non valido (atteso un array)");
+        allNews = Array.isArray(data) ? data : [];
+        renderNews();
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, "0");
+        const mm = String(now.getMinutes()).padStart(2, "0");
+        if (lastUpdateEl) {
+          lastUpdateEl.textContent = `Aggiornato alle ${hh}:${mm}`;
         }
-
-        allNews = data;
-        buildCategoryChips();
-        applyFilters();
-
-        statusText.textContent = "Online";
       } catch (error) {
-        console.error("Errore nel fetch delle news:", error);
-        renderErrorState(error.message || "Errore sconosciuto nel recupero delle notizie");
-        statusText.textContent = isOnline ? "Errore" : "Offline";
+        console.error(error);
+        if (newsListEl) {
+          newsListEl.innerHTML = '<div class="empty-state">Impossibile caricare le notizie.</div>';
+        }
       }
     }
 
-    searchInput.addEventListener("input", () => {
-      clearSearchBtn.style.display = searchInput.value ? "inline-flex" : "none";
-      applyFilters();
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const origine = btn.getAttribute("data-origine");
+        if (!origine) return;
+        currentOrigine = origine;
+
+        tabButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        renderNews();
+      });
     });
 
-    clearSearchBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      clearSearchBtn.style.display = "none";
-      applyFilters();
-    });
+    function applyTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+      if (theme === "light") {
+        lightBtn.classList.add("active");
+        darkBtn.classList.remove("active");
+      } else {
+        darkBtn.classList.add("active");
+        lightBtn.classList.remove("active");
+      }
+      try {
+        localStorage.setItem("gorlanews-theme", theme);
+      } catch {}
+    }
 
-    sourceFilter.addEventListener("change", applyFilters);
-    sortOrder.addEventListener("change", applyFilters);
+    lightBtn.addEventListener("click", () => applyTheme("light"));
+    darkBtn.addEventListener("click", () => applyTheme("dark"));
 
-    window.addEventListener("online", () => {
-      isOnline = true;
-      statusText.textContent = "Online";
-      offlineIndicator.style.display = "none";
-      fetchNews();
-    });
-
-    window.addEventListener("offline", () => {
-      isOnline = false;
-      statusText.textContent = "Offline";
-      offlineIndicator.style.display = "inline-flex";
-    });
+    (function initTheme() {
+      let saved = null;
+      try {
+        saved = localStorage.getItem("gorlanews-theme");
+      } catch {}
+      if (saved === "light" || saved === "dark") {
+        applyTheme(saved);
+      } else {
+        applyTheme("dark");
+      }
+    })();
 
     fetchNews();
     setInterval(fetchNews, 30 * 60 * 1000);
@@ -1011,7 +766,7 @@
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("sw.js")
-          .catch((err) => console.error("SW registration failed", err));
+          .catch(err => console.error("SW registration failed", err));
       });
     }
   </script>
