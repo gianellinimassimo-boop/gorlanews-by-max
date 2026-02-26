@@ -178,9 +178,7 @@
       cursor: pointer;
     }
 
-    .filters-toggle-btn span.icon {
-      font-size: 13px;
-    }
+    .filters-toggle-btn span.icon { font-size: 13px; }
 
     /* CONTROLLI (pannello a scomparsa) */
 
@@ -282,6 +280,46 @@
       color: var(--muted);
       font-size: 11px;
       pointer-events: none;
+    }
+
+    /* CHIP CATEGORIA */
+
+    .category-chips-row {
+      margin-top: 2px;
+      padding: 0 4px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .category-chip {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      padding: 3px 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .category-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--muted);
+    }
+
+    .category-chip.active {
+      background: var(--accent-soft);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .category-chip.active .category-chip-dot {
+      background: var(--accent);
     }
 
     /* MAIN */
@@ -593,6 +631,11 @@
         </section>
       </div>
 
+      <!-- Chip categoria sopra le card -->
+      <div id="category-chips-row" class="category-chips-row">
+        <!-- I chip vengono creati via JS -->
+      </div>
+
       <main>
         <div class="status-row">
           <div>
@@ -624,6 +667,7 @@
     let allNews = [];
     let filteredNews = [];
     let isOnline = navigator.onLine;
+    let selectedCategory = "all";
 
     const cardsContainer = document.getElementById("cards");
     const searchInput = document.getElementById("search");
@@ -639,7 +683,7 @@
     const filtersToggleBtn = document.getElementById("filters-toggle-btn");
     const filtersToggleLabel = document.getElementById("filters-toggle-label");
     const controlsSection = document.getElementById("controls");
-    const controlsWrapper = document.getElementById("controls-wrapper");
+    const categoryChipsRow = document.getElementById("category-chips-row");
 
     function setTheme(theme) {
       document.body.setAttribute("data-theme", theme);
@@ -823,6 +867,57 @@
       cardsContainer.innerHTML = html;
     }
 
+    function buildCategoryChips() {
+      // Set di categorie presenti nelle news
+      const categoriesSet = new Set();
+      allNews.forEach(item => {
+        if (item.categoria) categoriesSet.add(item.categoria);
+      });
+
+      const categories = Array.from(categoriesSet);
+
+      const parts = [];
+
+      // Chip "Tutte"
+      parts.push(`
+        <button class="category-chip ${selectedCategory === "all" ? "active" : ""}" data-category="all" type="button">
+          <span class="category-chip-dot"></span>
+          Tutte
+        </button>
+      `);
+
+      // Chip per ogni categoria
+      categories.forEach(cat => {
+        let color = "#0ea5e9";
+        if (cat === "Avviso") color = "#f97316";
+        else if (cat === "Evento") color = "#22c55e";
+        else if (cat === "Servizio") color = "#6366f1";
+        else if (cat === "Lavori pubblici") color = "#eab308";
+        else if (cat === "Consiglio comunale") color = "#ec4899";
+
+        parts.push(`
+          <button class="category-chip ${selectedCategory === cat ? "active" : ""}" data-category="${cat}" type="button">
+            <span class="category-chip-dot" style="background:${color};"></span>
+            ${cat}
+          </button>
+        `);
+      });
+
+      categoryChipsRow.innerHTML = parts.join("");
+
+      // Aggancia eventi click
+      const chipButtons = categoryChipsRow.querySelectorAll(".category-chip");
+      chipButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectedCategory = btn.getAttribute("data-category") || "all";
+          applyFilters();
+          // aggiorna stati attivi
+          chipButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+    }
+
     function applyFilters() {
       const searchTerm = searchInput.value.trim().toLowerCase();
       const source = sourceFilter.value;
@@ -834,7 +929,10 @@
           const matchesSearch =
             !searchTerm ||
             (item.titolo && item.titolo.toLowerCase().includes(searchTerm));
-          return matchesSource && matchesSearch;
+          const matchesCategory =
+            selectedCategory === "all" ||
+            item.categoria === selectedCategory;
+          return matchesSource && matchesSearch && matchesCategory;
         })
         .sort((a, b) => {
           const da = new Date(a.dataPubblicazione).getTime();
@@ -861,6 +959,10 @@
         }
 
         allNews = data;
+
+        // costruisci chip categoria in base ai dati
+        buildCategoryChips();
+
         applyFilters();
 
         statusText.textContent = "Online";
