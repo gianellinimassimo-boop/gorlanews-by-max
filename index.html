@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gorlanews by Max</title>
+
+  <!-- Colore barra indirizzo su mobile -->
+  <meta name="theme-color" content="#f5f5f7" />
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Icona (provvisoria) -->
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
+
+  <!-- Font e icone (Google Fonts + Font Awesome Free) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --bg-elevated: #ffffff;
+      --accent: #007aff;
+      --accent-soft: rgba(0, 122, 255, 0.12);
+      --text: #111827;
+      --text-soft: #6b7280;
+      --border-subtle: rgba(15, 23, 42, 0.06);
+      --shadow-soft: 0 18px 40px rgba(15,23,42,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #e5e7eb 0, #f5f5f7 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      background: linear-gradient(to bottom, #f9fafb, #f5f5f7);
+      padding-bottom: 16px;
+    }
+
+    header {
+      padding: 20px 16px 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(148,163,184,0.22);
+      background: radial-gradient(circle at top left, rgba(0,122,255,0.15), transparent 55%);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, #ffffff, #dbeafe);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d4ed8;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 12px 30px rgba(37,99,235,0.28);
+    }
+
+    .title-block {
+      flex: 1;
+    }
+
+    .title-block h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #020617;
+    }
+
+    .title-block span.badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .refresh-btn {
+      border: none;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 999px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(148,163,184,0.4);
+    }
+
+    .refresh-btn i {
+      font-size: 13px;
+    }
+
+    .main {
+      padding: 12px 16px 16px 16px;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.18);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 4px 12px rgba(148,163,184,0.25);
+    }
+
+    .chip.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .chip i {
+      font-size: 11px;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 32px;
+    }
+
+    .card {
+      border-radius: 18px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 46px rgba(15,23,42,0.16);
+      border-color: rgba(148,163,184,0.7);
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, #eff6ff, #dbeafe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d4ed8;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .card-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #020617;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 3px;
+    }
+
+    .card-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-home {
+      background: rgba(59,130,246,0.1);
+      color: #1d4ed8;
+    }
+
+    .tag-novita {
+      background: rgba(236,72,153,0.12);
+      color: #db2777;
+    }
+
+    .empty-state {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-soft);
+      padding: 40px 16px;
+    }
+
+    .empty-state i {
+      font-size: 26px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 4px 16px 0 16px;
+      font-size: 10px;
+      color: #9ca3af;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        G
+      </div>
+      <div class="title-block">
+        <h1>
+          Gorlanews
+          <span class="badge">by Max</span>
+        </h1>
+        <div class="subtitle">
+          Notizie ufficiali dal Comune di Gorla Minore
+        </div>
+      </div>
+      <button class="refresh-btn" id="refreshBtn">
+        <i class="fa-solid fa-rotate-right"></i>
+        <span>Aggiorna</span>
+      </button>
+    </header>
+
+    <div class="main">
+      <div class="status-bar">
+        <div class="status-left">
+          <span class="status-dot"></span>
+          <span id="statusText">Ultimo aggiornamento: mai</span>
+        </div>
+        <div id="countText">0 notizie</div>
+      </div>
+
+      <div class="filters">
+        <button class="chip active" data-filter="tutte">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Tutte</span>
+        </button>
+        <button class="chip" data-filter="home">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </button>
+        <button class="chip" data-filter="novita">
+          <i class="fa-solid fa-bell"></i>
+          <span>Novità</span>
+        </button>
+      </div>
+
+      <div id="newsList" class="news-list">
+        <!-- Card create via JS -->
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display:none;">
+        <i class="fa-solid fa-circle-info"></i>
+        <div>Nessuna notizia da mostrare.<br />Tocca su “Aggiorna” per caricare le ultime novità.</div>
+      </div>
+    </div>
+
+    <footer>
+      Dati da <a href="https://comune.gorlaminore.va.it" target="_blank" style="color:#2563eb; text-decoration:none;">comune.gorlaminore.va.it</a>
+    </footer>
+  </div>
+
+  <script>
+    // --- Mock dati iniziale (poi lo sostituiremo con il backend) ---
+    const mockNews = [
+      {
+        id: "demo-1",
+        titolo: "Esempio di notizia recente",
+        url: "https://comune.gorlaminore.va.it/",
+        dataPubblicazione: "2026-02-26T09:00:00",
+        origine: "home"
+      },
+      {
+        id: "demo-2",
+        titolo: "Esempio di notizia più vecchia",
+        url: "https://comune.gorlaminore.va.it/novita",
+        dataPubblicazione: "2026-02-20T18:30:00",
+        origine: "novita"
+      }
+    ];
+
+    let allNews = [];
+
+    function formatDate(dateString) {
+      const d = new Date(dateString);
+      return d.toLocaleString("it-IT", {
+        day: "2-digit",
