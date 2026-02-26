@@ -1,16 +1,42 @@
 [
   {
     "id": "1",
-    "titolo": "Avviso: chiusura strada comunale",
-    "url": "https://comune.gorlaminore.va.it/",
+    "titolo": "Avviso: chiusura strada comunale in via Roma",
+    "url": "https://comune.gorlaminore.va.it/chiusura-via-roma",
     "dataPubblicazione": "2026-02-26T09:00:00",
-    "origine": "home"
+    "origine": "home",
+    "immagine": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg"
   },
   {
     "id": "2",
-    "titolo": "Nuove iniziative per i giovani",
-    "url": "https://comune.gorlaminore.va.it/novita",
+    "titolo": "Nuove iniziative per i giovani gorlesi",
+    "url": "https://comune.gorlaminore.va.it/novita/inizative-giovani",
     "dataPubblicazione": "2026-02-25T18:30:00",
-    "origine": "novita"
+    "origine": "novita",
+    "immagine": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg"
+  },
+  {
+    "id": "3",
+    "titolo": "Calendario raccolta rifiuti aggiornato",
+    "url": "https://comune.gorlaminore.va.it/novita/calendario-raccolta-rifiuti",
+    "dataPubblicazione": "2026-02-24T08:15:00",
+    "origine": "novita",
+    "immagine": "https://images.pexels.com/photos/2539748/pexels-photo-2539748.jpeg"
+  },
+  {
+    "id": "4",
+    "titolo": "Lavori di manutenzione al parco comunale",
+    "url": "https://comune.gorlaminore.va.it/novita/lavori-parco-comunale",
+    "dataPubblicazione": "2026-02-23T14:45:00",
+    "origine": "home",
+    "immagine": "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg"
+  },
+  {
+    "id": "5",
+    "titolo": "Convocazione Consiglio Comunale straordinario",
+    "url": "https://comune.gorlaminore.va.it/novita/consiglio-comunale-straordinario",
+    "dataPubblicazione": "2026-02-22T11:00:00",
+    "origine": "novita",
+    "immagine": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
   }
 ]
