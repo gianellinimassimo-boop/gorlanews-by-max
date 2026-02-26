@@ -1,56 +1,24 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="light">
+<html lang="it">
 <head>
   <meta charset="UTF-8" />
+  <title>GorlaNews by Max</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gorlanews by Max</title>
 
-  <!-- Colore barra indirizzo su mobile -->
-  <meta name="theme-color" content="#f5f5f7" />
-
-  <!-- Manifest PWA -->
-  <link rel="manifest" href="manifest.json" />
-
-  <!-- Icona app -->
-  <link rel="icon" type="image/png" href="icon-192.png" />
-
-  <!-- Font e icone -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Manifest e PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#004080">
+  <link rel="icon" href="icon-192.png" type="image/png">
 
   <style>
     :root {
-      /* tema chiaro di default */
-      --bg: #f5f5f7;
-      --bg-elevated: #ffffff;
-      --accent: #007aff;
-      --accent-soft: rgba(0, 122, 255, 0.12);
-      --text: #111827;
-      --text-soft: #6b7280;
-      --border-subtle: rgba(15, 23, 42, 0.06);
-      --shadow-soft: 0 18px 40px rgba(15,23,42,0.12);
-      --header-grad: radial-gradient(circle at top left, rgba(0,122,255,0.15), transparent 55%);
-      --card-icon-grad: radial-gradient(circle at top left, #eff6ff, #dbeafe);
-      --status-dot: #22c55e;
-      --status-dot-ring: rgba(34,197,94,0.18);
-    }
-
-    /* Tema dark: si attiva con data-theme="dark" sull'html */
-    html[data-theme="dark"] {
-      --bg: #020617;
-      --bg-elevated: #0b1220;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.16);
+      --bg: #0b1120;
+      --card: #020617;
+      --accent: #eab308;
+      --accent-soft: rgba(234, 179, 8, 0.1);
       --text: #e5e7eb;
-      --text-soft: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.35);
-      --shadow-soft: 0 18px 40px rgba(0,0,0,0.7);
-      --header-grad: radial-gradient(circle at top left, rgba(34,197,94,0.2), transparent 55%);
-      --card-icon-grad: radial-gradient(circle at top left, #064e3b, #022c22);
-      --status-dot: #22c55e;
-      --status-dot-ring: rgba(34,197,94,0.3);
+      --muted: #9ca3af;
+      --danger: #ef4444;
     }
 
     * {
@@ -60,418 +28,612 @@
     }
 
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #e5e7eb 0, var(--bg) 55%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       justify-content: center;
-    }
-
-    html[data-theme="dark"] body {
-      background: radial-gradient(circle at top, #020617 0, #020617 55%);
+      padding: 16px;
     }
 
     .app {
       width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      background: linear-gradient(to bottom, #f9fafb, var(--bg));
-      padding-bottom: 16px;
+      max-width: 720px;
+      min-height: 90vh;
+      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+      border-radius: 24px;
+      padding: 16px 16px 20px;
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.12),
+        0 24px 60px rgba(15, 23, 42, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
     }
 
-    html[data-theme="dark"] .app {
-      background: radial-gradient(circle at top, #020617, #020617);
+    .app::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(234, 179, 8, 0.12), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .app-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+      min-height: 0;
     }
 
     header {
-      padding: 20px 16px 12px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 1px solid rgba(148,163,184,0.22);
-      background: var(--header-grad);
-      backdrop-filter: blur(12px);
+      padding: 8px 4px 4px;
     }
 
     .logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      background: radial-gradient(circle at top left, #ffffff, #dbeafe);
-      display: inline-flex;
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #ca8a04 45%, #854d0e);
+      display: flex;
       align-items: center;
       justify-content: center;
-      color: #1d4ed8;
+      color: #0b1120;
       font-weight: 800;
-      font-size: 22px;
-      box-shadow: 0 12px 30px rgba(37,99,235,0.28);
+      font-size: 20px;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 8px 24px rgba(234, 179, 8, 0.6);
     }
 
-    html[data-theme="dark"] .logo {
-      background: radial-gradient(circle at top left, #020617, #0f172a);
-      color: #22c55e;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.8);
-    }
-
-    .title-block {
+    .title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
       flex: 1;
     }
 
-    .title-block h1 {
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 24px;
+    h1 {
+      font-size: 20px;
       font-weight: 700;
+      letter-spacing: 0.01em;
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #020617;
     }
 
-    html[data-theme="dark"] .title-block h1 {
-      color: #f9fafb;
-    }
-
-    .title-block span.badge {
-      font-size: 12px;
-      padding: 3px 9px;
+    .badge {
+      font-size: 11px;
+      padding: 2px 7px;
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-weight: 500;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+      background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
     }
 
     .subtitle {
-      font-size: 14px;
-      color: var(--text-soft);
-      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
     .header-actions {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 6px;
+      gap: 4px;
     }
 
-    .refresh-btn {
-      border: none;
-      background: #eff6ff;
-      color: #1d4ed8;
+    .pill {
+      padding: 4px 7px;
       border-radius: 999px;
-      padding: 9px 12px;
-      display: flex;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--muted);
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(148,163,184,0.4);
+      gap: 4px;
+      backdrop-filter: blur(16px);
+      background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.18), rgba(15, 23, 42, 0.9));
     }
 
-    html[data-theme="dark"] .refresh-btn {
-      background: rgba(15,23,42,0.9);
-      color: #e5e7eb;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.7);
-      border: 1px solid rgba(148,163,184,0.4);
-    }
-
-    .refresh-btn i {
-      font-size: 15px;
-    }
-
-    .theme-toggle-btn {
-      border: none;
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-    }
-
-    .theme-toggle-btn i {
-      font-size: 16px;
-    }
-
-    .main {
-      padding: 16px 16px 16px 16px;
-    }
-
-    .status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
+    .pill-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
-      background: var(--status-dot);
-      box-shadow: 0 0 0 4px var(--status-dot-ring);
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.35);
     }
 
-    .filters {
+    .pill small {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .chip-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-      font-size: 14px;
+      gap: 6px;
+      margin-top: 2px;
     }
 
     .chip {
+      font-size: 10px;
+      padding: 3px 8px;
       border-radius: 999px;
-      padding: 8px 12px;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.18), rgba(15, 23, 42, 0.9));
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 4px 12px rgba(148,163,184,0.25);
+      gap: 4px;
     }
 
-    html[data-theme="dark"] .chip {
-      background: rgba(15,23,42,0.95);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.7);
-    }
-
-    .chip.active {
-      border-color: var(--accent);
-      background: var(--accent-soft);
+    .chip-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
       color: var(--accent);
     }
 
-    .chip i {
-      font-size: 13px;
-    }
-
-    .news-list {
+    .controls {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 32px;
-    }
-
-    .card {
-      border-radius: 18px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 12px;
-      display: flex;
-      gap: 12px;
-      box-shadow: var(--shadow-soft);
-      cursor: pointer;
-      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 46px rgba(15,23,42,0.16);
-      border-color: rgba(148,163,184,0.7);
-    }
-
-    html[data-theme="dark"] .card:hover {
-      box-shadow: 0 22px 56px rgba(0,0,0,0.9);
-    }
-
-    .card-icon {
-      width: 42px;
-      height: 42px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+      padding: 8px 8px;
       border-radius: 14px;
-      background: var(--card-icon-grad);
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.26), rgba(15, 23, 42, 0.96));
+      border: 1px solid rgba(55, 65, 81, 0.75);
+      box-shadow:
+        inset 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 12px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .search-group {
+      flex: 1.7;
+      min-width: 160px;
+      position: relative;
+    }
+
+    .search-group input {
+      width: 100%;
+      padding: 8px 28px 8px 26px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .clear-search {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 12px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .filters {
+      flex: 1;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1d4ed8;
-      font-size: 20px;
-      flex-shrink: 0;
+      gap: 6px;
+      justify-content: flex-end;
+      min-width: 170px;
     }
 
-    html[data-theme="dark"] .card-icon {
-      color: #bbf7d0;
+    select {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 28px 7px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.85));
+      color: var(--text);
+      font-size: 11px;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      position: relative;
     }
 
-    .card-content {
+    .select-wrapper {
+      position: relative;
       flex: 1;
       min-width: 0;
     }
 
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #020617;
+    .select-wrapper span {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 10px;
+      pointer-events: none;
     }
 
-    html[data-theme="dark"] .card-title {
-      color: #f9fafb;
+    main {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 2px;
+      padding: 8px 4px 0;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      padding: 0 2px;
+    }
+
+    .status-row strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .cards {
+      flex: 1;
+      min-height: 0;
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .card {
+      border-radius: 16px;
+      padding: 10px 10px 9px;
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.3), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      box-shadow:
+        0 18px 40px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(56, 189, 248, 0.12), transparent 40%),
+        linear-gradient(-120deg, rgba(234, 179, 8, 0.12), transparent 40%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #e5e7eb;
     }
 
     .card-meta {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-top: 4px;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-end;
+      font-size: 11px;
+      color: var(--muted);
     }
 
-    .card-meta-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .tag {
-      padding: 3px 9px;
+    .pill-mini {
+      padding: 2px 6px;
       border-radius: 999px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(15, 23, 42, 0.95);
     }
 
-    .tag-home {
-      background: rgba(59,130,246,0.1);
-      color: #1d4ed8;
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
     }
 
-    .tag-novita {
-      background: rgba(236,72,153,0.12);
-      color: #db2777;
-    }
-
-    html[data-theme="dark"] .tag-home {
-      background: rgba(37,99,235,0.25);
-      color: #bfdbfe;
-    }
-
-    html[data-theme="dark"] .tag-novita {
-      background: rgba(190,24,93,0.25);
-      color: #f9a8d4;
-    }
-
-    .empty-state {
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-soft);
-      padding: 40px 16px;
-    }
-
-    .empty-state i {
-      font-size: 26px;
-      margin-bottom: 12px;
+    .card-footer a {
       color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-footer a span {
+      font-size: 11px;
+    }
+
+    .empty-state, .error-state {
+      border-radius: 16px;
+      padding: 14px 12px;
+      text-align: left;
+      font-size: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.28), rgba(15, 23, 42, 0.98));
+      box-shadow:
+        0 16px 36px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .empty-state h2,
+    .error-state h2 {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .empty-state p,
+    .error-state p {
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .empty-state small,
+    .error-state small {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
     }
 
     footer {
-      padding: 6px 16px 0 16px;
-      font-size: 11px;
-      color: var(--text-soft);
-      text-align: center;
+      margin-top: 4px;
+      padding: 6px 4px 0;
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed rgba(148, 163, 184, 0.35);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .offline-indicator {
+      display: none;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      color: var(--muted);
+      align-items: center;
+      gap: 6px;
+    }
+
+    .offline-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--danger);
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.4);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 8px;
+      }
+
+      .app {
+        border-radius: 18px;
+        padding: 10px 10px 14px;
+      }
+
+      h1 {
+        font-size: 17px;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .filters {
+        justify-content: stretch;
+      }
+
+      .cards {
+        padding-right: 2px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header>
-      <div class="logo">
-        G
-      </div>
-      <div class="title-block">
-        <h1>
-          Gorlanews
-          <span class="badge">by Max</span>
-        </h1>
-        <div class="subtitle">
-          Notizie ufficiali dal Comune di Gorla Minore
+    <div class="app-inner">
+      <header>
+        <div class="logo">G</div>
+        <div class="title-group">
+          <h1>
+            GorlaNews
+            <span class="badge">
+              <span class="badge-dot"></span>
+              Live feed
+            </span>
+          </h1>
+          <div class="subtitle">News dal sito del Comune di Gorla Minore</div>
         </div>
-      </div>
-      <div class="header-actions">
-        <button class="refresh-btn" id="refreshBtn">
-          <i class="fa-solid fa-rotate-right"></i>
-          <span>Aggiorna</span>
-        </button>
-        <button class="theme-toggle-btn" id="themeToggle" aria-label="Cambia tema">
-          <i class="fa-solid fa-moon"></i>
-          <span>Tema</span>
-        </button>
-      </div>
-    </header>
-
-    <div class="main">
-      <div class="status-bar">
-        <div class="status-left">
-          <span class="status-dot"></span>
-          <span id="statusText">Ultimo aggiornamento: mai</span>
+        <div class="header-actions">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Auto-aggiornamento</span>
+            <small>Ogni 30 min</small>
+          </div>
+          <div class="chip-row">
+            <div class="chip">
+              <span class="chip-icon">⏱</span>
+              Ultimo controllo: <span id="last-check">-</span>
+            </div>
+          </div>
         </div>
-        <div id="countText">0 notizie</div>
-      </div>
+      </header>
 
-      <div class="filters">
-        <button class="chip active" data-filter="tutte">
-          <i class="fa-solid fa-layer-group"></i>
-          <span>Tutte</span>
-        </button>
-        <button class="chip" data-filter="home">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </button>
-        <button class="chip" data-filter="novita">
-          <i class="fa-solid fa-bell"></i>
-          <span>Novità</span>
-        </button>
-      </div>
+      <section class="controls">
+        <div class="search-group">
+          <span class="search-icon">🔎</span>
+          <input type="text" id="search" placeholder="Cerca nel titolo..." autocomplete="off" />
+          <button id="clear-search" class="clear-search">×</button>
+        </div>
+        <div class="filters">
+          <div class="select-wrapper">
+            <select id="source-filter">
+              <option value="all">Tutte le origini</option>
+              <option value="home">Solo Home</option>
+              <option value="novita">Solo Novità</option>
+            </select>
+            <span>▼</span>
+          </div>
+          <div class="select-wrapper">
+            <select id="sort-order">
+              <option value="desc">Più recenti</option>
+              <option value="asc">Meno recenti</option>
+            </select>
+            <span>▼</span>
+          </div>
+        </div>
+      </section>
 
-      <div id="newsList" class="news-list"></div>
+      <main>
+        <div class="status-row">
+          <div>
+            <span>Notizie trovate:</span>
+            <strong id="results-count">0</strong>
+          </div>
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span id="status-text">Online</span>
+          </div>
+        </div>
 
-      <div id="emptyState" class="empty-state" style="display:none;">
-        <i class="fa-solid fa-circle-info"></i>
-        <div>Nessuna notizia da mostrare.<br />Tocca su “Aggiorna” per caricare le ultime novità.</div>
-      </div>
+        <div id="cards" class="cards"></div>
+      </main>
+
+      <footer>
+        <span>GorlaNews by Max · PWA sperimentale</span>
+        <div class="offline-indicator" id="offline-indicator">
+          <span class="offline-dot"></span>
+          <span>Offline · Mostro dati in cache</span>
+        </div>
+      </footer>
     </div>
-
-    <footer>
-      Dati da <a href="https://comune.gorlaminore.va.it" target="_blank" style="color:#2563eb; text-decoration:none;">comune.gorlaminore.va.it</a>
-    </footer>
   </div>
 
   <script>
-    const NEWS_ENDPOINT = "https://example.com/gorlanews.json";
-
-    const mockNews = [
-      {
-        id: "demo-1",
-        titolo: "Esempio di notizia recente",
-        url: "https://comune.gorlaminore.va.it/",
-        dataPubblicazione: "2026-02-26T09:00:00",
-        origine: "home"
-      },
-      {
-        id: "demo-2",
-        titolo: "Esempio di notizia più vecchia",
-        url: "https://comune.gorlaminore.va.it/novita",
-        dataPubblicazione: "2026-02-20T18:30:00",
-        origine: "novita"
-      }
-    ];
+    const NEWS_ENDPOINT = "https://gianellinimassimo-boop.github.io/gorlanews-by-max/news.json";
 
     let allNews = [];
-    let currentFilter = "tutte";
+    let filteredNews = [];
+    let isOnline = navigator.onLine;
 
-    function formatDate(dateString) {
-      const d = new Date(dateString);
-      if (isNaN(d.getTime())) return dateString || "";
+    const cardsContainer = document.getElementById("cards");
+    const searchInput = document.getElementById("search");
+    const clearSearchBtn = document.getElementById("clear-search");
+    const sourceFilter = document.getElementById("source-filter");
+    const sortOrder = document.getElementById("sort-order");
+    const resultsCountEl = document.getElementById("results-count");
+    const statusText = document.getElementById("status-text");
+    const lastCheckEl = document.getElementById("last-check");
+    const offlineIndicator = document.getElementById("offline-indicator");
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "-";
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return "-";
       return d.toLocaleString("it-IT", {
         day: "2-digit",
         month: "2-digit",
@@ -481,189 +643,163 @@
       });
     }
 
-    function renderNews(filter = "tutte") {
-      const listEl = document.getElementById("newsList");
-      const emptyEl = document.getElementById("emptyState");
-      listEl.innerHTML = "";
+    function renderEmptyState() {
+      cardsContainer.innerHTML = `
+        <div class="empty-state">
+          <h2>Nessuna notizia trovata</h2>
+          <p>Prova a cambiare filtri o a rimuovere il testo della ricerca.</p>
+          <small>Origine: ${sourceFilter.value === "all" ? "tutte" : sourceFilter.value} · Ordine: ${sortOrder.value === "desc" ? "più recenti" : "meno recenti"}</small>
+        </div>
+      `;
+      resultsCountEl.textContent = "0";
+    }
 
-      let newsToShow = allNews;
-      if (filter === "home") {
-        newsToShow = allNews.filter(n => n.origine === "home");
-      } else if (filter === "novita") {
-        newsToShow = allNews.filter(n => n.origine === "novita");
-      }
+    function renderErrorState(message) {
+      cardsContainer.innerHTML = `
+        <div class="error-state">
+          <h2>Errore nel caricamento</h2>
+          <p>${message}</p>
+          <small>Controlla la connessione o riprova più tardi.</small>
+        </div>
+      `;
+      resultsCountEl.textContent = "0";
+    }
 
-      if (!newsToShow.length) {
-        emptyEl.style.display = "block";
-        document.getElementById("countText").textContent = "0 notizie";
+    function renderNews(list) {
+      if (!list || list.length === 0) {
+        renderEmptyState();
         return;
-      } else {
-        emptyEl.style.display = "none";
       }
 
-      newsToShow.sort((a, b) => new Date(b.dataPubblicazione) - new Date(a.dataPubblicazione));
+      resultsCountEl.textContent = list.length.toString();
 
-      document.getElementById("countText").textContent =
-        newsToShow.length + (newsToShow.length === 1 ? " notizia" : " notizie");
+      const html = list
+        .map((item) => {
+          const titolo = item.titolo || "Senza titolo";
+          const url = item.url || "#";
+          const dataPub = formatDate(item.dataPubblicazione);
+          const origine = item.origine || "sconosciuta";
 
-      for (const n of newsToShow) {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.onclick = () => {
-          window.open(n.url, "_blank");
-        };
+          return `
+            <article class="card">
+              <div class="card-inner">
+                <div class="card-header">
+                  <h2 class="card-title">${titolo}</h2>
+                  <div class="card-meta">
+                    <span>${dataPub}</span>
+                    <span class="pill-mini">
+                      <span style="width:6px;height:6px;border-radius:999px;background:${
+                        origine === "home" ? "#22c55e" : "#3b82f6"
+                      };"></span>
+                      ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
+                    </span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span>Fonte: Comune di Gorla Minore</span>
+                  <a href="${url}" target="_blank" rel="noopener noreferrer">
+                    apri
+                    <span>↗</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
 
-        const icon = document.createElement("div");
-        icon.className = "card-icon";
-        icon.innerHTML = n.origine === "home"
-          ? '<i class="fa-solid fa-house"></i>'
-          : '<i class="fa-solid fa-bell"></i>';
-
-        const content = document.createElement("div");
-        content.className = "card-content";
-
-        const title = document.createElement("div");
-        title.className = "card-title";
-        title.textContent = n.titolo;
-
-        const meta = document.createElement("div");
-        meta.className = "card-meta";
-
-        const metaLeft = document.createElement("div");
-        metaLeft.className = "card-meta-left";
-
-        const dateSpan = document.createElement("span");
-        dateSpan.textContent = formatDate(n.dataPubblicazione);
-
-        const tag = document.createElement("span");
-        tag.className = "tag " + (n.origine === "home" ? "tag-home" : "tag-novita");
-        tag.textContent = n.origine === "home" ? "Home" : "Novità";
-
-        metaLeft.appendChild(dateSpan);
-        metaLeft.appendChild(tag);
-
-        const originIcon = document.createElement("span");
-        originIcon.innerHTML = n.origine === "home"
-          ? '<i class="fa-solid fa-globe"></i>'
-          : '<i class="fa-solid fa-newspaper"></i>';
-
-        meta.appendChild(metaLeft);
-        meta.appendChild(originIcon);
-
-        content.appendChild(title);
-        content.appendChild(meta);
-
-        card.appendChild(icon);
-        card.appendChild(content);
-        listEl.appendChild(card);
-      }
+      cardsContainer.innerHTML = html;
     }
 
-    function setStatus(text) {
-      const el = document.getElementById("statusText");
-      if (el) el.textContent = text;
+    function applyFilters() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+      const source = sourceFilter.value;
+      const order = sortOrder.value;
+
+      filteredNews = allNews
+        .filter((item) => {
+          const matchesSource = source === "all" || item.origine === source;
+          const matchesSearch =
+            !searchTerm ||
+            (item.titolo && item.titolo.toLowerCase().includes(searchTerm));
+          return matchesSource && matchesSearch;
+        })
+        .sort((a, b) => {
+          const da = new Date(a.dataPubblicazione).getTime();
+          const db = new Date(b.dataPubblicazione).getTime();
+          return order === "desc" ? db - da : da - db;
+        });
+
+      renderNews(filteredNews);
     }
 
-    async function loadNews() {
-      setStatus("Caricamento in corso…");
-
+    async function fetchNews() {
       try {
-        const res = await fetch(NEWS_ENDPOINT, {
-          headers: { "Accept": "application/json" }
-        });
+        statusText.textContent = "Aggiornamento in corso...";
+        const response = await fetch(NEWS_ENDPOINT, { cache: "no-store" });
 
-        if (!res.ok) {
-          throw new Error("Risposta non OK: " + res.status);
+        if (!response.ok) {
+          throw new Error("Impossibile ottenere le notizie (" + response.status + ")");
         }
 
-        const data = await res.json();
+        const data = await response.json();
+
         if (!Array.isArray(data)) {
-          throw new Error("Formato dati non valido");
+          throw new Error("Formato dati non valido (atteso un array)");
         }
 
-        allNews = data
-          .filter(n => n && n.titolo && n.url && n.dataPubblicazione)
-          .map((n, idx) => ({
-            id: n.id || String(idx),
-            titolo: n.titolo,
-            url: n.url,
-            dataPubblicazione: n.dataPubblicazione,
-            origine: n.origine === "home" || n.origine === "novita" ? n.origine : "novita"
-          }));
+        allNews = data;
+        applyFilters();
 
-        setStatus("Ultimo aggiornamento: " + new Date().toLocaleString("it-IT"));
-        renderNews(currentFilter);
-      } catch (err) {
-        console.error("Errore caricamento notizie:", err);
-        allNews = [...mockNews];
-        setStatus("Modalità demo: backend non disponibile.");
-        renderNews(currentFilter);
+        const now = new Date();
+        lastCheckEl.textContent = now.toLocaleTimeString("it-IT", {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+        statusText.textContent = "Online";
+      } catch (error) {
+        console.error("Errore nel fetch delle news:", error);
+        renderErrorState(error.message || "Errore sconosciuto nel recupero delle notizie");
+        statusText.textContent = isOnline ? "Errore" : "Offline";
       }
     }
 
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("gorlanews-theme", theme);
-      const toggleBtn = document.getElementById("themeToggle");
-      if (!toggleBtn) return;
-      const icon = toggleBtn.querySelector("i");
-      if (theme === "dark") {
-        icon.classList.remove("fa-moon");
-        icon.classList.add("fa-sun");
-      } else {
-        icon.classList.remove("fa-sun");
-        icon.classList.add("fa-moon");
-      }
-    }
-
-    function initTheme() {
-      const saved = localStorage.getItem("gorlanews-theme");
-      if (saved === "light" || saved === "dark") {
-        applyTheme(saved);
-      } else {
-        applyTheme("light");
-      }
-      const toggleBtn = document.getElementById("themeToggle");
-      if (toggleBtn) {
-        toggleBtn.addEventListener("click", () => {
-          const current = document.documentElement.getAttribute("data-theme") || "light";
-          const next = current === "light" ? "dark" : "light";
-          applyTheme(next);
-        });
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initTheme();
-
-      document.querySelectorAll(".chip").forEach(chip => {
-        chip.addEventListener("click", () => {
-          document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
-          chip.classList.add("active");
-          currentFilter = chip.dataset.filter;
-          renderNews(currentFilter);
-        });
-      });
-
-      const refreshBtn = document.getElementById("refreshBtn");
-      if (refreshBtn) {
-        refreshBtn.addEventListener("click", () => {
-          loadNews();
-        });
-      }
-
-      loadNews();
+    searchInput.addEventListener("input", () => {
+      clearSearchBtn.style.display = searchInput.value ? "inline-flex" : "none";
+      applyFilters();
     });
+
+    clearSearchBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      clearSearchBtn.style.display = "none";
+      applyFilters();
+    });
+
+    sourceFilter.addEventListener("change", applyFilters);
+    sortOrder.addEventListener("change", applyFilters);
+
+    window.addEventListener("online", () => {
+      isOnline = true;
+      statusText.textContent = "Online";
+      offlineIndicator.style.display = "none";
+      fetchNews();
+    });
+
+    window.addEventListener("offline", () => {
+      isOnline = false;
+      statusText.textContent = "Offline";
+      offlineIndicator.style.display = "inline-flex";
+    });
+
+    fetchNews();
+    setInterval(fetchNews, 30 * 60 * 1000);
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js")
-          .then(reg => {
-            console.log("Service worker registrato:", reg.scope);
-          })
-          .catch(err => {
-            console.error("Errore registrazione service worker:", err);
-          });
+        navigator.serviceWorker
+          .register("sw.js")
+          .catch((err) => console.error("SW registration failed", err));
       });
     }
   </script>
