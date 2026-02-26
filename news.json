@@ -6,42 +6,33 @@
     "dataPubblicazione": "2026-02-26T09:00:00",
     "origine": "home",
     "categoria": "Avviso",
-    "immagine": "https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg"
+    "immagine": "https://images.pexels.com/photos/572205/pexels-photo-572205.jpeg"
   },
   {
     "id": "2",
-    "titolo": "Nuove iniziative per i giovani gorlesi",
-    "url": "https://comune.gorlaminore.va.it/novita/inizative-giovani",
-    "dataPubblicazione": "2026-02-25T18:30:00",
-    "origine": "novita",
+    "titolo": "Evento: Festa di Primavera in piazza",
+    "url": "https://comune.gorlaminore.va.it/festa-di-primavera",
+    "dataPubblicazione": "2026-03-21T18:00:00",
+    "origine": "home",
     "categoria": "Evento",
-    "immagine": "https://images.pexels.com/photos/935959/pexels-photo-935959.jpeg"
+    "immagine": "https://images.pexels.com/photos/433452/pexels-photo-433452.jpeg"
   },
   {
     "id": "3",
-    "titolo": "Calendario raccolta rifiuti aggiornato",
-    "url": "https://comune.gorlaminore.va.it/novita/calendario-raccolta-raccolta-rifiuti",
-    "dataPubblicazione": "2026-02-24T08:15:00",
+    "titolo": "Nuovo servizio di ritiro ingombranti a domicilio",
+    "url": "https://comune.gorlaminore.va.it/ritiro-ingombranti",
+    "dataPubblicazione": "2026-02-20T12:00:00",
     "origine": "novita",
     "categoria": "Servizio",
-    "immagine": "https://images.pexels.com/photos/2539748/pexels-photo-2539748.jpeg"
+    "immagine": "https://images.pexels.com/photos/3186654/pexels-photo-3186654.jpeg"
   },
   {
     "id": "4",
-    "titolo": "Lavori di manutenzione al parco comunale",
-    "url": "https://comune.gorlaminore.va.it/novita/lavori-parco-comunale",
-    "dataPubblicazione": "2026-02-23T14:45:00",
-    "origine": "home",
-    "categoria": "Lavori pubblici",
-    "immagine": "https://images.pexels.com/photos/210617/pexels-photo-210617.jpeg"
-  },
-  {
-    "id": "5",
-    "titolo": "Convocazione Consiglio Comunale straordinario",
-    "url": "https://comune.gorlaminore.va.it/novita/consiglio-comunale-straordinario",
-    "dataPubblicazione": "2026-02-22T11:00:00",
+    "titolo": "Informativa: aggiornamento orari uffici comunali",
+    "url": "https://comune.gorlaminore.va.it/orari-uffici",
+    "dataPubblicazione": "2026-02-15T08:30:00",
     "origine": "novita",
-    "categoria": "Consiglio comunale",
+    "categoria": "Informativa",
     "immagine": "https://images.pexels.com/photos/1181395/pexels-photo-1181395.jpeg"
   }
 ]
