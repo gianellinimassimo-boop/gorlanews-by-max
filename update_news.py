@@ -5,10 +5,10 @@ from datetime import datetime
 from urllib.parse import urljoin
 
 BASE_URL = "https://comune.gorlaminore.va.it"
-HOME_URL = BASE_URL          # home
 NOVITA_URL = BASE_URL + "/novita"  # elenco novità
 
-MAX_NEWS = 100
+MAX_NEWS = 100        # quante notizie totali salvare
+HOME_COUNT = 10       # quante notizie marcare come "home"
 
 
 def parse_date(text):
@@ -28,87 +28,67 @@ def parse_date(text):
         except ValueError:
             pass
 
-    # TODO: si può aggiungere parsing per '24 feb 2026' con mapping dei mesi
+    # TODO: si può aggiungere parsing per '24 feb 2026' con mapping mesi
     return None
 
 
-def scrape_page(url, origine_default):
+def scrape_novita():
     """
-    Scarica una pagina (home o novità) e restituisce una lista di dict:
-    {titolo, url, dataPubblicazione, origine, categoria, immagine}
+    Scarica la pagina /novita e restituisce una lista di dict:
+    {titolo, url, dataPubblicazione, categoria, immagine}
+    Tutte le notizie qui sono considerate 'novita' come origine base.
     """
-    print(f"Scarico {url} per origine {origine_default}...")
-    resp = requests.get(url, timeout=20)
+    print(f"Scarico {NOVITA_URL} ...")
+    resp = requests.get(NOVITA_URL, timeout=20)
     resp.raise_for_status()
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
     items = []
 
-    # Selezione blocchi notizia
-    if origine_default == "home":
-        # Notizie in evidenza dal carosello della home
-        candidates = soup.select("#carouselHome .carousel-item")
-    else:
-        # Generico per /novita (da rifinire quando avremo l'HTML preciso)
-        candidates = soup.select("article, li, div.card, div.novita-item")
+    # Selettore GENERICO da affinare:
+    # cerchiamo blocchi notizia (article, li, card ecc.) che contengano link + titolo
+    candidates = soup.select("article, li, div.card, div.novita-item")
 
     for el in candidates:
         titolo = ""
         href = ""
 
-        # --- Titolo e link ---
-        if origine_default == "home":
-            # Nel carosello: link + titolo dentro a.card-title
-            title_link_el = el.select_one("a.text-decoration-none")
-            if not title_link_el:
-                continue
-
-            title_el = title_link_el.select_one("h2.card-title")
-            if title_el:
-                titolo = title_el.get_text(strip=True)
-            else:
-                titolo = title_link_el.get_text(strip=True)
-
-            href = title_link_el.get("href") or ""
-        else:
-            title_el = el.select_one("a, h2, h3")
-            if not title_el:
-                continue
+        # Titolo + link (generico)
+        title_el = el.select_one("a h2, a h3, h2 a, h3 a, a")
+        if title_el:
+            # Se h2/h3 dentro <a>, recupera il testo del titolo
             titolo = title_el.get_text(strip=True)
-            href = title_el.get("href") or ""
+            # Recupera il link dall'ancora più vicina
+            a_el = title_el if title_el.name == "a" else title_el.find_parent("a")
+            if a_el and a_el.get("href"):
+                href = a_el.get("href")
+        else:
+            # fallback: qualunque <a> dentro
+            a_el = el.select_one("a")
+            if a_el:
+                titolo = a_el.get_text(strip=True)
+                href = a_el.get("href") or ""
 
-        if not titolo:
+        if not titolo or not href:
             continue
 
         url_assoluto = urljoin(BASE_URL, href)
 
-        # --- Data ---
-        if origine_default == "home":
-            data_el = el.select_one(".data")
-        else:
-            data_el = el.select_one("time, .data, .date")
-
+        # Data
+        data_el = el.select_one("time, .data, .date")
         data_iso = None
         if data_el:
             data_iso = parse_date(data_el.get_text(strip=True))
 
-        # --- Categoria ---
-        if origine_default == "home":
-            # Nel carosello: argomento dentro .argomenti .chip-label
-            cat_el = el.select_one(".argomenti .chip-label")
-            if cat_el:
-                categoria = cat_el.get_text(strip=True)
-            else:
-                categoria = "Avviso"
+        # Categoria (es. avviso, notizia, comunicato)
+        cat_el = el.select_one(".categoria, .tag, .badge, .argomenti .chip-label")
+        if cat_el:
+            categoria = cat_el.get_text(strip=True)
         else:
-            cat_el = el.select_one(".categoria, .tag, .badge")
-            if cat_el:
-                categoria = cat_el.get_text(strip=True)
-            else:
-                categoria = "Informativa"
+            categoria = "Informativa"
 
-        # --- Immagine ---
+        # Immagine (se presente)
         img_el = el.select_one("img")
         immagine = None
         if img_el and img_el.get("src"):
@@ -118,25 +98,23 @@ def scrape_page(url, origine_default):
             "titolo": titolo,
             "url": url_assoluto,
             "dataPubblicazione": data_iso or datetime.utcnow().isoformat(),
-            "origine": origine_default,
             "categoria": categoria,
             "immagine": immagine or ""
         })
 
-    print(f"Trovate {len(items)} notizie da {url}.")
+    print(f"Trovate {len(items)} novità da /novita.")
     return items
 
 
 def main():
-    # 1) Notizie dalla home -> origine "home"
-    news_home = scrape_page(HOME_URL, "home")
+    # 1) Notizie dalla sezione Novità
+    all_news = scrape_novita()
 
-    # 2) Notizie dalla sezione Novità -> origine "novita"
-    news_novita = scrape_page(NOVITA_URL, "novita")
+    if not all_news:
+        print("Nessuna notizia trovata su /novita.")
+        return
 
-    all_news = news_home + news_novita
-
-    # Ordina per data decrescente (se c'è)
+    # Ordina per data decrescente
     def sort_key(item):
         try:
             return datetime.fromisoformat(item["dataPubblicazione"])
@@ -145,14 +123,24 @@ def main():
 
     all_news.sort(key=sort_key, reverse=True)
 
-    # Limita a MAX_NEWS
+    # Limita a MAX_NEWS totali
     all_news = all_news[:MAX_NEWS]
 
-    # Aggiungi id numerico progressivo come stringa
+    # 2) Imposta origine:
+    #    - prime HOME_COUNT come "home"
+    #    - tutte comunque "novita"
+    for idx, item in enumerate(all_news):
+        if idx < HOME_COUNT:
+            # notizia in evidenza anche in home
+            item["origine"] = "home"
+        else:
+            item["origine"] = "novita"
+
+    # 3) Aggiungi id numerico progressivo come stringa
     for idx, item in enumerate(all_news, start=1):
         item["id"] = str(idx)
 
-    # Scrivi news.json
+    # 4) Scrivi news.json
     with open("news.json", "w", encoding="utf-8") as f:
         json.dump(all_news, f, ensure_ascii=False, indent=2)
 
