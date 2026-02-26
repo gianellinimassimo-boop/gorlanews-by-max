@@ -399,12 +399,38 @@
     .pill-mini {
       padding: 3px 7px;
       border-radius: 999px;
-      border: 1px solid var(--border-subtle);
       font-size: 11px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: var(--bg-elevated);
+      gap: 5px;
+      border: none;
+      color: #f9fafb;
+    }
+
+    .pill-mini-home {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
+    }
+
+    .pill-mini-novita {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.6);
+    }
+
+    .pill-mini-altro {
+      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+      box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.6);
+    }
+
+    .pill-mini-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.22);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
     }
 
     .card-footer {
@@ -712,9 +738,19 @@
           const origine = item.origine || "sconosciuta";
           const imgSrc = getImageForNews(item);
 
-          const chipColor = origine === "home" ? "var(--chip-home)"
-                         : origine === "novita" ? "var(--chip-novita)"
-                         : "var(--accent)";
+          let pillClass = "pill-mini-altro";
+          let pillLabel = origine;
+          let pillIcon = "📌";
+
+          if (origine === "home") {
+            pillClass = "pill-mini-home";
+            pillLabel = "Home";
+            pillIcon = "🏠";
+          } else if (origine === "novita") {
+            pillClass = "pill-mini-novita";
+            pillLabel = "Novità";
+            pillIcon = "🆕";
+          }
 
           return `
             <article class="card">
@@ -726,9 +762,9 @@
                   <h2 class="card-title">${titolo}</h2>
                   <div class="card-meta">
                     <span>${dataPub}</span>
-                    <span class="pill-mini">
-                      <span style="width:6px;height:6px;border-radius:999px;background:${chipColor};"></span>
-                      ${origine === "home" ? "Home" : origine === "novita" ? "Novità" : origine}
+                    <span class="pill-mini ${pillClass}">
+                      <span class="pill-mini-icon">${pillIcon}</span>
+                      ${pillLabel}
                     </span>
                   </div>
                 </div>
