@@ -2,761 +2,218 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>GorlaNews by Max</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Manifest e PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#020617">
-
-  <!-- Icone -->
-  <link rel="icon" href="icon-192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
-
+  <title>GorlaNews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      --bg-light: #f4f4f7;
-      --bg-dark: #020617;
-      --surface-light: #ffffff;
-      --surface-dark: #0b1120;
-      --text-main-light: #0f172a;
-      --text-main-dark: #e5e7eb;
-      --text-subtle-light: #6b7280;
-      --text-subtle-dark: #9ca3af;
-      --accent-home: #22c55e;
-      --accent-novita: #6366f1;
-
-      --badge-avviso-bg: #fee2e2;
-      --badge-avviso-text: #b91c1c;
-      --badge-evento-bg: #fef3c7;
-      --badge-evento-text: #92400e;
-      --badge-servizio-bg: #dbeafe;
-      --badge-servizio-text: #1d4ed8;
-      --badge-informativa-bg: #e0f2fe;
-      --badge-informativa-text: #0e7490;
-    }
-
-    [data-theme="dark"] {
-      --bg-light: #0b1120;
-      --surface-light: #0b1120;
-      --surface-dark: #0b1120;
-      --text-main-light: #e5e7eb;
-      --text-subtle-light: #9ca3af;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-      background: var(--bg-light);
-      color: var(--text-main-light);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
+      background-color: #f5f5f5;
       padding: 16px;
     }
 
-    .app-shell {
-      width: 100%;
-      max-width: 520px;
-      background: var(--surface-light);
-      border-radius: 26px;
-      overflow: hidden;
-      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.45);
-      display: flex;
-      flex-direction: column;
-      border: 1px solid rgba(148, 163, 184, 0.3);
+    header {
+      margin-bottom: 16px;
     }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 0;
-        background: var(--bg-dark);
-      }
-      .app-shell {
-        max-width: 100%;
-        min-height: 100vh;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-      }
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 4px;
     }
 
-    .app-header {
-      padding: 20px 18px 18px;
-      background: linear-gradient(135deg, #0f172a, #1e40af, #0ea5e9);
-      color: #f9fafb;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .app-header::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.20), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .header-main {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .app-logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 22px;
-      overflow: hidden;
-      background: rgba(15, 23, 42, 0.25);
-      border: 1px solid rgba(248, 250, 252, 0.45);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(10px);
-    }
-
-    .app-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 18px;
-    }
-
-    .header-texts {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .app-title {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(15, 23, 42, 0.9);
-    }
-
-    .app-title span {
-      display: block;
+    header p {
       font-size: 14px;
-      font-weight: 500;
-      text-transform: none;
-      opacity: 0.95;
+      color: #555;
     }
 
-    .app-subtitle {
-      margin-top: 4px;
-      font-size: 13px;
-      opacity: 0.93;
-    }
-
-    .theme-toggle {
-      margin-left: auto;
-      background: rgba(15, 23, 42, 0.35);
-      border-radius: 999px;
-      padding: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.8);
-    }
-
-    .theme-toggle button {
-      border: none;
-      background: transparent;
-      color: #e5e7eb;
-      font-size: 13px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .theme-toggle button.active {
-      background: #f9fafb;
-      color: #111827;
-      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.6);
-    }
-
-    .theme-toggle span {
-      font-size: 13px;
-    }
-
-    .app-content {
-      padding: 14px 14px 16px;
-      background: var(--bg-light);
-      color: var(--text-main-light);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .tabs-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .tabs {
-      display: inline-flex;
-      gap: 8px;
-      background: rgba(15, 23, 42, 0.03);
-      padding: 4px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      backdrop-filter: blur(6px);
-    }
-
-    .tab-btn {
-      border: none;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-subtle-light);
-      transition: all 0.18s ease;
-    }
-
-    .tab-icon-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.12);
-      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.15);
-    }
-
-    .tab-btn.active {
-      color: #022c22;
-      background: #dcfce7;
-      box-shadow: 0 3px 8px rgba(22, 163, 74, 0.4);
-    }
-
-    .tab-btn.tab-novita.active {
-      color: #111827;
-      background: #e0e7ff;
-      box-shadow: 0 3px 8px rgba(79, 70, 229, 0.4);
-    }
-
-    .tab-btn.tab-home.active .tab-icon-dot {
-      background: radial-gradient(circle at 30% 30%, #bbf7d0, #22c55e);
-    }
-
-    .tab-btn.tab-novita.active .tab-icon-dot {
-      background: radial-gradient(circle at 30% 30%, #e0e7ff, #6366f1);
-    }
-
-    .refresh-info {
-      font-size: 11px;
-      color: var(--text-subtle-light);
-      text-align: right;
+    #status {
+      margin: 8px 0 16px;
+      font-size: 14px;
+      color: #555;
     }
 
     .news-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 2px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
     }
 
     .news-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
       display: flex;
-      gap: 10px;
-      background: var(--surface-light);
-      border-radius: 16px;
-      padding: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.12);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s;
-    }
-
-    .news-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
+      flex-direction: column;
+      height: 100%;
     }
 
     .news-image {
-      flex-shrink: 0;
-      width: 84px;
-      height: 84px;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #0f172a;
-      position: relative;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
-    }
-
-    .news-image img {
       width: 100%;
-      height: 100%;
+      height: 150px;
       object-fit: cover;
-    }
-
-    .news-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 0;
-    }
-
-    .news-category-badge {
-      align-self: flex-start;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      border-radius: 999px;
-      padding: 3px 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.04);
-      color: var(--text-subtle-light);
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.25);
-    }
-
-    .news-category-avviso {
-      background: var(--badge-avviso-bg);
-      color: var(--badge-avviso-text);
-    }
-    .news-category-avviso .badge-dot {
-      background: #ef4444;
-    }
-
-    .news-category-evento {
-      background: var(--badge-evento-bg);
-      color: var(--badge-evento-text);
-    }
-    .news-category-evento .badge-dot {
-      background: #f97316;
-    }
-
-    .news-category-servizio {
-      background: var(--badge-servizio-bg);
-      color: var(--badge-servizio-text);
-    }
-    .news-category-servizio .badge-dot {
-      background: #3b82f6;
-    }
-
-    .news-category-informativa {
-      background: var(--badge-informativa-bg);
-      color: var(--badge-informativa-text);
-    }
-    .news-category-informativa .badge-dot {
-      background: #0ea5e9;
-    }
-
-    .news-title-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-
-    .news-icon-round {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: #f9fafb;
-      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.35);
-    }
-
-    .news-icon-avviso {
-      background: linear-gradient(135deg, #f97316, #ef4444);
-    }
-    .news-icon-evento {
-      background: linear-gradient(135deg, #22c55e, #14b8a6);
-    }
-    .news-icon-servizio {
-      background: linear-gradient(135deg, #3b82f6, #6366f1);
-    }
-    .news-icon-informativa {
-      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      background-color: #ddd;
     }
 
     .news-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
-      color: var(--text-main-light);
-      line-height: 1.3;
+      margin-bottom: 6px;
     }
 
     .news-meta {
       font-size: 12px;
-      color: var(--text-subtle-light);
+      color: #777;
+      margin-bottom: 6px;
+    }
+
+    .news-description {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+      flex: 1;
+    }
+
+    .news-actions {
       display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .news-meta-dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
-    }
-
-    .news-link {
-      font-size: 12px;
+      justify-content: flex-end;
       margin-top: 4px;
     }
 
-    .news-link a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .news-link a:hover {
-      text-decoration: underline;
-    }
-
-    .empty-state {
+    .news-button {
+      padding: 6px 10px;
       font-size: 13px;
-      color: var(--text-subtle-light);
-      text-align: center;
-      padding: 18px 0;
+      border-radius: 4px;
+      border: none;
+      background-color: #1976d2;
+      color: white;
+      cursor: pointer;
     }
 
-    /* DARK MODE con sfondo scuro e card più chiare */
-    body[data-theme="dark"] {
-      background: #0b1120;
-      color: var(--text-main-dark);
-    }
-
-    body[data-theme="dark"] .app-shell {
-      background: #0b1120;
-      border-color: rgba(30, 64, 175, 0.6);
-      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.85);
-    }
-
-    body[data-theme="dark"] .app-content {
-      background: #0b1120;
-      color: var(--text-main-dark);
-    }
-
-    body[data-theme="dark"] .news-card {
-      background: #334155;
-      border-color: rgba(148, 163, 184, 0.8);
-      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.7);
-    }
-
-    body[data-theme="dark"] .tabs {
-      background: #0b1120;
-      border-color: rgba(75, 85, 99, 0.9);
-    }
-
-    body[data-theme="dark"] .tab-btn {
-      color: #e5e7eb;
-    }
-
-    body[data-theme="dark"] .news-title {
-      color: #f9fafb;
-    }
-
-    body[data-theme="dark"] .news-meta {
-      color: #9ca3af;
-    }
-
-    body[data-theme="dark"] .refresh-info {
-      color: #9ca3af;
-    }
-
-    /* Link leggibile in dark mode */
-    body[data-theme="dark"] .news-link a {
-      color: #93c5fd;
-    }
-
-    body[data-theme="dark"] .news-link a:hover {
-      color: #bfdbfe;
+    .news-button:hover {
+      background-color: #145ca3;
     }
   </style>
 </head>
-<body data-theme="dark">
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="header-main">
-        <div class="app-logo">
-          <img src="icon-192.png" alt="Logo GorlaNews">
-        </div>
-        <div class="header-texts">
-          <div class="app-title">
-            GORLANEWS
-            <span>by Max</span>
-          </div>
-          <div class="app-subtitle">
-            News dal Comune di Gorla Minore
-          </div>
-        </div>
-        <div class="theme-toggle" id="themeToggle">
-          <button id="lightBtn">
-            <span>☀</span>
-          </button>
-          <button id="darkBtn" class="active">
-            <span>🌙</span>
-          </button>
-        </div>
-      </div>
-    </header>
+<body>
+  <header>
+    <h1>GorlaNews</h1>
+    <p>Ultime notizie dal sito del Comune di Gorla Minore</p>
+  </header>
 
-    <main class="app-content">
-      <div class="tabs-row">
-        <div class="tabs">
-          <button class="tab-btn tab-home" data-origine="home">
-            <span class="tab-icon-dot"></span>
-            Home
-          </button>
-          <button class="tab-btn tab-novita" data-origine="novita">
-            <span class="tab-icon-dot"></span>
-            Novità
-          </button>
-        </div>
-        <div class="refresh-info" id="lastUpdate">
-          Aggiornamento...
-        </div>
-      </div>
+  <div id="status">Caricamento news...</div>
 
-      <section class="news-list" id="newsList">
-        <div class="empty-state">Caricamento notizie...</div>
-      </section>
-    </main>
-  </div>
+  <div class="news-list" id="news-list"></div>
 
   <script>
-    const newsListEl = document.getElementById("newsList");
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const lastUpdateEl = document.getElementById("lastUpdate");
-    const lightBtn = document.getElementById("lightBtn");
-    const darkBtn = document.getElementById("darkBtn");
+    const FALLBACK_IMAGE = 'https://mycity.s3.sbg.io.cloud.ovh.net/3675761/IMG_0022.jpg';
 
-    let allNews = [];
-    let currentOrigine = "home";
-
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      if (isNaN(date.getTime())) return "";
-      const day = String(date.getDate()).padStart(2, "0");
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const year = date.getFullYear();
-      const hours = String(date.getHours()).padStart(2, "0");
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      return `${day}/${month}/${year} ${hours}:${minutes}`;
-    }
-
-    // immagine: campo `immagine` se esiste, altrimenti logo
-    function getImageForNews(item) {
-      if (item.immagine && typeof item.immagine === "string" && item.immagine.trim() !== "") {
-        return item.immagine;
+    function formatDate(raw) {
+      if (!raw) return '';
+      if (/^\d{4}-\d{2}-\d{2}/.test(raw)) {
+        return raw.slice(0, 10);
       }
-      return "icon-192.png";
+      return raw;
     }
 
-    function getCategoryClass(categoria) {
-      if (!categoria) return "";
-      const cat = categoria.toLowerCase();
-      if (cat === "avviso") return "news-category-avviso";
-      if (cat === "evento") return "news-category-evento";
-      if (cat === "servizio") return "news-category-servizio";
-      if (cat === "informativa") return "news-category-informativa";
-      return "";
-    }
+    function createNewsCard(item) {
+      const card = document.createElement('div');
+      card.className = 'news-card';
 
-    function getCategoryIconClass(categoria) {
-      if (!categoria) return "";
-      const cat = categoria.toLowerCase();
-      if (cat === "avviso") return "news-icon-avviso";
-      if (cat === "evento") return "news-icon-evento";
-      if (cat === "servizio") return "news-icon-servizio";
-      if (cat === "informativa") return "news-icon-informativa";
-      return "news-icon-servizio";
-    }
+      const hasImage = item.immagine && item.immagine.trim() !== '';
+      const imageUrl = hasImage ? item.immagine : FALLBACK_IMAGE;
 
-    function getCategoryLetter(categoria) {
-      if (!categoria) return "?";
-      return categoria.charAt(0).toUpperCase();
-    }
-
-    function renderNews() {
-      if (!newsListEl) return;
-
-      let filtered;
-      if (currentOrigine === "home") {
-        filtered = allNews.filter(n => n.origine === "home");
-      } else {
-        filtered = allNews.filter(n => n.origine === "novita");
+      if (imageUrl) {
+        const img = document.createElement('img');
+        img.className = 'news-image';
+        img.src = imageUrl;
+        img.alt = item.titolo || 'Immagine notizia';
+        card.appendChild(img);
       }
 
-      if (!filtered || filtered.length === 0) {
-        newsListEl.innerHTML = '<div class="empty-state">Nessuna notizia disponibile.</div>';
-        return;
+      const title = document.createElement('div');
+      title.className = 'news-title';
+      title.textContent = (item.titolo || '').replace(/\s+\|\s+Comune di Gorla Minore/i, '');
+      card.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'news-meta';
+      const parts = [];
+      if (item.data) parts.push(formatDate(item.data));
+      if (item.categoria) parts.push(item.categoria);
+      meta.textContent = parts.join(' • ');
+      card.appendChild(meta);
+
+      if (item.descrizione) {
+        const desc = document.createElement('div');
+        desc.className = 'news-description';
+        desc.textContent = item.descrizione;
+        card.appendChild(desc);
       }
 
-      newsListEl.innerHTML = filtered.map(item => {
-        const data = formatDate(item.dataPubblicazione);
-        const img = getImageForNews(item);
-        const categoria = item.categoria || "";
-        const catClass = getCategoryClass(categoria);
-        const iconClass = getCategoryIconClass(categoria);
-        const catLetter = getCategoryLetter(categoria);
+      const actions = document.createElement('div');
+      actions.className = 'news-actions';
 
-        return `
-          <article class="news-card">
-            <div class="news-image">
-              <img src="${img}" alt="${item.titolo || ""}">
-            </div>
-            <div class="news-body">
-              <div class="news-category-badge ${catClass}">
-                <span class="badge-dot"></span>
-                <span>${categoria || "Altro"}</span>
-              </div>
-              <div class="news-title-row">
-                <div class="news-icon-round ${iconClass}">
-                  ${catLetter}
-                </div>
-                <h2 class="news-title">${item.titolo || ""}</h2>
-              </div>
-              <div class="news-meta">
-                ${data ? `<span>${data}</span>` : ""}
-                <span class="news-meta-dot"></span>
-                <span>${currentOrigine === "home" ? "Home" : "Novità"}</span>
-              </div>
-              <div class="news-link">
-                <a href="${item.url || "#"}" target="_blank" rel="noopener noreferrer">
-                  Apri sul sito del Comune
-                </a>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join("");
+      const button = document.createElement('button');
+      button.className = 'news-button';
+      button.textContent = 'Apri sul sito del Comune';
+      button.addEventListener('click', () => {
+        if (item.url) {
+          window.open(item.url, '_blank');
+        }
+      });
+
+      actions.appendChild(button);
+      card.appendChild(actions);
+
+      return card;
     }
 
-    async function fetchNews() {
+    async function loadNews() {
+      const statusEl = document.getElementById('status');
+      const listEl = document.getElementById('news-list');
+
+      statusEl.textContent = 'Caricamento news...';
+
       try {
-        const response = await fetch("news.json", { cache: "no-store" });
+        const response = await fetch('http://localhost:3000/api/news');
         if (!response.ok) {
-          throw new Error("Errore nel caricamento delle notizie");
+          throw new Error('Errore HTTP ' + response.status);
         }
+
         const data = await response.json();
-        allNews = Array.isArray(data) ? data : [];
-        renderNews();
-        const now = new Date();
-        const hh = String(now.getHours()).padStart(2, "0");
-        const mm = String(now.getMinutes()).padStart(2, "0");
-        if (lastUpdateEl) {
-          lastUpdateEl.textContent = `Aggiornato alle ${hh}:${mm}`;
+
+        listEl.innerHTML = '';
+
+        if (!Array.isArray(data) || data.length === 0) {
+          statusEl.textContent = 'Nessuna news disponibile.';
+          return;
         }
-      } catch (error) {
-        console.error(error);
-        if (newsListEl) {
-          newsListEl.innerHTML = '<div class="empty-state">Impossibile caricare le notizie.</div>';
-        }
+
+        statusEl.textContent = 'News aggiornate: ' + data.length;
+
+        data.forEach(item => {
+          const card = createNewsCard(item);
+          listEl.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Errore nel caricamento delle news.';
       }
     }
 
-    function setCurrentTab(origine) {
-      currentOrigine = origine;
-      tabButtons.forEach(b => {
-        const o = b.getAttribute("data-origine");
-        if (o === origine) {
-          b.classList.add("active");
-        } else {
-          b.classList.remove("active");
-        }
-      });
-      try {
-        localStorage.setItem("gorlanews-tab", origine);
-      } catch {}
-      renderNews();
-    }
+    // Primo caricamento
+    loadNews();
 
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const origine = btn.getAttribute("data-origine");
-        if (!origine) return;
-        setCurrentTab(origine);
-      });
-    });
-
-    function applyTheme(theme) {
-      document.body.setAttribute("data-theme", theme);
-      if (theme === "light") {
-        lightBtn.classList.add("active");
-        darkBtn.classList.remove("active");
-      } else {
-        darkBtn.classList.add("active");
-        lightBtn.classList.remove("active");
-      }
-      try {
-        localStorage.setItem("gorlanews-theme", theme);
-      } catch {}
-    }
-
-    lightBtn.addEventListener("click", () => applyTheme("light"));
-    darkBtn.addEventListener("click", () => applyTheme("dark"));
-
-    (function initThemeAndTab() {
-      let savedTheme = null;
-      let savedTab = null;
-      try {
-        savedTheme = localStorage.getItem("gorlanews-theme");
-        savedTab = localStorage.getItem("gorlanews-tab");
-      } catch {}
-
-      if (savedTheme === "light" || savedTheme === "dark") {
-        applyTheme(savedTheme);
-      } else {
-        applyTheme("dark");
-      }
-
-      if (savedTab === "home" || savedTab === "novita") {
-        setCurrentTab(savedTab);
-      } else {
-        setCurrentTab("home");
-      }
-    })();
-
-    fetchNews();
-    setInterval(fetchNews, 30 * 60 * 1000);
-
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("sw.js")
-          .catch(err => console.error("SW registration failed", err));
-      });
-    }
+    // Aggiorna automaticamente ogni 1 ora
+    setInterval(loadNews, 60 * 60 * 1000);
   </script>
 </body>
 </html>
