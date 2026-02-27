@@ -1,282 +1,37 @@
-<!DOCTYPE html>
-<html lang="it" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <title>Gorlanews by Max</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+const express = require('express');
+const app = express();
+const PORT = 3001;
 
-  <meta name="theme-color" content="#000000">
-  <link rel="icon" href="https://raw.githubusercontent.com/gianellinimassimo-boop/gorlanews-by-max/main/icon-192.png">
+// Serve i file statici (index.html, ecc.) dalla cartella corrente
+app.use(express.static('.'));
 
-  <style>
-    :root {
-      --bg-color-light: #f5f5f7;
-      --card-color-light: #ffffff;
-      --header-card-light: #e9e9ee;
-      --text-color-light: #111111;
-      --subtext-color-light: #6e6e73;
-
-      --bg-color-dark: #000000;
-      --card-color-dark: #1c1c1e;
-      --header-card-dark: #2c2c2e;
-      --text-color-dark: #ffffff;
-      --subtext-color-dark: #8e8e93;
+// API finta con 4 news di prova
+app.get('/api/news', (req, res) => {
+  res.json([
+    {
+      titolo: 'Avviso alla cittadinanza',
+      descrizione: 'Chiusura uffici comunali per manutenzione straordinaria.',
+      url: 'https://www.gorlaminore.it/'
+    },
+    {
+      titolo: 'Nuovo calendario raccolta rifiuti',
+      descrizione: 'Disponibile il calendario aggiornato per la raccolta porta a porta.',
+      url: 'https://www.gorlaminore.it/'
+    },
+    {
+      titolo: 'Lavori in corso in via Roma',
+      descrizione: 'Interventi di rifacimento della carreggiata dal 1 al 5 marzo.',
+      url: 'https://www.gorlaminore.it/'
+    },
+    {
+      titolo: 'Incontri pubblici sul bilancio',
+      descrizione: 'Tre incontri con la cittadinanza sul bilancio comunale.',
+      url: 'https://www.gorlaminore.it/'
     }
+  ]);
+});
 
-    [data-theme="dark"] {
-      --bg-color: var(--bg-color-dark);
-      --card-color: var(--card-color-dark);
-      --header-card-color: var(--header-card-dark);
-      --text-color: var(--text-color-dark);
-      --subtext-color: var(--subtext-color-dark);
-    }
-
-    [data-theme="light"] {
-      --bg-color: var(--bg-color-light);
-      --card-color: var(--card-color-light);
-      --header-card-color: var(--header-card-light);
-      --text-color: var(--text-color-light);
-      --subtext-color: var(--subtext-color-light);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      padding: 12px;
-    }
-
-    .app-header-card {
-      background-color: var(--header-card-color);
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-
-    header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .app-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .app-logo {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #2c2c2e;
-      flex-shrink: 0;
-    }
-
-    header h1 {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 2px;
-      white-space: nowrap;
-    }
-
-    header h1 .by-max {
-      font-size: 14px;
-      font-weight: 500;
-      margin-left: 4px;
-      opacity: 0.8;
-    }
-
-    .theme-toggle {
-      align-self: flex-end;
-      background: var(--card-color);
-      border: none;
-      border-radius: 20px;
-      padding: 8px 16px;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: all 0.2s ease;
-    }
-
-    .theme-toggle:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-    }
-
-    .header-status {
-      font-size: 13px;
-      color: var(--subtext-color);
-      text-align: center;
-    }
-
-    .news-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-bottom: 20px;
-    }
-
-    .news-card {
-      background-color: var(--card-color);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      display: flex;
-      gap: 12px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .news-card:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.20);
-    }
-
-    .news-image-wrapper {
-      flex: 0 0 92px;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #2c2c2e;
-    }
-
-    .news-image {
-      width: 100%;
-      height: 92px;
-      object-fit: cover;
-    }
-
-    .news-content {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .news-title {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      line-height: 1.3;
-    }
-
-    .news-desc {
-      font-size: 15px;
-      line-height: 1.4;
-      color: var(--subtext-color);
-    }
-
-    @media (max-width: 480px) {
-      .app-logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
-      }
-
-      header h1 {
-        font-size: 24px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="app-header-card">
-    <header>
-      <div class="app-title">
-        <img src="https://raw.githubusercontent.com/gianellinimassimo-boop/gorlanews-by-max/main/icon-192.png" alt="Logo Gorlanews" class="app-logo">
-        <h1>
-          Gorlanews
-          <span class="by-max">by Max</span>
-        </h1>
-      </div>
-      <button class="theme-toggle" onclick="toggleTheme()">🌙 Modalità Notte</button>
-      <div class="header-status" id="status">Caricamento...</div>
-    </header>
-  </div>
-
-  <div class="news-list" id="newsList"></div>
-
-  <script>
-    const FALLBACK_IMAGE = 'https://raw.githubusercontent.com/gianellinimassimo-boop/gorlanews-by-max/main/icon-192.png';
-
-    function formatTitle(text) {
-      if (!text) return '';
-      const cleaned = text.replace(/\s+\\s+Comune di Gorla Minore/i, '').trim();
-      return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
-    }
-
-    function createNewsCard(item) {
-      const card = document.createElement('div');
-      card.className = 'news-card';
-
-      card.onclick = () => {
-        if (item.url) {
-          window.open(item.url, '_blank');
-        }
-      };
-
-      const imageUrl = FALLBACK_IMAGE;
-
-      card.innerHTML = `
-        <div class="news-image-wrapper">
-          <img src="${imageUrl}" alt="Logo Gorlanews" class="news-image">
-        </div>
-        <div class="news-content">
-          <div class="news-title">${formatTitle(item.titolo || '')}</div>
-          <div class="news-desc">${item.descrizione || ''}</div>
-        </div>
-      `;
-
-      return card;
-    }
-
-    async function loadNews() {
-      const listEl = document.getElementById('newsList');
-      const statusEl = document.getElementById('status');
-
-      listEl.innerHTML = '';
-      statusEl.textContent = 'Caricamento...';
-
-      try {
-        const response = await fetch('/api/news');
-        const data = await response.json();
-
-        if (!data || data.length === 0) {
-          statusEl.textContent = 'Nessuna news disponibile.';
-          return;
-        }
-
-        statusEl.textContent = 'News aggiornate: ' + data.length;
-
-        data.forEach(item => {
-          const card = createNewsCard(item);
-          listEl.appendChild(card);
-        });
-      } catch (err) {
-        console.error(err);
-        statusEl.textContent = 'Errore nel caricamento delle news.';
-      }
-    }
-
-    function toggleTheme() {
-      const html = document.documentElement;
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      document.querySelector('.theme-toggle').textContent = isDark ? '🌙 Modalità Notte' : '☀️ Modalità Giorno';
-    }
-
-    loadNews();
-    setInterval(loadNews, 60 * 60 * 1000);
-  </script>
-</body>
-</html>
+app.listen(PORT, () => {
+  console.log(`Server su http://localhost:${PORT}`);
+});
 
